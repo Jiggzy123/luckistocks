@@ -181,6 +181,11 @@ This is just my personal opinion and the ETFs I personally invest in.
 <input id="rate" type="number" value="8">
 <input id="years" type="number" value="30">
 
+<div style="margin-bottom:15px;">
+  <strong>Contribution Frequency:</strong><br>
+  <button type="button" id="freqBtn" onclick="toggleFrequency()">Annual Contributions</button>
+</div>
+
 <button onclick="calculateCompound()">Calculate Growth</button>
 
 <div id="result" style="margin-top:20px;"></div>
@@ -214,6 +219,18 @@ Click me to lock in
 
 <script>
 let growthChart;
+let contributionFrequency = "annual";
+
+function toggleFrequency() {
+  const btn = document.getElementById("freqBtn");
+  if (contributionFrequency === "annual") {
+    contributionFrequency = "monthly";
+    btn.innerText = "Monthly Contributions";
+  } else {
+    contributionFrequency = "annual";
+    btn.innerText = "Annual Contributions";
+  }
+}
 
 function calculateCompound() {
   const initialVal = Number(document.getElementById('initial').value);
@@ -226,21 +243,33 @@ function calculateCompound() {
   let values = [];
   let labels = [];
 
-  for (let i = 1; i <= yearsVal; i++) {
-    balance = balance * (1 + rateVal) + contributionVal;
-    total += contributionVal;
-    values.push(balance);
-    labels.push(`Year ${i}`);
+  if (contributionFrequency === "annual") {
+    for (let i = 1; i <= yearsVal; i++) {
+      balance = balance * (1 + rateVal) + contributionVal;
+      total += contributionVal;
+      values.push(balance);
+      labels.push(`Year ${i}`);
+    }
+  } else {
+    const monthlyRate = rateVal / 12;
+    const monthlyContribution = contributionVal / 12;
+    for (let m = 1; m <= yearsVal * 12; m++) {
+      balance = balance * (1 + monthlyRate) + monthlyContribution;
+      total += monthlyContribution;
+      if (m % 12 === 0) {
+        values.push(balance);
+        labels.push(`Year ${m / 12}`);
+      }
+    }
   }
 
   document.getElementById('result').innerHTML = `
-    <p><strong>Final Balance:</strong> $${balance.toLocaleString()}</p>
-    <p><strong>Total Contributions:</strong> $${total.toLocaleString()}</p>
-    <p><strong>Total Interest Earned:</strong> $${(balance - total).toLocaleString()}</p>
+    <p><strong>Final Balance:</strong> $${balance.toLocaleString(undefined,{maximumFractionDigits:0})}</p>
+    <p><strong>Total Contributions:</strong> $${total.toLocaleString(undefined,{maximumFractionDigits:0})}</p>
+    <p><strong>Total Interest Earned:</strong> $${(balance - total).toLocaleString(undefined,{maximumFractionDigits:0})}</p>
   `;
 
   if (growthChart) growthChart.destroy();
-
   const isLight = document.body.classList.contains('light');
 
   growthChart = new Chart(document.getElementById('growthChart'), {
