@@ -130,26 +130,11 @@ This is just my personal opinion and the ETFs I personally invest in.
 <section>
 <h2>Fundamentals</h2>
 <ul>
-  <li>
-    <strong>Roth IRA vs Individual (Taxable) Account:</strong>
-    A Roth IRA is a retirement account where you invest after-tax money and your investments grow tax-free, meaning qualified withdrawals in retirement are not taxed. A normal individual account has no contribution or income limits, but you pay taxes on dividends and capital gains each year.
-  </li>
-  <li>
-    <strong>Roth IRA vs 401(k):</strong>
-    A Roth IRA is opened independently and gives you full control over your investments, while a 401(k) is employer-sponsored and often includes company matching contributions. Roth IRAs are funded with after-tax money and allow tax-free withdrawals, whereas traditional 401(k)s use pre-tax money and are taxed when withdrawn.
-  </li>
-  <li>
-    <strong>What is an ETF:</strong>
-    An ETF (Exchange-Traded Fund) is a collection of stocks or assets bundled into a single fund that trades on the stock market like a stock. ETFs provide diversification, low fees, and exposure to entire sectors or markets in one investment.
-  </li>
-  <li>
-    <strong>What are Dividends:</strong>
-    Dividends are payments companies make to shareholders, usually from profits, as a reward for owning the stock. These payments can be taken as cash or reinvested to compound long-term growth.
-  </li>
-  <li>
-    <strong>Why Should You Invest:</strong>
-    Investing allows your money to grow over time through compounding and helps protect it from inflation. It is one of the most effective ways to build long-term wealth and achieve financial freedom.
-  </li>
+  <li><strong>Roth IRA vs Individual Account:</strong> A Roth IRA offers tax-free growth and withdrawals in retirement, but has contribution limits and income restrictions. An individual brokerage account has no contribution limits or income requirements, but you pay taxes on dividends and capital gains.</li>
+  <li><strong>Roth IRA vs 401k:</strong> A Roth IRA is funded with after-tax money and grows tax-free, while a 401k is typically pre-tax and taxed upon withdrawal. 401ks often include employer matching, which is a major benefit.</li>
+  <li><strong>What is an ETF:</strong> An ETF (Exchange-Traded Fund) is a collection of stocks or assets that trades like a stock. It provides instant diversification and typically has lower fees than mutual funds.</li>
+  <li><strong>What are dividends:</strong> Dividends are payments companies make to shareholders from profits. They can be reinvested or taken as income.</li>
+  <li><strong>Why invest:</strong> Investing allows your money to grow over time through compound interest, helping you beat inflation and build long-term wealth.</li>
 </ul>
 </section>
 
@@ -331,7 +316,7 @@ function calculateCompound() {
         }]
       },
       options: {
-        plugins:{ legend:{ labels:{ color: isLight ? '#000' : '#e6e6e6' }}},
+        plugins:{ legend:{ labels:{ color: isLight ? '#000' : '#e6e6e6' }}} ,
         scales:{
           x:{ ticks:{ color: isLight ? '#000' : '#e6e6e6' }},
           y:{ ticks:{ color: isLight ? '#000' : '#e6e6e6' }}
@@ -351,9 +336,9 @@ function toggleTheme() {
 new Chart(document.getElementById('individualChart'), {
   type:'pie',
   data:{
-    labels:['VOO','FTEC','QQQM','SCHD','Individual'],
+    labels:['VOO','FTEC / QQQM','SCHD','VXUS','Individual Stocks'],
     datasets:[{
-      data:[35,25,20,15,5],
+      data:[40,30,15,10,5],
       backgroundColor:['red','blue','green','purple','orange']
     }]
   }
