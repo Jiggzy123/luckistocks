@@ -42,7 +42,6 @@ body.light {
   --link: #000000;
 }
 
-/* ===== BASE STYLES ===== */
 body {
   font-family: 'Segoe UI', sans-serif;
   background: var(--bg-main);
@@ -64,10 +63,7 @@ h1, h2, h3, h4 {
   font-weight: 800;
 }
 
-a {
-  color: var(--link);
-  text-decoration: none;
-}
+a { color: var(--link); text-decoration: none; }
 a:hover { text-decoration: underline; }
 
 button {
@@ -154,7 +150,11 @@ This is just my personal opinion and the ETFs I personally invest in.
 <h4><a href="https://www.google.com/finance/quote/VGT:NYSEARCA" target="_blank">VGT</a></h4>
 <p>Concentrated information technology ETF.</p>
 
-<p><strong>Note:</strong> Choose only one tech ETF.</p>
+<p>
+<strong>Note:</strong> I'd only recommend one per portfolio — just showing multiple options!
+Make sure to always check
+<a href="https://www.etfrc.com/funds/overlap.php" target="_blank"><strong>overlap</strong></a> too!
+</p>
 </section>
 
 <section>
@@ -181,6 +181,8 @@ This is just my personal opinion and the ETFs I personally invest in.
 <input id="rate" type="number" value="8">
 <input id="years" type="number" value="30">
 
+<button onclick="toggleContribution()">Monthly Contributions ON</button>
+<br><br>
 <button onclick="calculateCompound()">Calculate Growth</button>
 
 <div id="result" style="margin-top:20px;"></div>
@@ -214,23 +216,45 @@ Click me to lock in
 
 <script>
 let growthChart;
+let monthlyMode = true;
+
+function toggleContribution() {
+  monthlyMode = !monthlyMode;
+  event.target.innerText = monthlyMode
+    ? "Monthly Contributions ON"
+    : "Annual Contributions ON";
+  calculateCompound();
+}
 
 function calculateCompound() {
-  const initialVal = Number(document.getElementById('initial').value);
-  const contributionVal = Number(document.getElementById('contribution').value);
-  const rateVal = Number(document.getElementById('rate').value) / 100;
-  const yearsVal = Number(document.getElementById('years').value);
+  const initial = Number(document.getElementById('initial').value);
+  const annualContribution = Number(document.getElementById('contribution').value);
+  const rate = Number(document.getElementById('rate').value) / 100;
+  const years = Number(document.getElementById('years').value);
 
-  let balance = initialVal;
-  let total = initialVal;
+  let balance = initial;
+  let total = initial;
   let values = [];
   let labels = [];
 
-  for (let i = 1; i <= yearsVal; i++) {
-    balance = balance * (1 + rateVal) + contributionVal;
-    total += contributionVal;
-    values.push(balance);
-    labels.push(`Year ${i}`);
+  if (monthlyMode) {
+    const monthlyRate = rate / 12;
+    const monthlyContribution = annualContribution / 12;
+    for (let i = 1; i <= years * 12; i++) {
+      balance = balance * (1 + monthlyRate) + monthlyContribution;
+      total += monthlyContribution;
+      if (i % 12 === 0) {
+        values.push(balance);
+        labels.push(`Year ${i / 12}`);
+      }
+    }
+  } else {
+    for (let i = 1; i <= years; i++) {
+      balance = balance * (1 + rate) + annualContribution;
+      total += annualContribution;
+      values.push(balance);
+      labels.push(`Year ${i}`);
+    }
   }
 
   document.getElementById('result').innerHTML = `
@@ -250,7 +274,7 @@ function calculateCompound() {
       datasets: [{
         label: 'Portfolio Value',
         data: values,
-        borderColor: isLight ? '#000000' : '#ff4d4d',
+        borderColor: isLight ? '#000' : '#ff4d4d',
         backgroundColor: isLight ? 'rgba(0,0,0,0.15)' : 'rgba(255,77,77,0.15)',
         fill: true,
         tension: 0.3
