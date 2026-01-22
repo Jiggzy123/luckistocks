@@ -23,10 +23,34 @@ window.onload = checkPassword;
 <style>
 html { scroll-behavior: smooth; }
 
+/* =====================
+   THEME VARIABLES
+===================== */
+:root {
+  --bg-main: linear-gradient(to bottom, #0b0b0b, #050505);
+  --bg-section: #0b0b0b;
+  --text-main: #e6e6e6;
+  --accent: #c40000;
+  --border: #b00000;
+  --link: #ff4d4d;
+}
+
+body.light {
+  --bg-main: #ffffff;
+  --bg-section: #ffffff;
+  --text-main: #000000;
+  --accent: #b00000;
+  --border: #000000;
+  --link: #b00000;
+}
+
+/* =====================
+   BASE STYLES
+===================== */
 body {
   font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(to bottom, #0b0b0b, #050505);
-  color: #e6e6e6;
+  background: var(--bg-main);
+  color: var(--text-main);
   margin: 0;
 }
 
@@ -34,19 +58,25 @@ section {
   max-width: 900px;
   margin: 40px auto;
   padding: 25px;
-  background-color: #0b0b0b;
-  border: 1px solid #b00000;
+  background-color: var(--bg-section);
+  border: 1px solid var(--border);
   border-radius: 14px;
   box-shadow: 0 0 18px rgba(176,0,0,0.15);
 }
 
-h1, h2, h3 { color: #c40000; font-weight: 800; }
+h1, h2, h3 {
+  color: var(--accent);
+  font-weight: 800;
+}
 
-a { color: #ff4d4d; text-decoration: none; }
+a {
+  color: var(--link);
+  text-decoration: none;
+}
 a:hover { text-decoration: underline; }
 
 button {
-  background: #b00000;
+  background: var(--accent);
   color: black;
   border: none;
   padding: 10px 20px;
@@ -55,21 +85,48 @@ button {
   cursor: pointer;
 }
 
-.chart-container { max-width: 500px; margin: 30px auto; }
+.chart-container {
+  max-width: 500px;
+  margin: 30px auto;
+}
 
 input {
   background:#111;
   color:#fff;
-  border:1px solid #b00000;
+  border:1px solid var(--border);
   border-radius:6px;
   width:100%;
   padding:8px;
   margin-bottom:10px;
 }
+
+body.light input {
+  background:#f5f5f5;
+  color:#000;
+}
+
+/* =====================
+   TOGGLE SWITCH
+===================== */
+.theme-toggle {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  z-index: 999;
+}
+
+.theme-toggle button {
+  padding: 6px 12px;
+  font-size: 0.9rem;
+}
 </style>
 </head>
 
 <body>
+
+<div class="theme-toggle">
+  <button onclick="toggleTheme()">Light / Dark</button>
+</div>
 
 <section>
 <h1 style="text-align:center;">Investing for Beginners</h1>
@@ -83,54 +140,30 @@ This is just my personal opinion and the ETFs I personally invest in.
 <section>
 <h2>Recommended ETFs</h2>
 
-<h3>
-<a href="https://www.google.com/finance/quote/VOO:NYSEARCA" target="_blank">VOO</a>
-</h3>
-<p>
-Tracks the S&P 500, providing exposure to the 500 largest U.S. companies and serving as a strong long-term core holding.
-</p>
+<h3><a href="https://www.google.com/finance/quote/VOO:NYSEARCA" target="_blank">VOO</a></h3>
+<p>Tracks the S&P 500, providing exposure to the 500 largest U.S. companies.</p>
 
-<h3>
-<a href="https://www.google.com/finance/quote/VXUS:NYSEARCA" target="_blank">VXUS</a>
-</h3>
-<p>
-Provides international diversification by investing in companies outside of the United States.
-</p>
+<h3><a href="https://www.google.com/finance/quote/VXUS:NYSEARCA" target="_blank">VXUS</a></h3>
+<p>International diversification outside the U.S.</p>
 
-<h3>
-<a href="https://www.google.com/finance/quote/SCHD:NYSEARCA" target="_blank">SCHD</a>
-</h3>
-<p>
-Focuses on dividend-paying U.S. companies, offering income and stability alongside growth.
-</p>
+<h3><a href="https://www.google.com/finance/quote/SCHD:NYSEARCA" target="_blank">SCHD</a></h3>
+<p>Dividend-focused ETF with stable income.</p>
 
-<hr style="border:0.5px solid #400000; margin:30px 0;">
+<hr>
 
-<h3 style="color:#ff4d4d; font-weight:900;">TECH ETFs</h3>
+<h3>TECH ETFs</h3>
 
-<h4>
-<a href="https://www.google.com/finance/quote/QQQM:NASDAQ" target="_blank">QQQM</a>
-</h4>
-<p>
-Tracks the Nasdaq-100, offering exposure to large-cap growth and technology-focused companies.
-</p>
+<h4><a href="https://www.google.com/finance/quote/QQQM:NASDAQ" target="_blank">QQQM</a></h4>
+<p>Tracks the Nasdaq-100, focused on large-cap growth and tech.</p>
 
-<h4>
-<a href="https://www.google.com/finance/quote/FTEC:NYSEARCA" target="_blank">FTEC</a>
-</h4>
-<p>
-A low-expense ratio technology ETF covering a broad range of U.S. tech companies.
-</p>
+<h4><a href="https://www.google.com/finance/quote/FTEC:NYSEARCA" target="_blank">FTEC</a></h4>
+<p>Broad U.S. technology exposure with low expense ratio.</p>
 
-<h4>
-<a href="https://www.google.com/finance/quote/VGT:NYSEARCA" target="_blank">VGT</a>
-</h4>
-<p>
-Provides concentrated exposure to the information technology sector with long-term growth potential.
-</p>
+<h4><a href="https://www.google.com/finance/quote/VGT:NYSEARCA" target="_blank">VGT</a></h4>
+<p>Concentrated exposure to information technology companies.</p>
 
-<p style="font-size:0.9rem; opacity:0.8; margin-top:15px;">
-<strong>Note:</strong> I recommend choosing <em>only one</em> tech ETF. Multiple options are shown to compare strategies, not to hold all simultaneously.
+<p style="font-size:0.9rem; opacity:0.85;">
+<strong>Note:</strong> Choose only one tech ETF. Multiple options shown for comparison.
 </p>
 </section>
 
@@ -154,10 +187,10 @@ Provides concentrated exposure to the information technology sector with long-te
 <h2>Individual Brokerage Account vs Roth IRA</h2>
 
 <h3>Individual Brokerage Account</h3>
-<p>Flexible investing with no contribution limits, but taxable gains.</p>
+<p>Flexible investing with taxable gains.</p>
 
 <h3>Roth IRA</h3>
-<p>Tax-free growth and withdrawals in retirement.</p>
+<p>Tax-free growth and withdrawals.</p>
 
 <h3>Taxes & Compound Interest</h3>
 <p>Reducing taxes allows compound interest to grow uninterrupted.</p>
@@ -214,55 +247,8 @@ Click me to lock in
 </section>
 
 <script>
-let growthChart;
-
-function calculateCompound() {
-  const initial = Number(document.getElementById('initial').value);
-  const contribution = Number(document.getElementById('contribution').value);
-  const rate = Number(document.getElementById('rate').value) / 100;
-  const years = Number(document.getElementById('years').value);
-
-  let balance = initial;
-  let total = initial;
-  let values = [];
-  let labels = [];
-
-  for (let i = 1; i <= years; i++) {
-    balance = balance * (1 + rate) + contribution;
-    total += contribution;
-    values.push(balance);
-    labels.push("Year " + i);
-  }
-
-  document.getElementById('result').innerHTML = `
-    <p><strong>Final Balance:</strong> $${balance.toLocaleString()}</p>
-    <p><strong>Total Contributions:</strong> $${total.toLocaleString()}</p>
-    <p><strong>Total Interest Earned:</strong> $${(balance - total).toLocaleString()}</p>
-  `;
-
-  if (growthChart) growthChart.destroy();
-
-  growthChart = new Chart(document.getElementById('growthChart'), {
-    type: 'line',
-    data: {
-      labels,
-      datasets: [{
-        label: 'Portfolio Value',
-        data: values,
-        borderColor: '#ff4d4d',
-        backgroundColor: 'rgba(255,77,77,0.15)',
-        fill: true,
-        tension: 0.3
-      }]
-    },
-    options: {
-      plugins:{ legend:{ labels:{ color:'#e6e6e6' }}},
-      scales:{
-        x:{ ticks:{ color:'#e6e6e6' }},
-        y:{ ticks:{ color:'#e6e6e6' }}
-      }
-    }
-  });
+function toggleTheme() {
+  document.body.classList.toggle('light');
 }
 </script>
 
