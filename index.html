@@ -5,13 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Investing for Beginners</title>
 
+<!-- Password Protection -->
 <script>
 const password = "Lucki";
 function checkPassword() {
   const userPass = prompt("Enter password to view this page:");
   if (userPass !== password) {
     document.body.innerHTML =
-      "<h2 style='color:#e5e7eb;text-align:center;margin-top:20%;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif;'>Access Denied</h2>";
+      "<h2 style='color:#d4af37;text-align:center;margin-top:20%'>Access Denied</h2>";
   }
 }
 window.onload = checkPassword;
@@ -20,232 +21,211 @@ window.onload = checkPassword;
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
-:root {
-  --bg-main: #07090f;
-  --bg-card: #0e111b;
-  --bg-card-soft: #111526;
-  --text-main: #e5e7eb;
-  --text-muted: #9ca3af;
-  --accent-primary: #60a5fa;
-  --accent-gold: #e6c36a;
-  --border-soft: rgba(255,255,255,0.06);
-}
-
+/* ===== Luxury Theme ===== */
 body {
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  background: radial-gradient(circle at top, #111 0%, #000 70%);
+  color: #e5e5e5;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, sans-serif;
-  background: radial-gradient(1200px 600px at top, #0b1020, var(--bg-main));
-  color: var(--text-main);
-  line-height: 1.7;
 }
 
-h1 {
-  font-size: 2.2rem;
-  font-weight: 700;
-}
-
-h2 {
-  color: var(--accent-primary);
-  font-weight: 600;
-}
-
-h3 {
-  color: #c7d2fe;
-  font-weight: 500;
-}
-
-p, li {
-  color: var(--text-muted);
+h1, h2, h3 {
+  color: #d4af37;
+  letter-spacing: 0.5px;
 }
 
 a {
-  color: var(--accent-primary);
+  color: #c9b36d;
   text-decoration: none;
 }
-
-a:hover {
-  color: var(--accent-gold);
-}
+a:hover { color: #f5d77a; }
 
 section {
   max-width: 900px;
-  margin: 48px auto;
-  padding: 34px;
-  background: linear-gradient(180deg, var(--bg-card), var(--bg-card-soft));
-  border-radius: 18px;
-  border: 1px solid var(--border-soft);
-  box-shadow: 0 20px 50px rgba(0,0,0,0.55);
+  margin: 40px auto;
+  padding: 28px;
+  background: rgba(20,20,20,0.85);
+  border-radius: 16px;
+  border: 1px solid rgba(212,175,55,0.25);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.6);
 }
 
 button {
-  background: linear-gradient(135deg, var(--accent-primary), #3b82f6);
-  color: #020617;
+  background: linear-gradient(135deg,#d4af37,#9f7c1f);
+  color: #000;
   border: none;
-  padding: 11px 20px;
-  border-radius: 12px;
-  font-weight: 600;
+  padding: 10px 18px;
+  border-radius: 10px;
+  font-weight: bold;
   cursor: pointer;
 }
-
-button.secondary {
-  background: transparent;
-  color: var(--text-main);
-  border: 1px solid var(--border-soft);
-}
-
-textarea {
-  width: 100%;
-  padding: 14px;
-  border-radius: 14px;
-  border: 1px solid var(--border-soft);
-  background: #05070d;
-  color: var(--text-main);
-}
+button:hover { opacity: 0.9; }
 
 .chart-container {
-  max-width: 480px;
-  margin: 36px auto;
+  max-width: 500px;
+  margin: 30px auto;
 }
 
-.chart-note {
-  text-align: center;
-  font-size: 0.9rem;
-  margin-top: 12px;
-  color: var(--text-muted);
+input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  margin-bottom: 10px;
 }
 
-.hidden { display: none; }
+.calc-result {
+  margin-top: 10px;
+  font-weight: bold;
+  color: #d4af37;
+}
+
+.toggle-links a {
+  margin-right: 12px;
+}
 </style>
 </head>
 
 <body>
 
 <section>
-  <h1>Investing for Beginners</h1>
-  <p>
-    This is just my personal opinion. Please do your own research.
-    <strong>I AM NOT A FINANCIAL ADVISOR.</strong>
-  </p>
-  <p><strong>Last updated:</strong> 2026-01-22</p>
+<h1>Investing for Beginners</h1>
+<p>
+This site reflects my personal investing opinions and holdings.
+<strong>I am not a financial advisor.</strong>
+</p>
+<p><strong>Last updated:</strong> 2026-01-22</p>
 </section>
 
+<!-- Recommended ETFs -->
 <section>
-  <h2>Recommended ETFs</h2>
+<h2>Recommended ETFs</h2>
 
-  <h3><a href="https://finance.yahoo.com/quote/VOO" target="_blank">VOO</a></h3>
-  <p>Vanguard S&P 500 ETF providing broad exposure to large U.S. companies.</p>
+<h3><a href="https://finance.yahoo.com/quote/VOO" target="_blank">VOO</a></h3>
+<p>Tracks the S&P 500, offering broad U.S. market exposure with low fees.</p>
 
-  <h3>Tech ETFs (click to switch)</h3>
-  <button class="secondary" onclick="showETF('qqqm')">QQQM</button>
-  <button class="secondary" onclick="showETF('ftec')">FTEC</button>
-  <button class="secondary" onclick="showETF('vgt')">VGT</button>
+<h3>Technology ETFs</h3>
+<div class="toggle-links">
+  <a href="https://finance.yahoo.com/quote/QQQM" target="_blank">QQQM</a>
+  <a href="https://finance.yahoo.com/quote/FTEC" target="_blank">FTEC</a>
+  <a href="https://finance.yahoo.com/quote/VGT" target="_blank">VGT</a>
+</div>
+<p>
+All provide exposure to U.S. technology companies. Choose one to avoid overlap.
+</p>
 
-  <div id="qqqm">
-    <p><a href="https://finance.yahoo.com/quote/QQQM" target="_blank">QQQM</a> tracks the Nasdaq-100.</p>
-  </div>
+<h3><a href="https://finance.yahoo.com/quote/SCHD" target="_blank">SCHD</a></h3>
+<p>Dividend-focused ETF emphasizing cash flow and stability.</p>
 
-  <div id="ftec" class="hidden">
-    <p><a href="https://finance.yahoo.com/quote/FTEC" target="_blank">FTEC</a> offers low-cost U.S. tech exposure.</p>
-  </div>
-
-  <div id="vgt" class="hidden">
-    <p><a href="https://finance.yahoo.com/quote/VGT" target="_blank">VGT</a> is Vanguard’s technology ETF.</p>
-  </div>
-
-  <h3><a href="https://finance.yahoo.com/quote/SCHD" target="_blank">SCHD</a></h3>
-  <p>Dividend-focused ETF emphasizing quality and consistency.</p>
-
-  <h3><a href="https://finance.yahoo.com/quote/VXUS" target="_blank">VXUS</a></h3>
-  <p>Broad international market exposure outside the U.S.</p>
+<h3><a href="https://finance.yahoo.com/quote/VXUS" target="_blank">VXUS</a></h3>
+<p>Total international stock market exposure outside the U.S.</p>
 </section>
 
+<!-- Portfolio Charts -->
 <section>
-  <h2>My Portfolio</h2>
+<h2>My Portfolio</h2>
 
-  <div class="chart-container">
-    <h3>Individual Account</h3>
-    <canvas id="individualChart"></canvas>
-    <p class="chart-note">
-      These percentages are rounded for simplicity and do not mean they will stay the same.
-      Invest for your future as you see fit.
-    </p>
-  </div>
+<div class="chart-container">
+<h3>Individual Account</h3>
+<canvas id="individualChart"></canvas>
+<p>
+These percentages are rounded and change over time. Build a strong ETF foundation before individual positions.
+</p>
+</div>
 
-  <div class="chart-container">
-    <h3>Roth IRA</h3>
-    <canvas id="rothChart"></canvas>
-    <p class="chart-note">
-      These percentages are rounded for simplicity and do not mean they will stay the same.
-      I switched from VGT to FTEC for a lower expense ratio and use Fidelity.
-    </p>
-  </div>
+<div class="chart-container">
+<h3>Roth IRA</h3>
+<canvas id="rothChart"></canvas>
+<p>
+Focused on long-term growth. Tech exposure optimized for low expense ratios.
+</p>
+</div>
 </section>
 
+<!-- Beginner Mistakes -->
 <section>
-  <h2>Learning Resources</h2>
-  <ul>
-    <li><a href="https://www.tiktok.com/@tradeinvestsimplify" target="_blank">Kenneth Suna TikTok</a></li>
-    <li><a href="https://www.kennethsuna.com" target="_blank">Kenneth Suna Website</a></li>
-    <li><a href="https://www.etfrc.com/funds/overlap.php" target="_blank">ETF Overlap Tool</a></li>
-  </ul>
+<h2>Beginner Mistakes to Avoid</h2>
+<ul>
+<li>Over-trading</li>
+<li>Chasing hype stocks</li>
+<li>Ignoring ETF overlap</li>
+<li>Timing the market</li>
+</ul>
 </section>
 
+<!-- Contribution Calculator -->
 <section>
-  <h2>Popular Brokerages</h2>
-  <ul>
-    <li><a href="https://investor.vanguard.com/" target="_blank">Vanguard</a></li>
-    <li><a href="https://www.fidelity.com/" target="_blank">Fidelity</a></li>
-    <li><a href="https://www.schwab.com/" target="_blank">Charles Schwab</a></li>
-  </ul>
+<h2>Yearly Contribution Calculator</h2>
+
+<input id="monthly" type="number" placeholder="Monthly contribution ($)">
+<input id="years" type="number" placeholder="Years investing">
+<input id="rate" type="number" placeholder="Expected annual return (%)">
+
+<button onclick="calculate()">Calculate</button>
+<div id="result" class="calc-result"></div>
 </section>
 
-<section id="questions">
-  <h2>Questions? Ask Me!</h2>
-  <form action="mailto:youremail@example.com" method="post" enctype="text/plain">
-    <textarea name="question" rows="4" placeholder="Type your question here..."></textarea><br><br>
-    <button type="submit">Send Question</button>
-  </form>
+<!-- Learning Resources -->
+<section>
+<h2>Learning Resources</h2>
+<ul>
+<li><a href="https://www.etfrc.com/funds/overlap.php" target="_blank">ETF Overlap Tool</a></li>
+<li>Kenneth Suna (TikTok & Website)</li>
+</ul>
 </section>
 
-<section style="text-align:center;">
-  <button onclick="window.location.href='https://www.youtube.com/watch?v=7-QK_1oHoiQ'">
-    Click me to lock in
-  </button>
+<!-- Questions -->
+<section>
+<h2>Questions?</h2>
+<form>
+<textarea rows="4" placeholder="Type your question..."></textarea><br>
+<button type="submit">Send</button>
+</form>
 </section>
 
+<!-- Button -->
+<section style="text-align:center">
+<button onclick="window.open('https://www.youtube.com/watch?v=7-QK_1oHoiQ')">
+Lock In
+</button>
+</section>
+
+<!-- Charts -->
 <script>
-function showETF(id) {
-  ["qqqm","ftec","vgt"].forEach(e => {
-    document.getElementById(e).classList.add("hidden");
-  });
-  document.getElementById(id).classList.remove("hidden");
-}
-
-window.addEventListener("load", () => {
-
-  new Chart(document.getElementById("individualChart"), {
-    type: "pie",
-    data: {
-      labels: ["VOO","FTEC","SCHD","VXUS","Individual"],
-      datasets: [{
-        data: [35,25,20,15,5],
-        backgroundColor: ["#60a5fa","#22c55e","#e6c36a","#a855f7","#ef4444"]
-      }]
-    }
-  });
-
-  new Chart(document.getElementById("rothChart"), {
-    type: "pie",
-    data: {
-      labels: ["VGT","FTEC"],
-      datasets: [{
-        data: [50,50],
-        backgroundColor: ["#e6c36a","#60a5fa"]
-      }]
-    }
-  });
-
+new Chart(document.getElementById('individualChart'), {
+  type: 'pie',
+  data: {
+    labels: ['VOO','Tech ETF','SCHD','VXUS','Other'],
+    datasets: [{
+      data: [35,25,20,15,5],
+      backgroundColor: ['#d4af37','#8c7a3d','#5c4d1a','#3a3315','#777']
+    }]
+  },
+  options: { plugins:{legend:{labels:{color:'#e5e5e5'}}}}
 });
+
+new Chart(document.getElementById('rothChart'), {
+  type: 'pie',
+  data: {
+    labels: ['Tech ETF','Other'],
+    datasets: [{
+      data: [50,50],
+      backgroundColor: ['#d4af37','#555']
+    }]
+  },
+  options: { plugins:{legend:{labels:{color:'#e5e5e5'}}}}
+});
+
+function calculate() {
+  const m = +monthly.value;
+  const y = +years.value;
+  const r = +rate.value / 100;
+  let total = 0;
+  for (let i = 0; i < y*12; i++) {
+    total = (total + m) * (1 + r/12);
+  }
+  result.innerText = `Estimated value: $${total.toFixed(2)}`;
+}
 </script>
 
 </body>
