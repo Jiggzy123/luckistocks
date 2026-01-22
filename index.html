@@ -181,12 +181,6 @@ This is just my personal opinion and the ETFs I personally invest in.
 <input id="rate" type="number" value="8">
 <input id="years" type="number" value="30">
 
-<div style="margin-bottom:15px;">
-  <button id="freqBtn" type="button" onclick="toggleFrequency()">
-    Annual Contributions: ON
-  </button>
-</div>
-
 <button onclick="calculateCompound()">Calculate Growth</button>
 
 <div id="result" style="margin-top:20px;"></div>
@@ -220,18 +214,6 @@ Click me to lock in
 
 <script>
 let growthChart;
-let contributionFrequency = "annual";
-
-function toggleFrequency() {
-  const btn = document.getElementById("freqBtn");
-  if (contributionFrequency === "annual") {
-    contributionFrequency = "monthly";
-    btn.innerText = "Monthly Contributions: ON";
-  } else {
-    contributionFrequency = "annual";
-    btn.innerText = "Annual Contributions: ON";
-  }
-}
 
 function calculateCompound() {
   const initialVal = Number(document.getElementById('initial').value);
@@ -244,24 +226,11 @@ function calculateCompound() {
   let values = [];
   let labels = [];
 
-  if (contributionFrequency === "annual") {
-    for (let i = 1; i <= yearsVal; i++) {
-      balance = balance * (1 + rateVal) + contributionVal;
-      total += contributionVal;
-      values.push(balance);
-      labels.push(`Year ${i}`);
-    }
-  } else {
-    const monthlyRate = rateVal / 12;
-    const monthlyContribution = contributionVal / 12;
-    for (let i = 1; i <= yearsVal * 12; i++) {
-      balance = balance * (1 + monthlyRate) + monthlyContribution;
-      total += monthlyContribution;
-      if (i % 12 === 0) {
-        values.push(balance);
-        labels.push(`Year ${i / 12}`);
-      }
-    }
+  for (let i = 1; i <= yearsVal; i++) {
+    balance = balance * (1 + rateVal) + contributionVal;
+    total += contributionVal;
+    values.push(balance);
+    labels.push(`Year ${i}`);
   }
 
   document.getElementById('result').innerHTML = `
