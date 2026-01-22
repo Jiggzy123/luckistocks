@@ -65,7 +65,6 @@ h1, h2, h3, h4 {
 a {
   color: var(--link);
   text-decoration: underline;
-  font-weight: bold;
 }
 
 button {
@@ -76,11 +75,6 @@ button {
   border-radius: 8px;
   font-weight: bold;
   cursor: pointer;
-  margin: 5px;
-}
-
-body.light button {
-  background: #111;
 }
 
 .chart-container {
@@ -89,25 +83,15 @@ body.light button {
 }
 
 input {
-  background:#111;
-  color:#fff;
-  border:1px solid var(--border);
-  border-radius:6px;
   width:100%;
   padding:8px;
   margin-bottom:10px;
-}
-
-body.light input {
-  background:#f2f2f2;
-  color:#000;
 }
 
 .theme-toggle {
   position: fixed;
   top: 15px;
   right: 15px;
-  z-index: 999;
 }
 </style>
 </head>
@@ -127,219 +111,130 @@ This is just my personal opinion and the ETFs I personally invest in.
 <p style="text-align:center;"><strong>Last Updated:</strong> 2026-01-22</p>
 </section>
 
+<!-- ✅ FUNDAMENTALS SECTION (NEW) -->
+<section>
+<h2>Fundamentals</h2>
+<ul>
+<li><strong>Roth IRA vs Individual Brokerage Account:</strong> A Roth IRA allows your money to grow and be withdrawn tax-free in retirement if rules are followed. An individual brokerage account has no limits or restrictions, but you must pay taxes on dividends and gains.</li>
+
+<li><strong>Roth IRA vs 401(k):</strong> A Roth IRA is opened by you personally, while a 401(k) is employer-sponsored and often includes matching contributions. 401(k)s may have limited investment choices, while Roth IRAs usually offer more flexibility.</li>
+
+<li><strong>What is an ETF?</strong> An ETF (Exchange-Traded Fund) is a basket of many stocks bundled into one investment, allowing diversification with a single purchase.</li>
+
+<li><strong>What are Dividends?</strong> Dividends are payments made to investors from company profits. They can be reinvested to increase compound growth or taken as income.</li>
+
+<li><strong>Why Should You Invest?</strong> Investing helps your money grow over time, beat inflation, and take advantage of compound interest — which rewards consistency and time in the market.</li>
+</ul>
+</section>
+
 <section>
 <h2>Recommended ETFs</h2>
 
 <h3><a href="https://www.google.com/finance/quote/VOO:NYSEARCA" target="_blank">VOO</a></h3>
-<p>Tracks the S&P 500, providing exposure to the 500 largest U.S. companies.</p>
+<p>S&P 500 exposure.</p>
 
 <h3><a href="https://www.google.com/finance/quote/VXUS:NYSEARCA" target="_blank">VXUS</a></h3>
-<p>International diversification outside the U.S.</p>
+<p>International diversification.</p>
 
 <h3><a href="https://www.google.com/finance/quote/SCHD:NYSEARCA" target="_blank">SCHD</a></h3>
-<p>Dividend-focused ETF with stable income.</p>
+<p>Dividend income focus.</p>
 
 <hr>
 
 <h3>TECH ETFs</h3>
 
 <h4><a href="https://www.google.com/finance/quote/QQQM:NASDAQ" target="_blank">QQQM</a></h4>
-<p>Nasdaq-100 growth-focused ETF.</p>
-
 <h4><a href="https://www.google.com/finance/quote/FTEC:NYSEARCA" target="_blank">FTEC</a></h4>
-<p>Broad U.S. technology exposure with low expense ratio.</p>
-
 <h4><a href="https://www.google.com/finance/quote/VGT:NYSEARCA" target="_blank">VGT</a></h4>
-<p>Concentrated information technology ETF.</p>
 
-<p><strong>Note:</strong> I’d only recommend one per portfolio — just showing multiple options!
-Make sure to always check <a href="https://www.etfrc.com/funds/overlap.php" target="_blank">overlap</a> too.</p>
-</section>
-
-<section>
-<h2>My Portfolio</h2>
-
-<div class="chart-container">
-<h3>Individual Account</h3>
-<canvas id="individualChart"></canvas>
-<p><em>Percentages fixed to fit diagram better.</em></p>
-</div>
-
-<div class="chart-container">
-<h3>Roth IRA</h3>
-<canvas id="rothChart"></canvas>
-<p><em>Percentages fixed to fit diagram better. I switched from VGT to FTEC for a lower expense ratio.</em></p>
-</div>
+<p><strong>Note:</strong> I’d only recommend one per portfolio — just showing multiple options. Make sure to always check <a href="https://www.etfrc.com/funds/overlap.php" target="_blank">overlap</a> too.</p>
 </section>
 
 <section>
 <h2>Compound Interest Calculator</h2>
+
+<p><strong id="modeLabel">Annual Contributions ON</strong></p>
+<button onclick="setMode('annual')">Annual</button>
+<button onclick="setMode('monthly')">Monthly</button>
 
 <input id="initial" type="number" value="1000">
 <input id="contribution" type="number" value="6000">
 <input id="rate" type="number" value="8">
 <input id="years" type="number" value="30">
 
-<div>
-  <button onclick="setMode('annual')">Annual Contributions</button>
-  <button onclick="setMode('monthly')">Monthly Contributions</button>
-</div>
-
-<p id="modeStatus"><strong>Annual Contributions ON</strong></p>
-
 <button onclick="calculateCompound()">Calculate Growth</button>
-
-<div id="result" style="margin-top:20px;"></div>
+<div id="result"></div>
 </section>
 
 <section>
 <h2>Growth Over Time</h2>
-<div class="chart-container">
 <canvas id="growthChart"></canvas>
-</div>
 </section>
 
 <section>
 <h2>Learning Resources</h2>
 <ul>
-  <li>I personally learned 90% of what I know from
-    <a href="https://www.tiktok.com/@tradeinvestsimplify" target="_blank">Kenneth Suna</a>
-    and his <a href="https://www.kennethsuna.com" target="_blank">website</a>.
-  </li>
-  <li>Make sure to always check funds for
-    <a href="https://www.etfrc.com/funds/overlap.php" target="_blank">overlap</a>.
-  </li>
-  <li>Time in the market is always better than timing the market.</li>
-</ul>
-
-<h3>Popular Brokerages</h3>
-<ul>
-  <li><a href="https://www.fidelity.com" target="_blank">Fidelity</a></li>
-  <li><a href="https://www.vanguard.com" target="_blank">Vanguard</a></li>
-  <li><a href="https://www.schwab.com" target="_blank">Charles Schwab</a></li>
+<li>I learned most from <a href="https://www.tiktok.com/@tradeinvestsimplify" target="_blank">Kenneth Suna</a> and his <a href="https://www.kennethsuna.com" target="_blank">website</a></li>
+<li>Always check ETF <a href="https://www.etfrc.com/funds/overlap.php" target="_blank">overlap</a></li>
+<li>Time in the market beats timing the market</li>
+<li>Popular brokerages:
+  <a href="https://www.fidelity.com" target="_blank">Fidelity</a>,
+  <a href="https://www.vanguard.com" target="_blank">Vanguard</a>,
+  <a href="https://www.schwab.com" target="_blank">Charles Schwab</a>
+</li>
 </ul>
 </section>
 
 <section>
-<h2>Questions?</h2>
-<form action="mailto:youremail@example.com" method="post">
-<textarea rows="4" style="width:100%;"></textarea><br><br>
-<button>Send</button>
-</form>
-
-<p style="margin-top:25px;">
-<strong>DISCLAIMER!</strong> Just because me or someone else tells you to invest into a stock or ETF doesn’t mean you should.
-<strong>ALWAYS do your own research before purchasing any stock.</strong>
-</p>
-</section>
-
-<section style="text-align:center;">
-<button onclick="window.location.href='https://www.youtube.com/watch?v=7-QK_1oHoiQ'">
-Click me to lock in
-</button>
+<p><strong>DISCLAIMER!</strong> Always do your own research before investing.</p>
 </section>
 
 <script>
-let growthChart;
 let contributionMode = "annual";
+let growthChart;
 
 function setMode(mode) {
   contributionMode = mode;
-  document.getElementById("modeStatus").innerHTML =
-    `<strong>${mode === "monthly" ? "Monthly Contributions ON" : "Annual Contributions ON"}</strong>`;
+  document.getElementById("modeLabel").innerText =
+    mode === "monthly" ? "Monthly Contributions ON" : "Annual Contributions ON";
 }
 
 function calculateCompound() {
   const initial = +initial.value;
-  const contribution = +contribution.value;
   const rate = +rate.value / 100;
-  const years = +years.value;
+  const yearsVal = +years.value;
+  let contrib = +contribution.value;
+
+  if (contributionMode === "monthly") contrib *= 12;
 
   let balance = initial;
   let total = initial;
   let values = [];
   let labels = [];
 
-  if (contributionMode === "monthly") {
-    const monthlyRate = rate / 12;
-    const months = years * 12;
-
-    for (let i = 1; i <= months; i++) {
-      balance = balance * (1 + monthlyRate) + (contribution / 12);
-      total += contribution / 12;
-      values.push(balance);
-      labels.push(`Month ${i}`);
-    }
-  } else {
-    for (let i = 1; i <= years; i++) {
-      balance = balance * (1 + rate) + contribution;
-      total += contribution;
-      values.push(balance);
-      labels.push(`Year ${i}`);
-    }
+  for (let i = 1; i <= yearsVal; i++) {
+    balance = balance * (1 + rate) + contrib;
+    total += contrib;
+    values.push(balance);
+    labels.push("Year " + i);
   }
 
   result.innerHTML = `
-    <p><strong>Final Balance:</strong> $${balance.toLocaleString()}</p>
-    <p><strong>Total Contributions:</strong> $${total.toLocaleString()}</p>
-    <p><strong>Total Interest Earned:</strong> $${(balance - total).toLocaleString()}</p>
+  <p><strong>Final Balance:</strong> $${balance.toLocaleString()}</p>
+  <p><strong>Total Contributions:</strong> $${total.toLocaleString()}</p>
+  <p><strong>Total Interest Earned:</strong> $${(balance-total).toLocaleString()}</p>
   `;
 
   if (growthChart) growthChart.destroy();
-
-  const isLight = document.body.classList.contains('light');
-
   growthChart = new Chart(growthChartCanvas, {
-    type: 'line',
-    data: {
-      labels,
-      datasets: [{
-        label: 'Portfolio Value',
-        data: values,
-        borderColor: isLight ? '#000' : '#ff4d4d',
-        backgroundColor: isLight ? 'rgba(0,0,0,0.15)' : 'rgba(255,77,77,0.15)',
-        fill: true,
-        tension: 0.3
-      }]
-    },
-    options: {
-      plugins:{ legend:{ labels:{ color: isLight ? '#000' : '#e6e6e6' }}},
-      scales:{
-        x:{ ticks:{ color: isLight ? '#000' : '#e6e6e6' }},
-        y:{ ticks:{ color: isLight ? '#000' : '#e6e6e6' }}
-      }
-    }
+    type:'line',
+    data:{labels, datasets:[{data:values, borderColor:'#c40000'}]}
   });
 }
 
 function toggleTheme() {
-  document.body.classList.toggle('light');
-  if (growthChart) calculateCompound();
+  document.body.classList.toggle("light");
 }
-</script>
-
-<script>
-new Chart(individualChart, {
-  type:'pie',
-  data:{
-    labels:['VOO','FTEC','QQQM','SCHD','Individual'],
-    datasets:[{
-      data:[35,25,20,15,5],
-      backgroundColor:['red','blue','green','purple','orange']
-    }]
-  }
-});
-
-new Chart(rothChart, {
-  type:'pie',
-  data:{
-    labels:['FTEC','VGT'],
-    datasets:[{
-      data:[50,50],
-      backgroundColor:['red','blue']
-    }]
-  }
-});
 </script>
 
 </body>
