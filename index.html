@@ -7,6 +7,8 @@
 
 <script>
 const password = "lucki";
+let isAdmin = false;
+
 function checkPassword() {
   const userPass = prompt("Enter password to view this page:");
   if (userPass !== password) {
@@ -138,11 +140,11 @@ This is just my personal opinion and the ETFs I personally invest in.
 <section>
 <h2>Fundamentals</h2>
 <ul>
-  <li><strong>Roth IRA vs Individual Account:</strong> A Roth IRA offers tax-free growth and withdrawals in retirement, but has contribution limits and income restrictions. An individual brokerage account has no contribution limits or income requirements, but you pay taxes on dividends and capital gains.</li>
-  <li><strong>Roth IRA vs 401k:</strong> A Roth IRA is funded with after-tax money and grows tax-free, while a 401k is typically pre-tax and taxed upon withdrawal. 401ks often include employer matching, which is a major benefit.</li>
-  <li><strong>What is an ETF:</strong> An ETF (Exchange-Traded Fund) is a collection of stocks or assets that trades like a stock. It provides instant diversification and typically has lower fees than mutual funds.</li>
-  <li><strong>What are dividends:</strong> Dividends are payments companies make to shareholders from profits. They can be reinvested or taken as income.</li>
-  <li><strong>Why invest:</strong> Investing allows your money to grow over time through compound interest, helping you beat inflation and build long-term wealth.</li>
+  <li><strong>Roth IRA vs Individual Account:</strong> A Roth IRA offers tax-free growth and withdrawals in retirement but has contribution and income limits. An individual brokerage account has no limits, but dividends and capital gains are taxable.</li>
+  <li><strong>Roth IRA vs 401k:</strong> Roth IRAs are funded with after-tax dollars and grow tax-free. 401ks are usually pre-tax and taxed at withdrawal, often with employer matching.</li>
+  <li><strong>What is an ETF:</strong> An ETF is a basket of investments that trades like a stock, offering diversification and usually low fees.</li>
+  <li><strong>What are dividends:</strong> Dividends are profit payments companies distribute to shareholders, which can be reinvested or taken as income.</li>
+  <li><strong>Why invest:</strong> Investing helps grow wealth over time, beat inflation, and take advantage of compound interest.</li>
 </ul>
 </section>
 
@@ -187,7 +189,7 @@ Make sure to always check <a href="https://www.etfrc.com/funds/overlap.php" targ
 <div class="chart-container">
 <h3>Roth IRA</h3>
 <canvas id="rothChart"></canvas>
-<p><em>Percentages fixed to fit diagram better. I switched from VGT to FTEC for a lower expense ratio.</em></p>
+<p><em>Percentages fixed to fit diagram better.</em></p>
 </div>
 </section>
 
@@ -245,6 +247,11 @@ Make sure to always check <a href="https://www.etfrc.com/funds/overlap.php" targ
 <textarea id="questionInput" rows="3" placeholder="Ask a question anonymously..."></textarea>
 <button onclick="postQuestion()">Post Question</button>
 
+<hr>
+
+<button onclick="adminLogin()">Admin Login</button>
+<p id="adminStatus"></p>
+
 <div id="qaList"></div>
 
 <p style="margin-top:25px;">
@@ -263,83 +270,63 @@ Click me to lock in
 <script>
 let growthChart;
 let contributionMode = "annual";
+let questions = JSON.parse(localStorage.getItem("qa")) || [];
 
-function setMode(mode) {
-  contributionMode = mode;
-  document.getElementById("modeStatus").innerHTML =
-    `<strong>${mode === "monthly" ? "Monthly Contributions ON" : "Annual Contributions ON"}</strong>`;
+function saveQA() {
+  localStorage.setItem("qa", JSON.stringify(questions));
 }
 
-function calculateCompound() {
-  const initialVal = +document.getElementById('initial').value;
-  const contributionVal = +document.getElementById('contribution').value;
-  const rateVal = +document.getElementById('rate').value / 100;
-  const yearsVal = +document.getElementById('years').value;
-
-  let balance = initialVal;
-  let total = initialVal;
-  let values = [];
-  let labels = [];
-
-  if (contributionMode === "monthly") {
-    const monthlyRate = rateVal / 12;
-    const months = yearsVal * 12;
-
-    for (let i = 1; i <= months; i++) {
-      balance = balance * (1 + monthlyRate) + (contributionVal / 12);
-      total += contributionVal / 12;
-      values.push(balance);
-      labels.push(`Month ${i}`);
-    }
-  } else {
-    for (let i = 1; i <= yearsVal; i++) {
-      balance = balance * (1 + rateVal) + contributionVal;
-      total += contributionVal;
-      values.push(balance);
-      labels.push(`Year ${i}`);
-    }
+function adminLogin() {
+  const pass = prompt("Admin password:");
+  if (pass === password) {
+    isAdmin = true;
+    document.getElementById("adminStatus").innerHTML = "<strong>Admin Mode Enabled</strong>";
+    renderQA();
   }
+}
 
-  document.getElementById('result').innerHTML = `
-    <p><strong>Final Balance:</strong> $${balance.toLocaleString()}</p>
-    <p><strong>Total Contributions:</strong> $${total.toLocaleString()}</p>
-    <p><strong>Total Interest Earned:</strong> $${(balance - total).toLocaleString()}</p>
-  `;
+function postQuestion() {
+  const q = document.getElementById("questionInput").value.trim();
+  if (!q) return;
+  questions.unshift({ question: q, answer: "" });
+  document.getElementById("questionInput").value = "";
+  saveQA();
+  renderQA();
+}
 
-  if (growthChart) growthChart.destroy();
+function renderQA() {
+  const list = document.getElementById("qaList");
+  list.innerHTML = "";
+  questions.forEach((q, i) => {
+    const div = document.createElement("div");
+    div.className = "qa-box";
+    div.innerHTML = `<p><strong>Question:</strong> ${q.question}</p>${q.answer ? `<p><strong>Answer:</strong> ${q.answer}</p>` : ""}`;
 
-  const isLight = document.body.classList.contains('light');
-
-  growthChart = new Chart(
-    document.getElementById('growthChart'),
-    {
-      type: 'line',
-      data: {
-        labels,
-        datasets: [{
-          label: 'Portfolio Value',
-          data: values,
-          borderColor: isLight ? '#000' : '#ff4d4d',
-          backgroundColor: isLight ? 'rgba(0,0,0,0.15)' : 'rgba(255,77,77,0.15)',
-          fill: true,
-          tension: 0.3
-        }]
-      },
-      options: {
-        plugins:{ legend:{ labels:{ color: isLight ? '#000' : '#e6e6e6' }}} ,
-        scales:{
-          x:{ ticks:{ color: isLight ? '#000' : '#e6e6e6' }},
-          y:{ ticks:{ color: isLight ? '#000' : '#e6e6e6' }}
-        }
-      }
+    if (isAdmin) {
+      const ta = document.createElement("textarea");
+      ta.value = q.answer;
+      const btn = document.createElement("button");
+      btn.textContent = "Post / Update Answer";
+      btn.onclick = () => {
+        questions[i].answer = ta.value;
+        saveQA();
+        renderQA();
+      };
+      const del = document.createElement("button");
+      del.textContent = "Delete";
+      del.onclick = () => {
+        questions.splice(i,1);
+        saveQA();
+        renderQA();
+      };
+      div.appendChild(ta);
+      div.appendChild(btn);
+      div.appendChild(del);
     }
-  );
+    list.appendChild(div);
+  });
 }
-
-function toggleTheme() {
-  document.body.classList.toggle('light');
-  if (growthChart) calculateCompound();
-}
+renderQA();
 </script>
 
 <script>
@@ -364,50 +351,6 @@ new Chart(document.getElementById('rothChart'), {
     }]
   }
 });
-</script>
-
-<script>
-let questions = JSON.parse(localStorage.getItem("qa")) || [];
-
-function saveQA() {
-  localStorage.setItem("qa", JSON.stringify(questions));
-}
-
-function renderQA() {
-  const container = document.getElementById("qaList");
-  container.innerHTML = "";
-
-  questions.forEach((q, index) => {
-    const div = document.createElement("div");
-    div.className = "qa-box";
-    div.innerHTML = `
-      <p><strong>Question:</strong> ${q.question}</p>
-      ${q.answer ? `<p><strong>Answer:</strong> ${q.answer}</p>` : ""}
-      <textarea placeholder="Write an answer..."></textarea>
-      <button onclick="answerQuestion(${index}, this)">Post Answer</button>
-    `;
-    container.appendChild(div);
-  });
-}
-
-function postQuestion() {
-  const input = document.getElementById("questionInput");
-  if (!input.value.trim()) return;
-  questions.unshift({ question: input.value, answer: "" });
-  input.value = "";
-  saveQA();
-  renderQA();
-}
-
-function answerQuestion(index, btn) {
-  const textarea = btn.previousElementSibling;
-  if (!textarea.value.trim()) return;
-  questions[index].answer = textarea.value;
-  saveQA();
-  renderQA();
-}
-
-renderQA();
 </script>
 
 </body>
