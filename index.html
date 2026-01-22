@@ -23,13 +23,13 @@ window.onload = checkPassword;
 <style>
 /* ===== Luxury Theme ===== */
 body {
-  font-family: 'Inter', 'Segoe UI', sans-serif;
+  font-family: 'Inter','Segoe UI',sans-serif;
   background: radial-gradient(circle at top, #111 0%, #000 70%);
   color: #e5e5e5;
   margin: 0;
 }
 
-h1, h2, h3 {
+h1,h2,h3 {
   color: #d4af37;
   letter-spacing: 0.5px;
 }
@@ -66,7 +66,7 @@ button:hover { opacity: 0.9; }
   margin: 30px auto;
 }
 
-input {
+input, textarea {
   width: 100%;
   padding: 10px;
   border-radius: 8px;
@@ -84,11 +84,12 @@ input {
 
 <body>
 
+<!-- Intro -->
 <section>
 <h1>Investing for Beginners</h1>
 <p>
 This site reflects my personal investing opinions and holdings.
-<strong>I am not a financial advisor.</strong>
+<strong>I am not a financial advisor and this is not financial advice.</strong>
 </p>
 <p><strong>Last updated:</strong> 2026-01-22</p>
 </section>
@@ -98,26 +99,32 @@ This site reflects my personal investing opinions and holdings.
 <h2>Recommended ETFs</h2>
 
 <h3><a href="https://finance.yahoo.com/quote/VOO" target="_blank">VOO</a></h3>
-<p>Tracks the S&P 500, offering broad U.S. market exposure with low fees.</p>
-
-<h3>Technology ETFs</h3>
-<div class="toggle-links">
-  <a href="https://finance.yahoo.com/quote/QQQM" target="_blank">QQQM</a>
-  <a href="https://finance.yahoo.com/quote/FTEC" target="_blank">FTEC</a>
-  <a href="https://finance.yahoo.com/quote/VGT" target="_blank">VGT</a>
-</div>
 <p>
-All provide exposure to U.S. technology companies. Choose one to avoid overlap.
+VOO tracks the S&P 500, offering broad exposure to large U.S. companies with extremely low fees.
 </p>
 
+<h3>Technology ETFs</h3>
+<p>
+Choose <strong>one</strong> to avoid overlap:
+</p>
+<ul>
+  <li><a href="https://finance.yahoo.com/quote/QQQM" target="_blank">QQQM</a></li>
+  <li><a href="https://finance.yahoo.com/quote/FTEC" target="_blank">FTEC</a></li>
+  <li><a href="https://finance.yahoo.com/quote/VGT" target="_blank">VGT</a></li>
+</ul>
+
 <h3><a href="https://finance.yahoo.com/quote/SCHD" target="_blank">SCHD</a></h3>
-<p>Dividend-focused ETF emphasizing cash flow and stability.</p>
+<p>
+Dividend-focused ETF emphasizing cash flow, stability, and quality companies.
+</p>
 
 <h3><a href="https://finance.yahoo.com/quote/VXUS" target="_blank">VXUS</a></h3>
-<p>Total international stock market exposure outside the U.S.</p>
+<p>
+Provides exposure to international markets outside the U.S. for global diversification.
+</p>
 </section>
 
-<!-- Portfolio Charts -->
+<!-- Portfolio -->
 <section>
 <h2>My Portfolio</h2>
 
@@ -125,7 +132,8 @@ All provide exposure to U.S. technology companies. Choose one to avoid overlap.
 <h3>Individual Account</h3>
 <canvas id="individualChart"></canvas>
 <p>
-These percentages are rounded and change over time. Build a strong ETF foundation before individual positions.
+These percentages are fixed to fit the diagram better and are for visual simplicity only.
+They may change over time depending on contributions and market conditions.
 </p>
 </div>
 
@@ -133,7 +141,8 @@ These percentages are rounded and change over time. Build a strong ETF foundatio
 <h3>Roth IRA</h3>
 <canvas id="rothChart"></canvas>
 <p>
-Focused on long-term growth. Tech exposure optimized for low expense ratios.
+These percentages are fixed to fit the diagram better.
+I switched from VGT to FTEC for a lower expense ratio and use Fidelity.
 </p>
 </div>
 </section>
@@ -142,10 +151,10 @@ Focused on long-term growth. Tech exposure optimized for low expense ratios.
 <section>
 <h2>Beginner Mistakes to Avoid</h2>
 <ul>
-<li>Over-trading</li>
 <li>Chasing hype stocks</li>
+<li>Over-trading</li>
 <li>Ignoring ETF overlap</li>
-<li>Timing the market</li>
+<li>Trying to time the market</li>
 </ul>
 </section>
 
@@ -173,9 +182,9 @@ Focused on long-term growth. Tech exposure optimized for low expense ratios.
 
 <!-- Questions -->
 <section>
-<h2>Questions?</h2>
+<h2>Questions? Ask Me!</h2>
 <form>
-<textarea rows="4" placeholder="Type your question..."></textarea><br>
+<textarea rows="4" placeholder="Type your question here..."></textarea>
 <button type="submit">Send</button>
 </form>
 </section>
@@ -183,11 +192,11 @@ Focused on long-term growth. Tech exposure optimized for low expense ratios.
 <!-- Button -->
 <section style="text-align:center">
 <button onclick="window.open('https://www.youtube.com/watch?v=7-QK_1oHoiQ')">
-Lock In
+Click me to lock in
 </button>
 </section>
 
-<!-- Charts -->
+<!-- Charts + Calculator Script -->
 <script>
 new Chart(document.getElementById('individualChart'), {
   type: 'pie',
@@ -198,7 +207,9 @@ new Chart(document.getElementById('individualChart'), {
       backgroundColor: ['#d4af37','#8c7a3d','#5c4d1a','#3a3315','#777']
     }]
   },
-  options: { plugins:{legend:{labels:{color:'#e5e5e5'}}}}
+  options: {
+    plugins:{legend:{labels:{color:'#e5e5e5'}}}
+  }
 });
 
 new Chart(document.getElementById('rothChart'), {
@@ -210,19 +221,26 @@ new Chart(document.getElementById('rothChart'), {
       backgroundColor: ['#d4af37','#8c7a3d']
     }]
   },
-  options: { plugins:{legend:{labels:{color:'#e5e5e5'}}}}
+  options: {
+    plugins:{legend:{labels:{color:'#e5e5e5'}}}
+  }
 });
 
 function calculate() {
   const m = +document.getElementById('monthly').value;
   const y = +document.getElementById('years').value;
   const r = +document.getElementById('rate').value / 100;
+
   let total = 0;
-  for (let i = 0; i < y*12; i++) {
-    total = (total + m) * (1 + r/12);
+  for (let i = 0; i < y * 12; i++) {
+    total = (total + m) * (1 + r / 12);
   }
-  const interest = total - (m * y * 12);
-  document.getElementById('result').innerText = `Estimated value: $${total.toFixed(2)} (Interest earned: $${interest.toFixed(2)})`;
+
+  const contributed = m * y * 12;
+  const interest = total - contributed;
+
+  document.getElementById('result').innerText =
+    `Estimated value: $${total.toFixed(2)} | Interest earned: $${interest.toFixed(2)}`;
 }
 </script>
 
