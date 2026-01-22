@@ -23,7 +23,6 @@ window.onload = checkPassword;
 <style>
 html { scroll-behavior: smooth; }
 
-/* ===== THEME VARIABLES ===== */
 :root {
   --bg-main: linear-gradient(to bottom, #0b0b0b, #050505);
   --bg-section: #0b0b0b;
@@ -63,7 +62,10 @@ h1, h2, h3, h4 {
   font-weight: 800;
 }
 
-a { color: var(--link); text-decoration: none; }
+a {
+  color: var(--link);
+  text-decoration: none;
+}
 a:hover { text-decoration: underline; }
 
 button {
@@ -151,7 +153,7 @@ This is just my personal opinion and the ETFs I personally invest in.
 <p>Concentrated information technology ETF.</p>
 
 <p>
-<strong>Note:</strong> I'd only recommend one per portfolio — just showing multiple options!
+<strong>Note:</strong> I’d only recommend one per portfolio — just showing multiple options!
 Make sure to always check
 <a href="https://www.etfrc.com/funds/overlap.php" target="_blank"><strong>overlap</strong></a> too!
 </p>
@@ -173,145 +175,61 @@ Make sure to always check
 </div>
 </section>
 
-<section>
-<h2>Compound Interest Calculator</h2>
-
-<input id="initial" type="number" value="1000">
-<input id="contribution" type="number" value="6000">
-<input id="rate" type="number" value="8">
-<input id="years" type="number" value="30">
-
-<button onclick="toggleContribution()">Monthly Contributions ON</button>
-<br><br>
-<button onclick="calculateCompound()">Calculate Growth</button>
-
-<div id="result" style="margin-top:20px;"></div>
-</section>
-
-<section>
-<h2>Growth Over Time</h2>
-<div class="chart-container">
-<canvas id="growthChart"></canvas>
-</div>
-</section>
-
-<section>
-<h2>Questions?</h2>
-<form action="mailto:youremail@example.com" method="post">
-<textarea rows="4" style="width:100%;"></textarea><br><br>
-<button>Send</button>
-</form>
-
-<p style="margin-top:25px;">
-<strong>DISCLAIMER!</strong> Just because me or someone else tells you to invest into a stock or ETF doesn’t mean you should.
-<strong>ALWAYS do your own research before purchasing any stock.</strong>
-</p>
-</section>
-
-<section style="text-align:center;">
-<button onclick="window.location.href='https://www.youtube.com/watch?v=7-QK_1oHoiQ'">
-Click me to lock in
-</button>
-</section>
-
 <script>
-let growthChart;
-let monthlyMode = true;
-
-function toggleContribution() {
-  monthlyMode = !monthlyMode;
-  event.target.innerText = monthlyMode
-    ? "Monthly Contributions ON"
-    : "Annual Contributions ON";
-  calculateCompound();
+function getLegendColor() {
+  return document.body.classList.contains('light') ? '#000000' : '#e6e6e6';
 }
 
-function calculateCompound() {
-  const initial = Number(document.getElementById('initial').value);
-  const annualContribution = Number(document.getElementById('contribution').value);
-  const rate = Number(document.getElementById('rate').value) / 100;
-  const years = Number(document.getElementById('years').value);
+function percentageTooltip(context) {
+  const total = context.dataset.data.reduce((a,b)=>a+b,0);
+  const value = context.raw;
+  const percent = ((value / total) * 100).toFixed(1);
+  return `${context.label}: ${percent}%`;
+}
 
-  let balance = initial;
-  let total = initial;
-  let values = [];
-  let labels = [];
+const pieColors = ['red','blue','green','purple','orange'];
 
-  if (monthlyMode) {
-    const monthlyRate = rate / 12;
-    const monthlyContribution = annualContribution / 12;
-    for (let i = 1; i <= years * 12; i++) {
-      balance = balance * (1 + monthlyRate) + monthlyContribution;
-      total += monthlyContribution;
-      if (i % 12 === 0) {
-        values.push(balance);
-        labels.push(`Year ${i / 12}`);
-      }
-    }
-  } else {
-    for (let i = 1; i <= years; i++) {
-      balance = balance * (1 + rate) + annualContribution;
-      total += annualContribution;
-      values.push(balance);
-      labels.push(`Year ${i}`);
+const individualChart = new Chart(document.getElementById('individualChart'), {
+  type:'pie',
+  data:{
+    labels:['VOO','FTEC','QQQM','SCHD','Individual'],
+    datasets:[{
+      data:[35,25,20,15,5],
+      backgroundColor: pieColors
+    }]
+  },
+  options:{
+    plugins:{
+      legend:{ labels:{ color:getLegendColor() }},
+      tooltip:{ callbacks:{ label: percentageTooltip }}
     }
   }
+});
 
-  document.getElementById('result').innerHTML = `
-    <p><strong>Final Balance:</strong> $${balance.toLocaleString()}</p>
-    <p><strong>Total Contributions:</strong> $${total.toLocaleString()}</p>
-    <p><strong>Total Interest Earned:</strong> $${(balance - total).toLocaleString()}</p>
-  `;
-
-  if (growthChart) growthChart.destroy();
-
-  const isLight = document.body.classList.contains('light');
-
-  growthChart = new Chart(document.getElementById('growthChart'), {
-    type: 'line',
-    data: {
-      labels,
-      datasets: [{
-        label: 'Portfolio Value',
-        data: values,
-        borderColor: isLight ? '#000' : '#ff4d4d',
-        backgroundColor: isLight ? 'rgba(0,0,0,0.15)' : 'rgba(255,77,77,0.15)',
-        fill: true,
-        tension: 0.3
-      }]
-    },
-    options: {
-      plugins:{ legend:{ labels:{ color: isLight ? '#000' : '#e6e6e6' }}},
-      scales:{
-        x:{ ticks:{ color: isLight ? '#000' : '#e6e6e6' }},
-        y:{ ticks:{ color: isLight ? '#000' : '#e6e6e6' }}
-      }
+const rothChart = new Chart(document.getElementById('rothChart'), {
+  type:'pie',
+  data:{
+    labels:['FTEC','VGT'],
+    datasets:[{
+      data:[50,50],
+      backgroundColor:['red','blue']
+    }]
+  },
+  options:{
+    plugins:{
+      legend:{ labels:{ color:getLegendColor() }},
+      tooltip:{ callbacks:{ label: percentageTooltip }}
     }
-  });
-}
+  }
+});
 
 function toggleTheme() {
   document.body.classList.toggle('light');
-  if (growthChart) calculateCompound();
+  individualChart.options.plugins.legend.labels.color = getLegendColor();
+  rothChart.options.plugins.legend.labels.color = getLegendColor();
+  individualChart.update();
+  rothChart.update();
 }
-</script>
-
-<script>
-new Chart(document.getElementById('individualChart'), {
-type:'pie',
-data:{labels:['VOO','FTEC','QQQM','SCHD','Individual'],
-datasets:[{data:[35,25,20,15,5],
-backgroundColor:['#ff4d4d','#ff884d','#ffd24d','#4dff88','#888888']}]},
-options:{plugins:{legend:{labels:{color:'#e6e6e6'}}}}
-});
-
-new Chart(document.getElementById('rothChart'), {
-type:'pie',
-data:{labels:['FTEC','VGT'],
-datasets:[{data:[50,50],
-backgroundColor:['#ff4d4d','#ffd24d']}]},
-options:{plugins:{legend:{labels:{color:'#e6e6e6'}}}}
-});
 </script>
 
 </body>
