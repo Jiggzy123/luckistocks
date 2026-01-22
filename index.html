@@ -182,8 +182,9 @@ This is just my personal opinion and the ETFs I personally invest in.
 <input id="years" type="number" value="30">
 
 <div style="margin-bottom:15px;">
-  <strong>Contribution Frequency:</strong><br>
-  <button type="button" id="freqBtn" onclick="toggleFrequency()">Annual Contributions</button>
+  <button id="freqBtn" type="button" onclick="toggleFrequency()">
+    Annual Contributions: ON
+  </button>
 </div>
 
 <button onclick="calculateCompound()">Calculate Growth</button>
@@ -225,10 +226,10 @@ function toggleFrequency() {
   const btn = document.getElementById("freqBtn");
   if (contributionFrequency === "annual") {
     contributionFrequency = "monthly";
-    btn.innerText = "Monthly Contributions";
+    btn.innerText = "Monthly Contributions: ON";
   } else {
     contributionFrequency = "annual";
-    btn.innerText = "Annual Contributions";
+    btn.innerText = "Annual Contributions: ON";
   }
 }
 
@@ -253,23 +254,24 @@ function calculateCompound() {
   } else {
     const monthlyRate = rateVal / 12;
     const monthlyContribution = contributionVal / 12;
-    for (let m = 1; m <= yearsVal * 12; m++) {
+    for (let i = 1; i <= yearsVal * 12; i++) {
       balance = balance * (1 + monthlyRate) + monthlyContribution;
       total += monthlyContribution;
-      if (m % 12 === 0) {
+      if (i % 12 === 0) {
         values.push(balance);
-        labels.push(`Year ${m / 12}`);
+        labels.push(`Year ${i / 12}`);
       }
     }
   }
 
   document.getElementById('result').innerHTML = `
-    <p><strong>Final Balance:</strong> $${balance.toLocaleString(undefined,{maximumFractionDigits:0})}</p>
-    <p><strong>Total Contributions:</strong> $${total.toLocaleString(undefined,{maximumFractionDigits:0})}</p>
-    <p><strong>Total Interest Earned:</strong> $${(balance - total).toLocaleString(undefined,{maximumFractionDigits:0})}</p>
+    <p><strong>Final Balance:</strong> $${balance.toLocaleString()}</p>
+    <p><strong>Total Contributions:</strong> $${total.toLocaleString()}</p>
+    <p><strong>Total Interest Earned:</strong> $${(balance - total).toLocaleString()}</p>
   `;
 
   if (growthChart) growthChart.destroy();
+
   const isLight = document.body.classList.contains('light');
 
   growthChart = new Chart(document.getElementById('growthChart'), {
