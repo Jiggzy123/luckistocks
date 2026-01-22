@@ -8,15 +8,15 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
-/* ===================== PASSWORDS ===================== */
+/* PASSWORDS */
 const sitePassword = "lucki";
 const adminPassword = "luck1";
 let isAdmin = false;
 
-/* ===================== SITE LOCK ===================== */
+/* SITE LOCK */
 function checkPassword() {
-  const userPass = prompt("Enter password to view this page:");
-  if (userPass !== sitePassword) {
+  const input = prompt("Enter password to view this page:");
+  if (input !== sitePassword) {
     document.body.innerHTML =
       "<h2 style='color:red;text-align:center;margin-top:20%'>Access Denied</h2>";
   }
@@ -33,7 +33,6 @@ html { scroll-behavior: smooth; }
   --text-main: #e6e6e6;
   --accent: #c40000;
   --border: #b00000;
-  --link: #ff4d4d;
 }
 
 body.light {
@@ -42,11 +41,10 @@ body.light {
   --text-main: #000000;
   --accent: #000000;
   --border: #000000;
-  --link: #0000ee;
 }
 
 body {
-  font-family: 'Segoe UI', sans-serif;
+  font-family: "Segoe UI", sans-serif;
   background: var(--bg-main);
   color: var(--text-main);
   margin: 0;
@@ -56,35 +54,24 @@ section {
   max-width: 900px;
   margin: 40px auto;
   padding: 25px;
-  background-color: var(--bg-section);
+  background: var(--bg-section);
   border: 1px solid var(--border);
   border-radius: 14px;
 }
 
 h1, h2, h3, h4 {
   color: var(--accent);
-  font-weight: 800;
-}
-
-a {
-  color: var(--link);
-  font-weight: bold;
 }
 
 button {
   background: var(--accent);
   color: white;
   border: none;
-  padding: 10px 20px;
+  padding: 10px 18px;
   border-radius: 8px;
   font-weight: bold;
   cursor: pointer;
-  margin: 5px;
-}
-
-.chart-container {
-  max-width: 500px;
-  margin: 30px auto;
+  margin: 5px 0;
 }
 
 input, textarea {
@@ -97,10 +84,9 @@ input, textarea {
   border-radius: 6px;
 }
 
-.theme-toggle {
-  position: fixed;
-  top: 15px;
-  right: 15px;
+.chart-container {
+  max-width: 520px;
+  margin: 30px auto;
 }
 
 .qa-box {
@@ -108,6 +94,12 @@ input, textarea {
   border-radius: 10px;
   padding: 15px;
   margin-top: 15px;
+}
+
+.theme-toggle {
+  position: fixed;
+  top: 15px;
+  right: 15px;
 }
 </style>
 </head>
@@ -120,20 +112,38 @@ input, textarea {
 
 <section>
 <h1 style="text-align:center;">Investing for Beginners</h1>
-<p>This is just my personal opinion and the ETFs I personally invest in. <strong>I AM NOT A FINANCIAL ADVISOR.</strong></p>
+<p>
+This is just my personal opinion.
+<strong>I AM NOT A FINANCIAL ADVISOR.</strong>
+</p>
 <p style="text-align:center;"><strong>Last Updated:</strong> 2026-01-22</p>
 </section>
 
 <section>
 <h2>Fundamentals</h2>
 <ul>
-<li><strong>Roth IRA vs Individual Account:</strong> A Roth IRA grows tax-free but has contribution and income limits. An individual brokerage account has no limits but is taxable.</li>
-<li><strong>Roth IRA vs 401k:</strong> Roth IRAs use after-tax dollars; 401ks are usually pre-tax and may include employer matching.</li>
-<li><strong>What is an ETF:</strong> An ETF is a collection of stocks that trades like a stock and provides instant diversification.</li>
-<li><strong>What are dividends:</strong> Dividends are cash payments companies give shareholders from profits.</li>
-<li><strong>What are stocks:</strong> Stocks represent ownership in a company. As the company grows, the value of your shares can increase.</li>
-<li><strong>Why invest:</strong> Investing helps grow wealth, beat inflation, and compound money over time.</li>
+  <li><strong>Roth IRA vs Individual Account:</strong>
+  Roth IRAs grow tax-free but have income and contribution limits. Individual brokerage accounts have no limits but dividends and capital gains are taxable.</li>
+
+  <li><strong>Roth IRA vs 401k:</strong>
+  Roth IRAs use after-tax money and grow tax-free. 401ks are usually pre-tax and often include employer matching.</li>
+
+  <li><strong>What is an ETF:</strong>
+  An ETF (Exchange-Traded Fund) is a basket of investments that trades like a stock, offering instant diversification.</li>
+
+  <li><strong>What are dividends:</strong>
+  Dividends are profit payments companies distribute to shareholders, either as cash or reinvested.</li>
+
+  <li><strong>Why invest:</strong>
+  Investing helps grow wealth over time, beat inflation, and take advantage of compound interest.</li>
 </ul>
+
+<h3>What Are Stocks?</h3>
+<p>
+A stock represents ownership in a company. When you buy a stock, you own a small piece of that business.
+If the company grows and becomes more profitable, the value of your stock can increase.
+Some stocks also pay dividends, providing passive income.
+</p>
 </section>
 
 <section>
@@ -142,25 +152,30 @@ input, textarea {
 <div class="chart-container">
 <h3>Individual Account</h3>
 <canvas id="individualChart"></canvas>
-<p><em>40% VOO, 30% FTEC/QQQM, 15% SCHD, 10% VXUS, 5% Individual Stocks</em></p>
+<p>
+40% VOO • 30% FTEC / QQQM • 15% SCHD • 10% VXUS • 5% Individual Stocks
+</p>
 </div>
 
 <div class="chart-container">
 <h3>Roth IRA</h3>
 <canvas id="rothChart"></canvas>
-<p><em>50% FTEC, 50% VGT</em></p>
+<p>
+Long-term growth focused portfolio
+</p>
 </div>
 </section>
 
 <section>
 <h2>Compound Interest Calculator</h2>
-<input id="initial" type="number" value="1000">
-<input id="contribution" type="number" value="6000">
-<input id="rate" type="number" value="8">
-<input id="years" type="number" value="30">
+
+<input id="initial" type="number" value="1000" placeholder="Initial Investment">
+<input id="contribution" type="number" value="6000" placeholder="Annual Contribution">
+<input id="rate" type="number" value="8" placeholder="Annual Return %">
+<input id="years" type="number" value="30" placeholder="Years">
 
 <button onclick="calculate()">Calculate Growth</button>
-<div id="result"></div>
+<div id="result" style="margin-top:15px;"></div>
 </section>
 
 <section>
@@ -171,100 +186,178 @@ input, textarea {
 </section>
 
 <section>
+<h2>Learning Resources</h2>
+<ul>
+  <li>
+    I learned most of what I know from
+    <a href="https://www.tiktok.com/@tradeinvestsimplify" target="_blank">Kenneth Suna</a>
+    and his <a href="https://www.kennethsuna.com" target="_blank">website</a>.
+  </li>
+  <li>
+    Always check ETF overlap using
+    <a href="https://www.etfrc.com/funds/overlap.php" target="_blank">ETFRC</a>.
+  </li>
+  <li>
+    Time in the market beats timing the market.
+  </li>
+</ul>
+
+<h3>Popular Brokerages</h3>
+<ul>
+  <li><a href="https://www.fidelity.com" target="_blank">Fidelity</a></li>
+  <li><a href="https://www.vanguard.com" target="_blank">Vanguard</a></li>
+  <li><a href="https://www.schwab.com" target="_blank">Charles Schwab</a></li>
+</ul>
+</section>
+
+<section>
 <h2>Questions (Anonymous)</h2>
-<textarea id="questionInput" placeholder="Ask anonymously..."></textarea>
+
+<textarea id="questionInput" placeholder="Ask a question anonymously..."></textarea>
 <button onclick="postQuestion()">Post Question</button>
+
+<hr>
+
 <button onclick="adminLogin()">Admin Login</button>
 <p id="adminStatus"></p>
+
 <div id="qaList"></div>
 
 <p style="margin-top:25px;">
-<strong>DISCLAIMER!</strong> Just because me or someone else tells you to invest into a stock or ETF or you've seen them invest into a stock or ETF doesn’t mean you should.
-Everybody has different amount's of money they are comfortable spending — find your median and
+<strong>DISCLAIMER!</strong>
+Just because someone invests in a stock or ETF doesn’t mean you should.
+Everybody has different risk tolerance.
 <strong>ALWAYS do your own research before purchasing any stock.</strong>
 </p>
 </section>
 
+<section style="text-align:center;">
+<button onclick="window.location.href='https://www.youtube.com/watch?v=7-QK_1oHoiQ'">
+Click me to lock in
+</button>
+</section>
+
 <script>
-/* ===================== THEME ===================== */
+/* THEME */
 function toggleTheme() {
   document.body.classList.toggle("light");
 }
 
-/* ===================== CALCULATOR + GROWTH ===================== */
+/* PIE CHARTS */
+new Chart(individualChart, {
+  type: "pie",
+  data: {
+    labels: ["VOO","FTEC / QQQM","SCHD","VXUS","Individual Stocks"],
+    datasets: [{
+      data: [40,30,15,10,5],
+      backgroundColor: ["#c40000","#ff4d4d","#888","#6a5acd","#999"]
+    }]
+  },
+  options: {
+    plugins: {
+      tooltip: {
+        callbacks: {
+          label: ctx => `${ctx.label}: ${ctx.raw}%`
+        }
+      },
+      legend: { position: "bottom" }
+    }
+  }
+});
+
+new Chart(rothChart, {
+  type: "pie",
+  data: {
+    labels: ["Growth ETFs"],
+    datasets: [{
+      data: [100],
+      backgroundColor: ["#c40000"]
+    }]
+  },
+  options: {
+    plugins: {
+      tooltip: {
+        callbacks: {
+          label: () => "100%"
+        }
+      },
+      legend: { position: "bottom" }
+    }
+  }
+});
+
+/* CALCULATOR + GROWTH */
 let growthChart;
 
 function calculate() {
-  const initial = +document.getElementById("initial").value;
-  const contribution = +document.getElementById("contribution").value;
-  const rate = +document.getElementById("rate").value / 100;
-  const years = +document.getElementById("years").value;
+  const i = +initial.value;
+  const c = +contribution.value;
+  const r = +rate.value / 100;
+  const y = +years.value;
 
-  let total = initial;
+  let total = i;
   let data = [];
 
-  for (let i = 1; i <= years; i++) {
-    total = total * (1 + rate) + contribution;
-    data.push(total.toFixed(2));
+  for (let year = 1; year <= y; year++) {
+    total = (total + c) * (1 + r);
+    data.push(Math.round(total));
   }
 
-  document.getElementById("result").innerHTML =
-    `<strong>Final Value:</strong> $${total.toFixed(2)}`;
+  result.innerHTML = `<strong>Final Value:</strong> $${Math.round(total)}`;
 
   if (growthChart) growthChart.destroy();
-
-  growthChart = new Chart(document.getElementById("growthChart"), {
+  growthChart = new Chart(growthChartCanvas, {
     type: "line",
     data: {
-      labels: Array.from({length: years}, (_, i) => i + 1),
+      labels: data.map((_, i) => i + 1),
       datasets: [{
         label: "Portfolio Value",
         data: data,
-        tension: 0.3
+        borderColor: "#c40000",
+        fill: false
       }]
     }
   });
 }
 
-/* ===================== Q&A ===================== */
+/* Q&A */
 let questions = JSON.parse(localStorage.getItem("qa")) || [];
-
-function adminLogin() {
-  const pass = prompt("Admin password:");
-  if (pass === adminPassword) {
-    isAdmin = true;
-    document.getElementById("adminStatus").innerHTML = "<strong>Admin Mode Enabled</strong>";
-    renderQA();
-  }
-}
-
-function postQuestion() {
-  const q = questionInput.value.trim();
-  if (!q) return;
-  questions.unshift({ question: q, answer: "" });
-  questionInput.value = "";
-  saveQA();
-  renderQA();
-}
 
 function saveQA() {
   localStorage.setItem("qa", JSON.stringify(questions));
 }
 
+function adminLogin() {
+  if (prompt("Admin password:") === adminPassword) {
+    isAdmin = true;
+    adminStatus.innerHTML = "<strong>Admin Mode Enabled</strong>";
+    renderQA();
+  }
+}
+
+function postQuestion() {
+  if (!questionInput.value.trim()) return;
+  questions.unshift({ q: questionInput.value, a: "" });
+  questionInput.value = "";
+  saveQA();
+  renderQA();
+}
+
 function renderQA() {
   qaList.innerHTML = "";
-  questions.forEach((q, i) => {
-    const div = document.createElement("div");
-    div.className = "qa-box";
-    div.innerHTML = `<p><strong>Q:</strong> ${q.question}</p>${q.answer ? `<p><strong>A:</strong> ${q.answer}</p>` : ""}`;
+  questions.forEach((item, i) => {
+    const box = document.createElement("div");
+    box.className = "qa-box";
+    box.innerHTML = `<p><strong>Q:</strong> ${item.q}</p>` +
+      (item.a ? `<p><strong>A:</strong> ${item.a}</p>` : "");
 
     if (isAdmin) {
       const ta = document.createElement("textarea");
-      ta.value = q.answer;
+      ta.value = item.a;
       const btn = document.createElement("button");
-      btn.textContent = "Answer";
+      btn.textContent = "Post Answer";
       btn.onclick = () => {
-        questions[i].answer = ta.value;
+        questions[i].a = ta.value;
         saveQA();
         renderQA();
       };
@@ -275,53 +368,13 @@ function renderQA() {
         saveQA();
         renderQA();
       };
-      div.appendChild(ta);
-      div.appendChild(btn);
-      div.appendChild(del);
+      box.append(ta, btn, del);
     }
-    qaList.appendChild(div);
+    qaList.appendChild(box);
   });
 }
+
 renderQA();
-
-/* ===================== PIE CHARTS ===================== */
-new Chart(individualChart, {
-  type: "pie",
-  data: {
-    labels: ["VOO","FTEC / QQQM","SCHD","VXUS","Individual Stocks"],
-    datasets: [{
-      data: [40,30,15,10,5]
-    }]
-  },
-  options: {
-    plugins: {
-      tooltip: {
-        callbacks: {
-          label: ctx => `${ctx.label}: ${ctx.parsed}%`
-        }
-      }
-    }
-  }
-});
-
-new Chart(rothChart, {
-  type: "pie",
-  data: {
-    labels: ["FTEC","VGT"],
-    datasets: [{
-      data: [50,50]
-    }]
-  },
-  options: {
-    plugins: {
-      tooltip: {
-        callbacks: {
-          label: ctx => `${ctx.label}: ${ctx.parsed}%`
-        }
-      }
-    }
-  }
-});
 </script>
 
 </body>
