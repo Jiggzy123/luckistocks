@@ -13,7 +13,6 @@ const sitePassword = "lucki";
 const adminPassword = "luck1";
 let isAdmin = false;
 
-/* SITE LOCK */
 function checkPassword() {
   const input = prompt("Enter password to view this page:");
   if (input !== sitePassword) {
@@ -71,7 +70,6 @@ button {
   border-radius: 8px;
   font-weight: bold;
   cursor: pointer;
-  margin: 5px 0;
 }
 
 input, textarea {
@@ -119,33 +117,42 @@ This is just my personal opinion.
 <p style="text-align:center;"><strong>Last Updated:</strong> 2026-01-22</p>
 </section>
 
+<!-- FUNDAMENTALS -->
 <section>
 <h2>Fundamentals</h2>
 <ul>
   <li><strong>Roth IRA vs Individual Account:</strong>
-  Roth IRAs grow tax-free but have income and contribution limits. Individual brokerage accounts have no limits but dividends and capital gains are taxable.</li>
+  Roth IRAs grow tax-free but have contribution and income limits. Individual brokerage accounts have no limits, but dividends and capital gains are taxable.</li>
 
   <li><strong>Roth IRA vs 401k:</strong>
-  Roth IRAs use after-tax money and grow tax-free. 401ks are usually pre-tax and often include employer matching.</li>
+  Roth IRAs are funded with after-tax dollars and grow tax-free. 401ks are usually pre-tax and often include employer matching.</li>
 
   <li><strong>What is an ETF:</strong>
-  An ETF (Exchange-Traded Fund) is a basket of investments that trades like a stock, offering instant diversification.</li>
+  An ETF (Exchange-Traded Fund) is a basket of assets that trades like a stock, offering instant diversification.</li>
 
   <li><strong>What are dividends:</strong>
-  Dividends are profit payments companies distribute to shareholders, either as cash or reinvested.</li>
+  Dividends are payments companies make to shareholders from profits.</li>
 
   <li><strong>Why invest:</strong>
-  Investing helps grow wealth over time, beat inflation, and take advantage of compound interest.</li>
+  Investing allows your money to grow over time, beat inflation, and benefit from compounding.</li>
 </ul>
 
-<h3>What Are Stocks?</h3>
+<!-- MISSING AREA — NOW FULLY RESTORED -->
+<h3>Fundamentals: Stocks Explained</h3>
 <p>
-A stock represents ownership in a company. When you buy a stock, you own a small piece of that business.
-If the company grows and becomes more profitable, the value of your stock can increase.
-Some stocks also pay dividends, providing passive income.
+A stock represents ownership in a company. When you buy a share of stock, you own a small portion of that business.
+As the company grows, becomes more profitable, or increases revenue, the value of your shares may increase.
+</p>
+<p>
+Stocks can generate returns in two main ways: price appreciation (the stock goes up in value) and dividends
+(payments companies distribute to shareholders). Stocks tend to be more volatile than ETFs but offer higher growth potential.
+</p>
+<p>
+Long-term investors typically benefit from holding high-quality stocks or broad market ETFs rather than attempting to trade frequently.
 </p>
 </section>
 
+<!-- PORTFOLIO -->
 <section>
 <h2>My Portfolio</h2>
 
@@ -161,23 +168,25 @@ Some stocks also pay dividends, providing passive income.
 <h3>Roth IRA</h3>
 <canvas id="rothChart"></canvas>
 <p>
-Long-term growth focused portfolio
+Long-term growth focused retirement portfolio
 </p>
 </div>
 </section>
 
+<!-- CALCULATOR -->
 <section>
 <h2>Compound Interest Calculator</h2>
 
-<input id="initial" type="number" value="1000" placeholder="Initial Investment">
-<input id="contribution" type="number" value="6000" placeholder="Annual Contribution">
-<input id="rate" type="number" value="8" placeholder="Annual Return %">
-<input id="years" type="number" value="30" placeholder="Years">
+<input id="initial" type="number" value="1000">
+<input id="contribution" type="number" value="6000">
+<input id="rate" type="number" value="8">
+<input id="years" type="number" value="30">
 
-<button onclick="calculate()">Calculate Growth</button>
-<div id="result" style="margin-top:15px;"></div>
+<button onclick="calculateGrowth()">Calculate Growth</button>
+<div id="result"></div>
 </section>
 
+<!-- GROWTH -->
 <section>
 <h2>Growth Over Time</h2>
 <div class="chart-container">
@@ -185,6 +194,7 @@ Long-term growth focused portfolio
 </div>
 </section>
 
+<!-- LEARNING -->
 <section>
 <h2>Learning Resources</h2>
 <ul>
@@ -201,15 +211,9 @@ Long-term growth focused portfolio
     Time in the market beats timing the market.
   </li>
 </ul>
-
-<h3>Popular Brokerages</h3>
-<ul>
-  <li><a href="https://www.fidelity.com" target="_blank">Fidelity</a></li>
-  <li><a href="https://www.vanguard.com" target="_blank">Vanguard</a></li>
-  <li><a href="https://www.schwab.com" target="_blank">Charles Schwab</a></li>
-</ul>
 </section>
 
+<!-- QUESTIONS -->
 <section>
 <h2>Questions (Anonymous)</h2>
 
@@ -220,14 +224,12 @@ Long-term growth focused portfolio
 
 <button onclick="adminLogin()">Admin Login</button>
 <p id="adminStatus"></p>
-
 <div id="qaList"></div>
 
 <p style="margin-top:25px;">
 <strong>DISCLAIMER!</strong>
 Just because someone invests in a stock or ETF doesn’t mean you should.
-Everybody has different risk tolerance.
-<strong>ALWAYS do your own research before purchasing any stock.</strong>
+<strong>ALWAYS do your own research.</strong>
 </p>
 </section>
 
@@ -238,13 +240,12 @@ Click me to lock in
 </section>
 
 <script>
-/* THEME */
 function toggleTheme() {
   document.body.classList.toggle("light");
 }
 
 /* PIE CHARTS */
-new Chart(individualChart, {
+new Chart(document.getElementById("individualChart"), {
   type: "pie",
   data: {
     labels: ["VOO","FTEC / QQQM","SCHD","VXUS","Individual Stocks"],
@@ -265,7 +266,7 @@ new Chart(individualChart, {
   }
 });
 
-new Chart(rothChart, {
+new Chart(document.getElementById("rothChart"), {
   type: "pie",
   data: {
     labels: ["Growth ETFs"],
@@ -286,27 +287,28 @@ new Chart(rothChart, {
   }
 });
 
-/* CALCULATOR + GROWTH */
-let growthChart;
+/* CALCULATOR + GROWTH FIXED */
+let growthChartInstance;
 
-function calculate() {
-  const i = +initial.value;
-  const c = +contribution.value;
-  const r = +rate.value / 100;
-  const y = +years.value;
+function calculateGrowth() {
+  const initialVal = +initial.value;
+  const contributionVal = +contribution.value;
+  const rateVal = +rate.value / 100;
+  const yearsVal = +years.value;
 
-  let total = i;
+  let total = initialVal;
   let data = [];
 
-  for (let year = 1; year <= y; year++) {
-    total = (total + c) * (1 + r);
+  for (let i = 1; i <= yearsVal; i++) {
+    total = (total + contributionVal) * (1 + rateVal);
     data.push(Math.round(total));
   }
 
   result.innerHTML = `<strong>Final Value:</strong> $${Math.round(total)}`;
 
-  if (growthChart) growthChart.destroy();
-  growthChart = new Chart(growthChartCanvas, {
+  if (growthChartInstance) growthChartInstance.destroy();
+
+  growthChartInstance = new Chart(document.getElementById("growthChart"), {
     type: "line",
     data: {
       labels: data.map((_, i) => i + 1),
@@ -314,7 +316,7 @@ function calculate() {
         label: "Portfolio Value",
         data: data,
         borderColor: "#c40000",
-        fill: false
+        tension: 0.2
       }]
     }
   });
@@ -373,7 +375,6 @@ function renderQA() {
     qaList.appendChild(box);
   });
 }
-
 renderQA();
 </script>
 
