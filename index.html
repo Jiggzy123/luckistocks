@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Investing for Beginners</title>
+  <script>
+    // Password protection
+    const password = "Lucki";
+    function checkPassword() {
+      const userPass = prompt("Enter password to view this page:");
+      if(userPass !== password) {
+        alert("Incorrect password. Refresh to try again.");
+        document.body.innerHTML = "<h2 style='color:#E0E1DD; text-align:center; margin-top:20%;'>Access Denied</h2>";
+      }
+    }
+    window.onload = checkPassword;
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    /* General Layout */
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #0D1B2A;
+      color: #E0E1DD;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+    }
+    a {
+      color: #4FD1C5;
+      text-decoration: none;
+    }
+    a:hover {
+      color: #00B7C2;
+    }
+    h1, h2, h3 {
+      color: #00B7C2;
+    }
+    section {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 20px;
+      background-color: #112D4E;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+    p {
+      margin-bottom: 15px;
+    }
+    .stock, .etf {
+      margin-bottom: 20px;
+    }
+    button {
+      background: linear-gradient(90deg, #00B7C2, #4FD1C5);
+      color: #0D1B2A;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+    button:hover {
+      opacity: 0.85;
+    }
+    textarea {
+      width: 100%;
+      border-radius: 8px;
+      border: none;
+      padding: 10px;
+      font-size: 1em;
+      margin-bottom: 10px;
+    }
+
+    /* Pie Charts */
+    .chart-container {
+      width: 100%;
+      max-width: 500px;
+      margin: 30px auto;
+    }
+
+    /* Answers Section */
+    #answers a {
+      color: #F6AE2D;
+    }
+    #answers p {
+      background-color: #1B263B;
+      padding: 12px;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Intro / Disclaimer -->
+<section>
+  <h1>Investing for Beginners</h1>
+  <p>This is just my personal opinion and the stocks/ETFs I personally invest in. Please do your own research before buying any stock. <strong>I AM NOT A FINANCIAL ADVISOR AND THESE ARE JUST RECOMMENDATIONS.</strong></p>
+  <p>Date: 2026-01-22</p>
+</section>
+
+<!-- Recommended ETFs -->
+<section>
+  <h2>Recommended ETFs</h2>
+
+  <div class="etf">
+    <h3><a href="https://www.vanguard.com/VOO" target="_blank">VOO</a></h3>
+    <p>VOO, the Vanguard S&P 500 ETF, is a popular, low-cost exchange-traded fund designed to mirror the performance of the S&P 500 Index, providing broad exposure to 500 of the largest U.S. companies for long-term growth. It's managed passively, holding stocks in similar proportions to the index, and offers significant diversification with minimal fees, making it a core holding for many investors seeking overall U.S. stock market returns.</p>
+  </div>
+
+  <div class="etf">
+    <h3><a href="https://www.invesco.com/qqqm-etf" target="_blank">QQQM / FTEC / VGT</a></h3>
+    <p>QQQM, the Invesco NASDAQ 100 ETF, is a low-cost fund tracking the NASDAQ-100 Index, offering exposure to 100 of the largest non-financial companies on the Nasdaq exchange, primarily in tech and growth sectors like Apple, Microsoft, and NVIDIA. FTEC (Fidelity MSCI Information Technology Index ETF) and VGT (Vanguard Information Technology ETF) provide broad exposure to the U.S. tech sector with low expenses, ideal for long-term growth. Combined, these ETFs form a tech-focused backbone of a portfolio.</p>
+  </div>
+
+  <div class="etf">
+    <h3><a href="https://www.schwab.com/schd-etf" target="_blank">SCHD</a></h3>
+    <p>SCHD (Schwab U.S. Dividend Equity ETF) is a low-cost ETF that tracks the Dow Jones U.S. Dividend 100 Index, focusing on high-quality, large-cap U.S. companies with strong, consistent dividends, serving as a core holding for diversified portfolios.</p>
+  </div>
+
+  <div class="etf">
+    <h3><a href="https://investor.vanguard.com/etf/profile/VXUS" target="_blank">VXUS</a></h3>
+    <p>VXUS (Vanguard Total International Stock ETF) is a low-cost fund offering broad exposure to global stocks outside the U.S., covering over 98% of the world's investable non-U.S. market capitalization in developed and emerging markets. Ideal for long-term diversification.</p>
+  </div>
+</section>
+
+<!-- Portfolio Pie Charts -->
+<section>
+  <h2>My Portfolio</h2>
+  <div class="chart-container">
+    <h3>Individual Account</h3>
+    <canvas id="individualChart"></canvas>
+    <p>These percentages are rounded for simplicity and do not mean they will stay the same. Invest for your future as you see fit.</p>
+  </div>
+  <div class="chart-container">
+    <h3>Roth IRA</h3>
+    <canvas id="rothChart"></canvas>
+    <p>These percentages are rounded for simplicity and do not mean they will stay the same. I switched from VGT to FTEC for a lower expense ratio and use Fidelity.</p>
+  </div>
+</section>
+
+<!-- Individual Stocks -->
+<section>
+  <h2>Individual Stocks</h2>
+  <div class="stock">
+    <h3><a href="https://www.nasdaq.com/market-activity/stocks/SLV" target="_blank">SLV</a></h3>
+    <p>SLV (iShares Silver Trust) provides exposure to silver, a finite resource that can fight against inflation and balance your portfolio when markets are volatile. Use for diversification.</p>
+  </div>
+  <div class="stock">
+    <h3><a href="https://www.nasdaq.com/market-activity/stocks/GLD" target="_blank">GLD</a></h3>
+    <p>GLD (SPDR Gold Shares) provides exposure to gold, a classic hedge against inflation and market uncertainty. Gold is finite and helps diversify portfolios alongside traditional equities.</p>
+  </div>
+  <p><strong>Tip:</strong> Set up a foundation of ETFs before buying individual stocks. Individual stocks are riskier; do thorough research before investing.</p>
+</section>
+
+<!-- Learning Resources -->
+<section>
+  <h2>Learning Resources</h2>
+  <ul>
+    <li>Everything I learned came from <a href="https://www.tiktok.com/@tradeinvestsimplify" target="_blank">Kenneth Suna TikTok</a> and <a href="https://www.kennethsuna.com" target="_blank">Kenneth Suna Website</a>. He inspired this site.</li>
+    <li><a href="https://www.etfrc.com/funds/overlap.php" target="_blank">ETF Overlap Tool</a> – Easily compare ETF overlap.</li>
+    <li>Roth IRA vs Individual Brokerage accounts – Understand differences before investing.</li>
+  </ul>
+</section>
+
+<!-- Popular Brokerages -->
+<section>
+  <h2>Popular Brokerages</h2>
+  <ul>
+    <li><a href="https://investor.vanguard.com/" target="_blank">Vanguard</a></li>
+    <li><a href="https://www.fidelity.com/" target="_blank">Fidelity</a></li>
+    <li><a href="https://www.schwab.com/" target="_blank">Charles Schwab</a></li>
+  </ul>
+  <p>These are some of the most popular brokerages for beginners and experienced investors alike.</p>
+</section>
+
+<!-- Questions Box -->
+<section id="questions">
+  <h2>Questions? Ask Me!</h2>
+  <p>Type your question below and send it to me. I’ll respond with a text or YouTube video!</p>
+  
+  <form action="mailto:youremail@example.com" method="post" enctype="text/plain">
+    <textarea name="question" rows="4" placeholder="Type your question here..."></textarea>
+    <br>
+    <button type="submit">Send Question</button>
+  </form>
+
+  <div id="answers">
+    <h3>My Answers:</h3>
+    <p><strong>Q:</strong> How do I start investing? <br>
+       <strong>A:</strong> Check out this video: <a href="https://www.youtube.com/watch?v=EXAMPLE">Getting Started with Investing</a>
+    </p>
+    <!-- Add more Q&A manually -->
+  </div>
+</section>
+
+<!-- Silly Button -->
+<section style="text-align:center;">
+  <button onclick="window.location.href='https://www.youtube.com/watch?v=7-QK_1oHoiQ&list=PL2XcCGAjMHLhqZ5jusbxIYqClrbY4Qm_a'">Click me to lock in</button>
+</section>
+
+<!-- Pie Charts Script -->
+<script>
+const individualCtx = document.getElementById('individualChart').getContext('2d');
+const individualChart = new Chart(individualCtx, {
+    type: 'pie',
+    data: {
+        labels: ['VOO','FTEC','SCHD','VXUS','Individual'],
+        datasets: [{
+            data: [35,25,15,5,5],
+            backgroundColor: ['#4FD1C5','#F6AE2D','#E71D36','#3D348B','#00B7C2']
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: { legend: { position: 'bottom', labels: { color:'#E0E1DD' } } }
+    }
+});
+
+const rothCtx = document.getElementById('rothChart').getContext('2d');
+const rothChart = new Chart(rothCtx, {
+    type: 'pie',
+    data: {
+        labels: ['VGT','FTEC'],
+        datasets: [{
+            data: [50,50],
+            backgroundColor: ['#F6AE2D','#4FD1C5']
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: { legend: { position: 'bottom', labels: { color:'#E0E1DD' } } }
+    }
+});
+</script>
+
+</body>
+</html>
