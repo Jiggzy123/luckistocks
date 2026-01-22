@@ -6,90 +6,65 @@
 <title>Investing for Beginners</title>
 
 <script>
-  // Password protection
-  const password = "Lucki";
-  function checkPassword() {
-    const userPass = prompt("Enter password to view this page:");
-    if (userPass !== password) {
-      alert("Incorrect password. Refresh to try again.");
-      document.body.innerHTML =
-        "<h2 style='color:#E0E1DD; text-align:center; margin-top:20%;'>Access Denied</h2>";
-    }
+const password = "Lucki";
+function checkPassword() {
+  const userPass = prompt("Enter password to view this page:");
+  if (userPass !== password) {
+    alert("Incorrect password. Refresh to try again.");
+    document.body.innerHTML =
+      "<h2 style='color:red; text-align:center; margin-top:20%;'>Access Denied</h2>";
   }
-  window.onload = checkPassword;
+}
+window.onload = checkPassword;
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
+html { scroll-behavior: smooth; }
+
 body {
   font-family: 'Segoe UI', sans-serif;
-  background-color: #0D1B2A;
-  color: #E0E1DD;
-  line-height: 1.6;
+  background: linear-gradient(to bottom, #0b0b0b, #050505);
+  color: #e6e6e6;
   margin: 0;
-  padding: 0;
-}
-
-a {
-  color: #4FD1C5;
-  text-decoration: none;
-}
-
-a:hover {
-  color: #00B7C2;
-}
-
-h1, h2, h3 {
-  color: #00B7C2;
 }
 
 section {
   max-width: 900px;
   margin: 40px auto;
-  padding: 20px;
-  background-color: #112D4E;
-  border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  padding: 25px;
+  background-color: #0b0b0b;
+  border: 1px solid #b00000;
+  border-radius: 14px;
+  box-shadow: 0 0 18px rgba(176,0,0,0.15);
 }
 
-p {
-  margin-bottom: 15px;
-}
+h1, h2, h3 { color: #c40000; font-weight: 800; }
 
-.etf {
-  margin-bottom: 20px;
-}
+a { color: #ff4d4d; text-decoration: none; }
+a:hover { text-decoration: underline; }
 
 button {
-  background: linear-gradient(90deg, #00B7C2, #4FD1C5);
-  color: #0D1B2A;
+  background: #b00000;
+  color: black;
   border: none;
   padding: 10px 20px;
   border-radius: 8px;
-  cursor: pointer;
   font-weight: bold;
+  cursor: pointer;
 }
 
-textarea {
-  width: 100%;
-  border-radius: 8px;
-  border: none;
-  padding: 10px;
-  font-size: 1em;
-  margin-bottom: 10px;
-}
+.chart-container { max-width: 500px; margin: 30px auto; }
 
-.chart-container {
-  width: 100%;
-  max-width: 500px;
-  margin: 30px auto;
-}
-
-#answers p {
-  background-color: #1B263B;
-  padding: 12px;
-  border-radius: 8px;
+input {
+  background:#111;
+  color:#fff;
+  border:1px solid #b00000;
+  border-radius:6px;
+  width:100%;
+  padding:8px;
+  margin-bottom:10px;
 }
 </style>
 </head>
@@ -97,106 +72,176 @@ textarea {
 <body>
 
 <section>
-  <h1>Investing for Beginners</h1>
-  <p>
-    This is just my personal opinion and the ETFs I personally invest in.
-    <strong>I AM NOT A FINANCIAL ADVISOR.</strong>
-  </p>
-  <p style="text-align:center;"><strong>Last Updated: 2026-01-22</strong></p>
+<h1>Investing for Beginners</h1>
+<p>
+This is just my personal opinion and the ETFs I personally invest in.
+<strong>I AM NOT A FINANCIAL ADVISOR.</strong>
+</p>
+<p style="text-align:center;"><strong>Last Updated:</strong> 2026-01-22</p>
 </section>
 
 <section>
-  <h2>Recommended ETFs</h2>
+<h2>Recommended ETFs</h2>
 
-  <div class="etf">
-    <h3><a href="https://finance.yahoo.com/quote/VOO" target="_blank">VOO</a></h3>
-    <p>Tracks the S&P 500 and provides broad U.S. market exposure.</p>
-  </div>
+<h3><a href="https://www.google.com/finance/quote/VOO:NYSEARCA" target="_blank">VOO</a></h3>
+<p>Tracks the S&P 500, offering exposure to the 500 largest U.S. companies.</p>
 
-  <div class="etf">
-    <h3>
-      <a href="https://finance.yahoo.com/quote/QQQM" target="_blank">QQQM</a> /
-      <a href="https://finance.yahoo.com/quote/FTEC" target="_blank">FTEC</a> /
-      <a href="https://finance.yahoo.com/quote/VGT" target="_blank">VGT</a>
-    </h3>
-    <p>Technology-focused ETFs providing exposure to major U.S. tech companies.</p>
-  </div>
+<h3>Tech ETFs</h3>
+<ul>
+<li><a href="https://www.google.com/finance/quote/QQQM:NASDAQ" target="_blank">QQQM</a></li>
+<li><a href="https://www.google.com/finance/quote/FTEC:NYSEARCA" target="_blank">FTEC</a></li>
+<li><a href="https://www.google.com/finance/quote/VGT:NYSEARCA" target="_blank">VGT</a></li>
+</ul>
 
-  <div class="etf">
-    <h3><a href="https://finance.yahoo.com/quote/SCHD" target="_blank">SCHD</a></h3>
-    <p>Focuses on high-quality dividend-paying U.S. companies.</p>
-  </div>
+<h3><a href="https://www.google.com/finance/quote/SCHD:NYSEARCA" target="_blank">SCHD</a></h3>
+<p>Dividend-focused ETF with stable income.</p>
 
-  <div class="etf">
-    <h3><a href="https://finance.yahoo.com/quote/VXUS" target="_blank">VXUS</a></h3>
-    <p>Broad international stock exposure outside the U.S.</p>
-  </div>
+<h3><a href="https://www.google.com/finance/quote/VXUS:NYSEARCA" target="_blank">VXUS</a></h3>
+<p>International diversification outside the U.S.</p>
 </section>
 
 <section>
-  <h2>My Portfolio</h2>
+<h2>My Portfolio</h2>
 
-  <div class="chart-container">
-    <h3>Individual Brokerage Account</h3>
-    <canvas id="individualChart"></canvas>
-    <p>Percentages fixed to fit diagram better.</p>
-  </div>
+<div class="chart-container">
+<h3>Individual Account</h3>
+<canvas id="individualChart"></canvas>
+<p><em>Percentages fixed to fit diagram better.</em></p>
+</div>
 
-  <div class="chart-container">
-    <h3>Roth IRA</h3>
-    <canvas id="rothChart"></canvas>
-    <p>
-      Percentages fixed to fit diagram better.
-      I switched from VGT to FTEC for a lower expense ratio.
-    </p>
-  </div>
+<div class="chart-container">
+<h3>Roth IRA</h3>
+<canvas id="rothChart"></canvas>
+<p><em>Percentages fixed to fit diagram better. I switched from VGT to FTEC for a lower expense ratio.</em></p>
+</div>
 </section>
 
-<section id="questions">
-  <h2>Questions? Ask Me!</h2>
+<section>
+<h2>Individual Brokerage Account vs Roth IRA</h2>
 
-  <form action="mailto:youremail@example.com" method="post" enctype="text/plain">
-    <textarea name="question" rows="4" placeholder="Type your question here..."></textarea>
-    <br>
-    <button type="submit">Send Question</button>
-  </form>
+<h3>Individual Brokerage Account</h3>
+<p>Flexible investing with no contribution limits, but taxable gains.</p>
 
-  <div id="answers">
-    <h3>My Answers:</h3>
-    <p>
-      <strong>Q:</strong> How do I start investing?<br>
-      <strong>A:</strong> Start with low-cost ETFs, stay consistent, and think long-term.
-    </p>
-  </div>
+<h3>Roth IRA</h3>
+<p>Tax-free growth and withdrawals in retirement.</p>
+
+<h3>Taxes & Compound Interest</h3>
+<p>Reducing taxes allows compound interest to grow uninterrupted.</p>
+</section>
+
+<!-- CALCULATOR -->
+<section>
+<h2>Compound Interest Calculator</h2>
+
+<input id="initial" type="number" value="1000">
+<input id="contribution" type="number" value="6000">
+<input id="rate" type="number" value="8">
+<input id="years" type="number" value="30">
+
+<button onclick="calculateCompound()">Calculate Growth</button>
+
+<div id="result" style="margin-top:20px;"></div>
+</section>
+
+<!-- GROWTH CHART -->
+<section>
+<h2>Growth Over Time</h2>
+<div class="chart-container">
+<canvas id="growthChart"></canvas>
+</div>
+</section>
+
+<section>
+<h2>Learning Resources</h2>
+<ul>
+<li><a href="https://www.tiktok.com/@tradeinvestsimplify" target="_blank">Kenneth Suna TikTok</a></li>
+<li><a href="https://www.kennethsuna.com" target="_blank">Kenneth Suna Website</a></li>
+<li><a href="https://www.etfrc.com/funds/overlap.php" target="_blank">ETF Overlap Tool</a></li>
+</ul>
+</section>
+
+<section>
+<h2>Questions?</h2>
+<form action="mailto:youremail@example.com" method="post">
+<textarea rows="4" style="width:100%;"></textarea><br><br>
+<button>Send</button>
+</form>
 </section>
 
 <section style="text-align:center;">
-  <button onclick="window.location.href='https://www.youtube.com/watch?v=7-QK_1oHoiQ'">
-    Click me to lock in
-  </button>
+<button onclick="window.location.href='https://www.youtube.com/watch?v=7-QK_1oHoiQ'">
+Click me to lock in
+</button>
 </section>
 
 <script>
-new Chart(document.getElementById('individualChart'), {
-  type: 'pie',
-  data: {
-    labels: ['VOO','FTEC','SCHD','VXUS','Individual'],
-    datasets: [{
-      data: [35,25,20,15,5],
-      backgroundColor: ['#4FD1C5','#F6AE2D','#E71D36','#3D348B','#00B7C2']
-    }]
+let growthChart;
+
+function calculateCompound() {
+  const initial = Number(document.getElementById('initial').value);
+  const contribution = Number(document.getElementById('contribution').value);
+  const rate = Number(document.getElementById('rate').value) / 100;
+  const years = Number(document.getElementById('years').value);
+
+  let balance = initial;
+  let total = initial;
+  let values = [];
+  let labels = [];
+
+  for (let i = 1; i <= years; i++) {
+    balance = balance * (1 + rate) + contribution;
+    total += contribution;
+    values.push(balance);
+    labels.push("Year " + i);
   }
+
+  document.getElementById('result').innerHTML = `
+    <p><strong>Final Balance:</strong> $${balance.toLocaleString()}</p>
+    <p><strong>Total Contributions:</strong> $${total.toLocaleString()}</p>
+    <p><strong>Total Interest Earned:</strong> $${(balance - total).toLocaleString()}</p>
+  `;
+
+  if (growthChart) growthChart.destroy();
+
+  growthChart = new Chart(document.getElementById('growthChart'), {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [{
+        label: 'Portfolio Value',
+        data: values,
+        borderColor: '#ff4d4d',
+        backgroundColor: 'rgba(255,77,77,0.15)',
+        fill: true,
+        tension: 0.3
+      }]
+    },
+    options: {
+      plugins:{ legend:{ labels:{ color:'#e6e6e6' }}},
+      scales:{
+        x:{ ticks:{ color:'#e6e6e6' }},
+        y:{ ticks:{ color:'#e6e6e6' }}
+      }
+    }
+  });
+}
+</script>
+
+<script>
+new Chart(document.getElementById('individualChart'), {
+type:'pie',
+data:{labels:['VOO','FTEC','QQQM','SCHD','Individual'],
+datasets:[{data:[35,25,20,15,5],
+backgroundColor:['#ff4d4d','#ff884d','#ffd24d','#4dff88','#888888']}]},
+options:{plugins:{legend:{labels:{color:'#e6e6e6'}}}}
 });
 
 new Chart(document.getElementById('rothChart'), {
-  type: 'pie',
-  data: {
-    labels: ['FTEC','VGT'],
-    datasets: [{
-      data: [50,50],
-      backgroundColor: ['#4FD1C5','#F6AE2D']
-    }]
-  }
+type:'pie',
+data:{labels:['FTEC','VGT'],
+datasets:[{data:[50,50],
+backgroundColor:['#ff4d4d','#ffd24d']}]},
+options:{plugins:{legend:{labels:{color:'#e6e6e6'}}}}
 });
 </script>
 
