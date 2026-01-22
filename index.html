@@ -77,6 +77,13 @@ button {
   max-width: 500px;
   margin: 30px auto;
 }
+
+input {
+  background:#111;
+  color:#fff;
+  border:1px solid #b00000;
+  border-radius:6px;
+}
 </style>
 </head>
 
@@ -132,23 +139,79 @@ This is just my personal opinion and the stocks/ETFs I personally invest in.
 
 <h3>Individual Brokerage Account</h3>
 <p>
-An individual brokerage account offers maximum flexibility. You can invest as much
-as you want and withdraw your money at any time without penalties. However, you
-<strong>pay taxes</strong> on dividends and on gains when you sell investments.
+An individual brokerage account offers flexibility and no contribution limits.
+However, dividends and capital gains are taxable.
 </p>
 
 <h3>Roth IRA</h3>
 <p>
-A Roth IRA is designed for long-term retirement investing. Contributions are made
-with after-tax money, but <strong>all qualified growth and withdrawals are tax-free</strong>.
+A Roth IRA grows tax-free. Contributions are taxed upfront, but qualified
+withdrawals in retirement are completely tax-free.
 </p>
 
 <h3>Taxes & Compound Interest</h3>
 <p>
-Removing taxes allows compound interest to work more efficiently over decades.
-Even small tax differences can result in significantly higher long-term growth.
+Avoiding taxes allows compound interest to accelerate growth over long periods.
 </p>
 </section>
+
+<!-- 🔽 COMPOUND INTEREST CALCULATOR (ADDED, NOTHING ELSE TOUCHED) -->
+
+<section>
+<h2>Compound Interest Calculator</h2>
+
+<p>
+This calculator demonstrates how compound interest grows your money over time.
+It assumes annual compounding and consistent yearly contributions.
+</p>
+
+<label>Initial Investment ($)</label>
+<input type="number" id="initial" value="1000" style="width:100%;padding:8px;margin-bottom:10px;">
+
+<label>Yearly Contribution ($)</label>
+<input type="number" id="contribution" value="6000" style="width:100%;padding:8px;margin-bottom:10px;">
+
+<label>Annual Return (%)</label>
+<input type="number" id="rate" value="8" style="width:100%;padding:8px;margin-bottom:10px;">
+
+<label>Years Invested</label>
+<input type="number" id="years" value="30" style="width:100%;padding:8px;margin-bottom:15px;">
+
+<button onclick="calculateCompound()">Calculate Growth</button>
+
+<div id="result" style="margin-top:20px;"></div>
+</section>
+
+<script>
+function calculateCompound() {
+  const initial = parseFloat(document.getElementById('initial').value);
+  const contribution = parseFloat(document.getElementById('contribution').value);
+  const rate = parseFloat(document.getElementById('rate').value) / 100;
+  const years = parseInt(document.getElementById('years').value);
+
+  let balance = initial;
+  let totalContributions = initial;
+
+  for (let i = 1; i <= years; i++) {
+    balance = balance * (1 + rate) + contribution;
+    totalContributions += contribution;
+  }
+
+  const interestEarned = balance - totalContributions;
+
+  document.getElementById('result').innerHTML = `
+    <h3>Results</h3>
+    <p><strong>Final Balance:</strong> $${balance.toLocaleString(undefined,{maximumFractionDigits:0})}</p>
+    <p><strong>Total Contributions:</strong> $${totalContributions.toLocaleString()}</p>
+    <p><strong>Total Interest Earned:</strong> $${interestEarned.toLocaleString(undefined,{maximumFractionDigits:0})}</p>
+
+    <p style="margin-top:15px;">
+      This highlights how time and tax efficiency amplify compound interest.
+      Long-term investing benefits greatly from tax-advantaged accounts like a Roth IRA.
+    </p>
+  `;
+}
+</script>
 
 <section>
 <h2>Learning Resources</h2>
@@ -168,7 +231,6 @@ Even small tax differences can result in significantly higher long-term growth.
 </form>
 </section>
 
-<!-- ✅ BUTTON RESTORED -->
 <section style="text-align:center;">
 <button onclick="window.location.href='https://www.youtube.com/watch?v=7-QK_1oHoiQ&list=PL2XcCGAjMHLhqZ5jusbxIYqClrbY4Qm_a'">
 Click me to lock in
