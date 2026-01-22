@@ -88,9 +88,9 @@ This is just my personal opinion and the ETFs I personally invest in.
 
 <h3>Tech ETFs</h3>
 <ul>
-<li><a href="https://www.google.com/finance/quote/QQQM:NASDAQ" target="_blank">QQQM</a> – Nasdaq-100 growth exposure</li>
-<li><a href="https://www.google.com/finance/quote/FTEC:NYSEARCA" target="_blank">FTEC</a> – Broad U.S. tech sector</li>
-<li><a href="https://www.google.com/finance/quote/VGT:NYSEARCA" target="_blank">VGT</a> – Vanguard technology ETF</li>
+<li><a href="https://www.google.com/finance/quote/QQQM:NASDAQ" target="_blank">QQQM</a></li>
+<li><a href="https://www.google.com/finance/quote/FTEC:NYSEARCA" target="_blank">FTEC</a></li>
+<li><a href="https://www.google.com/finance/quote/VGT:NYSEARCA" target="_blank">VGT</a></li>
 </ul>
 
 <h3><a href="https://www.google.com/finance/quote/SCHD:NYSEARCA" target="_blank">SCHD</a></h3>
@@ -120,37 +120,32 @@ This is just my personal opinion and the ETFs I personally invest in.
 <h2>Individual Brokerage Account vs Roth IRA</h2>
 
 <h3>Individual Brokerage Account</h3>
-<p>
-Flexible investing with no contribution limits, but dividends and capital gains are taxable.
-</p>
+<p>Flexible investing with no contribution limits, but taxable gains.</p>
 
 <h3>Roth IRA</h3>
-<p>
-Tax-free growth and withdrawals in retirement after contributing post-tax dollars.
-</p>
+<p>Tax-free growth and withdrawals in retirement.</p>
 
 <h3>Taxes & Compound Interest</h3>
-<p>
-Reducing taxes allows compound interest to grow uninterrupted over decades.
-</p>
+<p>Reducing taxes allows compound interest to grow uninterrupted.</p>
 </section>
 
+<!-- CALCULATOR -->
 <section>
 <h2>Compound Interest Calculator</h2>
 
-<p>
-This calculator demonstrates how compound interest grows your money over time.
-</p>
-
-<input type="number" id="initial" value="1000" placeholder="Initial Investment">
-<input type="number" id="contribution" value="6000" placeholder="Yearly Contribution">
-<input type="number" id="rate" value="8" placeholder="Annual Return (%)">
-<input type="number" id="years" value="30" placeholder="Years Invested">
+<input id="initial" type="number" value="1000">
+<input id="contribution" type="number" value="6000">
+<input id="rate" type="number" value="8">
+<input id="years" type="number" value="30">
 
 <button onclick="calculateCompound()">Calculate Growth</button>
 
 <div id="result" style="margin-top:20px;"></div>
+</section>
 
+<!-- GROWTH CHART -->
+<section>
+<h2>Growth Over Time</h2>
 <div class="chart-container">
 <canvas id="growthChart"></canvas>
 </div>
@@ -167,14 +162,14 @@ This calculator demonstrates how compound interest grows your money over time.
 
 <section>
 <h2>Questions?</h2>
-<form action="mailto:youremail@example.com" method="post" enctype="text/plain">
-<textarea name="question" rows="4" style="width:100%;"></textarea><br><br>
-<button type="submit">Send</button>
+<form action="mailto:youremail@example.com" method="post">
+<textarea rows="4" style="width:100%;"></textarea><br><br>
+<button>Send</button>
 </form>
 </section>
 
 <section style="text-align:center;">
-<button onclick="window.location.href='https://www.youtube.com/watch?v=7-QK_1oHoiQ&list=PL2XcCGAjMHLhqZ5jusbxIYqClrbY4Qm_a'">
+<button onclick="window.location.href='https://www.youtube.com/watch?v=7-QK_1oHoiQ'">
 Click me to lock in
 </button>
 </section>
@@ -183,38 +178,38 @@ Click me to lock in
 let growthChart;
 
 function calculateCompound() {
-  const initial = +initial.value;
-  const contribution = +contribution.value;
-  const rate = +rate.value / 100;
-  const years = +years.value;
+  const initial = Number(document.getElementById('initial').value);
+  const contribution = Number(document.getElementById('contribution').value);
+  const rate = Number(document.getElementById('rate').value) / 100;
+  const years = Number(document.getElementById('years').value);
 
   let balance = initial;
   let total = initial;
-  let data = [];
+  let values = [];
   let labels = [];
 
   for (let i = 1; i <= years; i++) {
     balance = balance * (1 + rate) + contribution;
     total += contribution;
-    data.push(balance);
+    values.push(balance);
     labels.push("Year " + i);
   }
 
-  result.innerHTML = `
-    <h3>Results</h3>
+  document.getElementById('result').innerHTML = `
     <p><strong>Final Balance:</strong> $${balance.toLocaleString()}</p>
     <p><strong>Total Contributions:</strong> $${total.toLocaleString()}</p>
-    <p><strong>Total Interest Earned:</strong> $${(balance-total).toLocaleString()}</p>
+    <p><strong>Total Interest Earned:</strong> $${(balance - total).toLocaleString()}</p>
   `;
 
   if (growthChart) growthChart.destroy();
-  growthChart = new Chart(growthChartCanvas, {
+
+  growthChart = new Chart(document.getElementById('growthChart'), {
     type: 'line',
     data: {
       labels,
       datasets: [{
         label: 'Portfolio Value',
-        data,
+        data: values,
         borderColor: '#ff4d4d',
         backgroundColor: 'rgba(255,77,77,0.15)',
         fill: true,
@@ -230,12 +225,10 @@ function calculateCompound() {
     }
   });
 }
-
-const growthChartCanvas = document.getElementById('growthChart');
 </script>
 
 <script>
-new Chart(individualChart, {
+new Chart(document.getElementById('individualChart'), {
 type:'pie',
 data:{labels:['VOO','FTEC','QQQM','SCHD','Individual'],
 datasets:[{data:[35,25,20,15,5],
@@ -243,7 +236,7 @@ backgroundColor:['#ff4d4d','#ff884d','#ffd24d','#4dff88','#888888']}]},
 options:{plugins:{legend:{labels:{color:'#e6e6e6'}}}}
 });
 
-new Chart(rothChart,{
+new Chart(document.getElementById('rothChart'), {
 type:'pie',
 data:{labels:['FTEC','VGT'],
 datasets:[{data:[50,50],
