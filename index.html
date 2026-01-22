@@ -1,26 +1,31 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Investing for Beginners</title>
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <script>
 /* PASSWORDS */
 const sitePassword = "lucki";
 const adminPassword = "luck1";
 let isAdmin = false;
+
 function checkPassword() {
   const input = prompt("Enter password to view this page:");
   if (input !== sitePassword) {
-    document.body.innerHTML = "<h2 style='color:red;text-align:center;margin-top:20%'>Access Denied</h2>";
+    document.body.innerHTML =
+      "<h2 style='color:red;text-align:center;margin-top:20%'>Access Denied</h2>";
   }
 }
 window.onload = checkPassword;
 </script>
+
 <style>
 html { scroll-behavior: smooth; }
+
 :root {
   --bg-main: linear-gradient(to bottom, #0b0b0b, #050505);
   --bg-section: #0b0b0b;
@@ -28,6 +33,7 @@ html { scroll-behavior: smooth; }
   --accent: #c40000;
   --border: #b00000;
 }
+
 body.light {
   --bg-main: #ffffff;
   --bg-section: #ffffff;
@@ -35,12 +41,14 @@ body.light {
   --accent: #000000;
   --border: #000000;
 }
+
 body {
   font-family: "Segoe UI", sans-serif;
   background: var(--bg-main);
   color: var(--text-main);
   margin: 0;
 }
+
 section {
   max-width: 900px;
   margin: 40px auto;
@@ -49,7 +57,11 @@ section {
   border: 1px solid var(--border);
   border-radius: 14px;
 }
-h1, h2, h3, h4 { color: var(--accent); }
+
+h1, h2, h3 {
+  color: var(--accent);
+}
+
 button {
   background: var(--accent);
   color: white;
@@ -59,6 +71,7 @@ button {
   font-weight: bold;
   cursor: pointer;
 }
+
 input, textarea {
   width: 100%;
   padding: 8px;
@@ -68,92 +81,29 @@ input, textarea {
   border: 1px solid var(--border);
   border-radius: 6px;
 }
-.chart-container { max-width: 520px; margin: 30px auto; }
-.qa-box { border: 1px solid var(--border); border-radius: 10px; padding: 15px; margin-top: 15px; }
-.theme-toggle { position: fixed; top: 15px; right: 15px; }
+
+.chart-container {
+  max-width: 520px;
+  margin: 30px auto;
+}
+
+.qa-box {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 15px;
+  margin-top: 15px;
+}
+
+.theme-toggle {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+}
 </style>
 </head>
+
 <body>
-<div class="theme-toggle"><button onclick="toggleTheme()">Light / Dark</button></div>
-<section>
-<h1 style="text-align:center;">Investing for Beginners</h1>
-<p>This is just my personal opinion. <strong>I AM NOT A FINANCIAL ADVISOR.</strong></p>
-<p style="text-align:center;"><strong>Last Updated:</strong> 2026-01-22</p>
-</section>
-<section>
-<h2>Fundamentals</h2>
-<ul>
-<li><strong>Roth IRA vs Individual Account:</strong> Roth IRAs grow tax-free but have contribution and income limits. Individual brokerage accounts have no limits, but dividends and capital gains are taxable.</li>
-<li><strong>Roth IRA vs 401k:</strong> Roth IRAs are funded with after-tax dollars and grow tax-free. 401ks are usually pre-tax and often include employer matching.</li>
-<li><strong>What is an ETF:</strong> An ETF (Exchange-Traded Fund) is a basket of assets that trades like a stock, offering instant diversification.</li>
-<li><strong>What are dividends:</strong> Dividends are payments companies make to shareholders from profits.</li>
-<li><strong>Why invest:</strong> Investing allows your money to grow over time, beat inflation, and benefit from compounding.</li>
-</ul>
-<h3>ETFs Explained (Restored)</h3>
-<p>An ETF holds many assets inside one fund. Instead of picking individual stocks, you can buy one ETF and instantly own exposure to dozens, hundreds, or even thousands of companies.</p>
-<p>ETFs are popular because they are low-cost, tax-efficient, transparent, and easy to trade. Many long-term investors prefer ETFs over individual stocks because they reduce risk through diversification.</p>
-<p>Examples include market ETFs (VOO, VTI), sector ETFs (FTEC, XLK), dividend ETFs (SCHD), and international ETFs (VXUS).</p>
-<h3>Stocks Explained</h3>
-<p>A stock represents ownership in a company. When you buy a share, you own part of that business. Stocks can grow in value and may pay dividends.</p>
-<p>Stocks are more volatile than ETFs but can offer higher returns. Long-term success usually comes from patience and consistency rather than frequent trading.</p>
-</section>
-<section>
-<h2>My Portfolio</h2>
-<div class="chart-container">
-<h3>Individual Account</h3>
-<canvas id="individualChart"></canvas>
-<p>40% VOO • 30% FTEC / QQQM • 15% SCHD • 10% VXUS • 5% Individual Stocks</p>
-</div>
-<div class="chart-container">
-<h3>Roth IRA</h3>
-<canvas id="rothChart"></canvas>
-<p><strong>50% FTEC / 50% VGT</strong></p>
-<p>Switched to FTEC for lower expense ratio</p>
-</div>
-</section>
-<section>
-<h2>Compound Interest Calculator</h2>
-<input id="initial" type="number" value="1000">
-<input id="contribution" type="number" value="6000">
-<input id="rate" type="number" value="8">
-<input id="years" type="number" value="30">
-<button onclick="calculateGrowth()">Calculate Growth</button>
-<div id="result"></div>
-</section>
-<section>
-<h2>Growth Over Time</h2>
-<div class="chart-container"><canvas id="growthChart"></canvas></div>
-</section>
-<section>
-<h2>Learning Resources</h2>
-<ul>
-<li>Learned from <a href="https://www.tiktok.com/@tradeinvestsimplify" target="_blank">Kenneth Suna</a> and <a href="https://www.kennethsuna.com" target="_blank">his website</a>.</li>
-<li>Check ETF overlap using <a href="https://www.etfrc.com/funds/overlap.php" target="_blank">ETFRC</a>.</li>
-<li>Time in the market beats timing the market.</li>
-</ul>
-</section>
-<section>
-<h2>Questions (Anonymous)</h2>
-<textarea id="questionInput" placeholder="Ask a question anonymously..."></textarea>
-<button onclick="postQuestion()">Post Question</button>
-<hr>
-<button onclick="adminLogin()">Admin Login</button>
-<p id="adminStatus"></p>
-<div id="qaList"></div>
-<p style="margin-top:25px;"><strong>DISCLAIMER!</strong> Always do your own research.</p>
-</section>
-<section style="text-align:center;"><button onclick="window.location.href='https://www.youtube.com/watch?v=7-QK_1oHoiQ'">Click me to lock in</button></section>
-<script>
-function toggleTheme(){document.body.classList.toggle("light");}
-new Chart(document.getElementById("individualChart"),{type:"pie",data:{labels:["VOO","FTEC / QQQM","SCHD","VXUS","Individual Stocks"],datasets:[{data:[40,30,15,10,5],backgroundColor:["red","blue","green","purple","orange"]}]},options:{plugins:{tooltip:{callbacks:{label:c=>`${c.label}: ${c.raw}%`}},legend:{position:"bottom"}}}});
-new Chart(document.getElementById("rothChart"),{type:"pie",data:{labels:["FTEC","VGT"],datasets:[{data:[50,50],backgroundColor:["red","blue"]}]},options:{plugins:{tooltip:{callbacks:{label:c=>`${c.label}: ${c.raw}%`}},legend:{position:"bottom"}}}});
-let growthChartInstance;
-function calculateGrowth(){const initialVal=+initial.value,contributionVal=+contribution.value,rateVal=+rate.value/100,yearsVal=+years.value;let total=initialVal,data=[];for(let i=1;i<=yearsVal;i++){total=(total+contributionVal)*(1+rateVal);data.push(Math.round(total));}result.innerHTML=`<strong>Final Value:</strong> $${Math.round(total)}`;if(growthChartInstance)growthChartInstance.destroy();growthChartInstance=new Chart(document.getElementById("growthChart"),{type:"line",data:{labels:data.map((_,i)=>i+1),datasets:[{label:"Portfolio Value",data,borderColor:"red",tension:.2}]}});}
-let questions=JSON.parse(localStorage.getItem("qa"))||[];function saveQA(){localStorage.setItem("qa",JSON.stringify(questions));}
-function adminLogin(){if(prompt("Admin password:")===adminPassword){isAdmin=true;adminStatus.innerHTML="<strong>Admin Mode Enabled</strong>";renderQA();}}
-function postQuestion(){if(!questionInput.value.trim())return;questions.unshift({q:questionInput.value,a:""});questionInput.value="";saveQA();renderQA();}
-function renderQA(){qaList.innerHTML="";questions.forEach((item,i)=>{const box=document.createElement("div");box.className="qa-box";box.innerHTML=`<p><strong>Q:</strong> ${item.q}</p>`+(item.a?`<p><strong>A:</strong> ${item.a}</p>`:"");if(isAdmin){const ta=document.createElement("textarea");ta.value=item.a;const btn=document.createElement("button");btn.textContent="Post Answer";btn.onclick=()=>{questions[i].a=ta.value;saveQA();renderQA();};const del=document.createElement("button");del.textContent="Delete";del.onclick=()=>{questions.splice(i,1);saveQA();renderQA();};box.append(ta,btn,del);}qaList.appendChild(box);});}
-renderQA();
-</script>
-</body>
-</html>
+
+<div
+
+  
