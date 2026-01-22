@@ -23,6 +23,7 @@ window.onload = checkPassword;
 <style>
 html { scroll-behavior: smooth; }
 
+/* ===== THEME VARIABLES ===== */
 :root {
   --bg-main: linear-gradient(to bottom, #0b0b0b, #050505);
   --bg-section: #0b0b0b;
@@ -41,6 +42,7 @@ body.light {
   --link: #000000;
 }
 
+/* ===== BASE STYLES ===== */
 body {
   font-family: 'Segoe UI', sans-serif;
   background: var(--bg-main);
@@ -88,7 +90,7 @@ body.light button {
   margin: 30px auto;
 }
 
-input {
+input, textarea {
   background:#111;
   color:#fff;
   border:1px solid var(--border);
@@ -98,7 +100,8 @@ input {
   margin-bottom:10px;
 }
 
-body.light input {
+body.light input,
+body.light textarea {
   background:#f2f2f2;
   color:#000;
 }
@@ -175,6 +178,45 @@ Make sure to always check
 </div>
 </section>
 
+<section>
+<h2>Compound Interest Calculator</h2>
+
+<input id="initial" type="number" value="1000">
+<input id="contribution" type="number" value="6000">
+<input id="rate" type="number" value="8">
+<input id="years" type="number" value="30">
+
+<button onclick="calculateCompound()">Calculate Growth</button>
+
+<div id="result" style="margin-top:20px;"></div>
+</section>
+
+<section>
+<h2>Growth Over Time</h2>
+<div class="chart-container">
+<canvas id="growthChart"></canvas>
+</div>
+</section>
+
+<section>
+<h2>Questions?</h2>
+<form action="mailto:youremail@example.com" method="post">
+<textarea rows="4"></textarea><br><br>
+<button>Send</button>
+</form>
+
+<p style="margin-top:25px;">
+<strong>DISCLAIMER!</strong> Just because me or someone else tells you to invest into a stock or ETF doesn’t mean you should.
+<strong>ALWAYS do your own research before purchasing any stock.</strong>
+</p>
+</section>
+
+<section style="text-align:center;">
+<button onclick="window.location.href='https://www.youtube.com/watch?v=7-QK_1oHoiQ'">
+Click me to lock in
+</button>
+</section>
+
 <script>
 function getLegendColor() {
   return document.body.classList.contains('light') ? '#000000' : '#e6e6e6';
@@ -223,10 +265,60 @@ const rothChart = new Chart(document.getElementById('rothChart'), {
   }
 });
 
+let growthChart;
+function calculateCompound() {
+  const initial = +document.getElementById('initial').value;
+  const contribution = +document.getElementById('contribution').value;
+  const rate = +document.getElementById('rate').value / 100;
+  const years = +document.getElementById('years').value;
+
+  let balance = initial;
+  let total = initial;
+  let values = [];
+  let labels = [];
+
+  for (let i = 1; i <= years; i++) {
+    balance = balance * (1 + rate) + contribution;
+    total += contribution;
+    values.push(balance);
+    labels.push(`Year ${i}`);
+  }
+
+  document.getElementById('result').innerHTML = `
+    <p><strong>Final Balance:</strong> $${balance.toLocaleString()}</p>
+    <p><strong>Total Contributions:</strong> $${total.toLocaleString()}</p>
+    <p><strong>Total Interest Earned:</strong> $${(balance-total).toLocaleString()}</p>
+  `;
+
+  if (growthChart) growthChart.destroy();
+
+  const isLight = document.body.classList.contains('light');
+
+  growthChart = new Chart(document.getElementById('growthChart'), {
+    type:'line',
+    data:{ labels, datasets:[{
+      label:'Portfolio Value',
+      data:values,
+      borderColor:isLight ? '#000' : '#ff4d4d',
+      backgroundColor:isLight ? 'rgba(0,0,0,0.15)' : 'rgba(255,77,77,0.15)',
+      fill:true,
+      tension:0.3
+    }]},
+    options:{
+      plugins:{ legend:{ labels:{ color:getLegendColor() }}},
+      scales:{
+        x:{ ticks:{ color:getLegendColor() }},
+        y:{ ticks:{ color:getLegendColor() }}
+      }
+    }
+  });
+}
+
 function toggleTheme() {
   document.body.classList.toggle('light');
   individualChart.options.plugins.legend.labels.color = getLegendColor();
   rothChart.options.plugins.legend.labels.color = getLegendColor();
+  if (growthChart) calculateCompound();
   individualChart.update();
   rothChart.update();
 }
