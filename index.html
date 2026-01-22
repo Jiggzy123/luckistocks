@@ -21,16 +21,13 @@ window.onload = checkPassword;
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
-html {
-  scroll-behavior: smooth;
-}
+html { scroll-behavior: smooth; }
 
 body {
   font-family: 'Segoe UI', sans-serif;
   background: linear-gradient(to bottom, #0b0b0b, #050505);
   color: #e6e6e6;
   margin: 0;
-  padding: 0;
 }
 
 section {
@@ -41,27 +38,12 @@ section {
   border: 1px solid #b00000;
   border-radius: 14px;
   box-shadow: 0 0 18px rgba(176,0,0,0.15);
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
-section:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 0 30px rgba(176,0,0,0.3);
-}
+h1, h2, h3 { color: #c40000; font-weight: 800; }
 
-h1, h2, h3 {
-  color: #c40000;
-  font-weight: 800;
-}
-
-a {
-  color: #ff4d4d;
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
-}
+a { color: #ff4d4d; text-decoration: none; }
+a:hover { text-decoration: underline; }
 
 button {
   background: #b00000;
@@ -73,16 +55,16 @@ button {
   cursor: pointer;
 }
 
-.chart-container {
-  max-width: 500px;
-  margin: 30px auto;
-}
+.chart-container { max-width: 500px; margin: 30px auto; }
 
 input {
   background:#111;
   color:#fff;
   border:1px solid #b00000;
   border-radius:6px;
+  width:100%;
+  padding:8px;
+  margin-bottom:10px;
 }
 </style>
 </head>
@@ -92,10 +74,10 @@ input {
 <section>
 <h1>Investing for Beginners</h1>
 <p>
-This is just my personal opinion and the stocks/ETFs I personally invest in.
+This is just my personal opinion and the ETFs I personally invest in.
 <strong>I AM NOT A FINANCIAL ADVISOR.</strong>
 </p>
-<p><strong>Last Updated:</strong> 2026-01-22</p>
+<p style="text-align:center;"><strong>Last Updated:</strong> 2026-01-22</p>
 </section>
 
 <section>
@@ -139,79 +121,40 @@ This is just my personal opinion and the stocks/ETFs I personally invest in.
 
 <h3>Individual Brokerage Account</h3>
 <p>
-An individual brokerage account offers flexibility and no contribution limits.
-However, dividends and capital gains are taxable.
+Flexible investing with no contribution limits, but dividends and capital gains are taxable.
 </p>
 
 <h3>Roth IRA</h3>
 <p>
-A Roth IRA grows tax-free. Contributions are taxed upfront, but qualified
-withdrawals in retirement are completely tax-free.
+Tax-free growth and withdrawals in retirement after contributing post-tax dollars.
 </p>
 
 <h3>Taxes & Compound Interest</h3>
 <p>
-Avoiding taxes allows compound interest to accelerate growth over long periods.
+Reducing taxes allows compound interest to grow uninterrupted over decades.
 </p>
 </section>
-
-<!-- 🔽 COMPOUND INTEREST CALCULATOR (ADDED, NOTHING ELSE TOUCHED) -->
 
 <section>
 <h2>Compound Interest Calculator</h2>
 
 <p>
 This calculator demonstrates how compound interest grows your money over time.
-It assumes annual compounding and consistent yearly contributions.
 </p>
 
-<label>Initial Investment ($)</label>
-<input type="number" id="initial" value="1000" style="width:100%;padding:8px;margin-bottom:10px;">
-
-<label>Yearly Contribution ($)</label>
-<input type="number" id="contribution" value="6000" style="width:100%;padding:8px;margin-bottom:10px;">
-
-<label>Annual Return (%)</label>
-<input type="number" id="rate" value="8" style="width:100%;padding:8px;margin-bottom:10px;">
-
-<label>Years Invested</label>
-<input type="number" id="years" value="30" style="width:100%;padding:8px;margin-bottom:15px;">
+<input type="number" id="initial" value="1000" placeholder="Initial Investment">
+<input type="number" id="contribution" value="6000" placeholder="Yearly Contribution">
+<input type="number" id="rate" value="8" placeholder="Annual Return (%)">
+<input type="number" id="years" value="30" placeholder="Years Invested">
 
 <button onclick="calculateCompound()">Calculate Growth</button>
 
 <div id="result" style="margin-top:20px;"></div>
+
+<div class="chart-container">
+<canvas id="growthChart"></canvas>
+</div>
 </section>
-
-<script>
-function calculateCompound() {
-  const initial = parseFloat(document.getElementById('initial').value);
-  const contribution = parseFloat(document.getElementById('contribution').value);
-  const rate = parseFloat(document.getElementById('rate').value) / 100;
-  const years = parseInt(document.getElementById('years').value);
-
-  let balance = initial;
-  let totalContributions = initial;
-
-  for (let i = 1; i <= years; i++) {
-    balance = balance * (1 + rate) + contribution;
-    totalContributions += contribution;
-  }
-
-  const interestEarned = balance - totalContributions;
-
-  document.getElementById('result').innerHTML = `
-    <h3>Results</h3>
-    <p><strong>Final Balance:</strong> $${balance.toLocaleString(undefined,{maximumFractionDigits:0})}</p>
-    <p><strong>Total Contributions:</strong> $${totalContributions.toLocaleString()}</p>
-    <p><strong>Total Interest Earned:</strong> $${interestEarned.toLocaleString(undefined,{maximumFractionDigits:0})}</p>
-
-    <p style="margin-top:15px;">
-      This highlights how time and tax efficiency amplify compound interest.
-      Long-term investing benefits greatly from tax-advantaged accounts like a Roth IRA.
-    </p>
-  `;
-}
-</script>
 
 <section>
 <h2>Learning Resources</h2>
@@ -225,8 +168,7 @@ function calculateCompound() {
 <section>
 <h2>Questions?</h2>
 <form action="mailto:youremail@example.com" method="post" enctype="text/plain">
-<textarea name="question" rows="4" style="width:100%;"></textarea>
-<br><br>
+<textarea name="question" rows="4" style="width:100%;"></textarea><br><br>
 <button type="submit">Send</button>
 </form>
 </section>
@@ -238,28 +180,75 @@ Click me to lock in
 </section>
 
 <script>
-new Chart(document.getElementById('individualChart'), {
-type: 'pie',
-data: {
-labels: ['VOO','FTEC','QQQM','SCHD','Individual'],
-datasets: [{
-data: [35,25,20,15,5],
-backgroundColor: ['#ff4d4d','#ff884d','#ffd24d','#4dff88','#888888']
-}]
-},
-options: { plugins:{ legend:{ labels:{ color:'#e6e6e6' }}}}
+let growthChart;
+
+function calculateCompound() {
+  const initial = +initial.value;
+  const contribution = +contribution.value;
+  const rate = +rate.value / 100;
+  const years = +years.value;
+
+  let balance = initial;
+  let total = initial;
+  let data = [];
+  let labels = [];
+
+  for (let i = 1; i <= years; i++) {
+    balance = balance * (1 + rate) + contribution;
+    total += contribution;
+    data.push(balance);
+    labels.push("Year " + i);
+  }
+
+  result.innerHTML = `
+    <h3>Results</h3>
+    <p><strong>Final Balance:</strong> $${balance.toLocaleString()}</p>
+    <p><strong>Total Contributions:</strong> $${total.toLocaleString()}</p>
+    <p><strong>Total Interest Earned:</strong> $${(balance-total).toLocaleString()}</p>
+  `;
+
+  if (growthChart) growthChart.destroy();
+  growthChart = new Chart(growthChartCanvas, {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [{
+        label: 'Portfolio Value',
+        data,
+        borderColor: '#ff4d4d',
+        backgroundColor: 'rgba(255,77,77,0.15)',
+        fill: true,
+        tension: 0.3
+      }]
+    },
+    options: {
+      plugins:{ legend:{ labels:{ color:'#e6e6e6' }}},
+      scales:{
+        x:{ ticks:{ color:'#e6e6e6' }},
+        y:{ ticks:{ color:'#e6e6e6' }}
+      }
+    }
+  });
+}
+
+const growthChartCanvas = document.getElementById('growthChart');
+</script>
+
+<script>
+new Chart(individualChart, {
+type:'pie',
+data:{labels:['VOO','FTEC','QQQM','SCHD','Individual'],
+datasets:[{data:[35,25,20,15,5],
+backgroundColor:['#ff4d4d','#ff884d','#ffd24d','#4dff88','#888888']}]},
+options:{plugins:{legend:{labels:{color:'#e6e6e6'}}}}
 });
 
-new Chart(document.getElementById('rothChart'), {
-type: 'pie',
-data: {
-labels: ['FTEC','VGT'],
-datasets: [{
-data: [50,50],
-backgroundColor: ['#ff4d4d','#ffd24d']
-}]
-},
-options: { plugins:{ legend:{ labels:{ color:'#e6e6e6' }}}}
+new Chart(rothChart,{
+type:'pie',
+data:{labels:['FTEC','VGT'],
+datasets:[{data:[50,50],
+backgroundColor:['#ff4d4d','#ffd24d']}]},
+options:{plugins:{legend:{labels:{color:'#e6e6e6'}}}}
 });
 </script>
 
