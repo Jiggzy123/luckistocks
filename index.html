@@ -140,21 +140,114 @@ This is just my personal opinion and the ETFs I personally invest in.
 <section>
 <h2>Fundamentals</h2>
 <ul>
-  <li><strong>Roth IRA vs Individual Account:</strong> A Roth IRA offers tax-free growth and withdrawals in retirement, but has contribution limits and income restrictions. An individual brokerage account has no contribution limits or income requirements, but you pay taxes on dividends and capital gains.</li>
-  <li><strong>Roth IRA vs 401k:</strong> A Roth IRA is funded with after-tax money and grows tax-free, while a 401k is typically pre-tax and taxed upon withdrawal. 401ks often include employer matching.</li>
-  <li><strong>What is an ETF:</strong> An ETF (Exchange-Traded Fund) is a collection of stocks or assets that trades like a stock and provides instant diversification.</li>
-  <li><strong>What are dividends:</strong> Dividends are payments companies make to shareholders from profits, either as income or reinvested.</li>
-  <li><strong>Why invest:</strong> Investing allows your money to grow over time through compound interest and helps beat inflation.</li>
+  <li><strong>Roth IRA vs Individual Account:</strong> A Roth IRA offers tax-free growth and withdrawals in retirement but has contribution and income limits. An individual brokerage account has no limits, but dividends and capital gains are taxable.</li>
+  <li><strong>Roth IRA vs 401k:</strong> Roth IRAs are funded with after-tax dollars and grow tax-free. 401ks are usually pre-tax and taxed at withdrawal, often with employer matching.</li>
+  <li><strong>What is an ETF:</strong> An ETF is a basket of investments that trades like a stock, offering diversification and usually low fees.</li>
+  <li><strong>What are dividends:</strong> Dividends are profit payments companies distribute to shareholders, which can be reinvested or taken as income.</li>
+  <li><strong>Why invest:</strong> Investing helps grow wealth over time, beat inflation, and take advantage of compound interest.</li>
 </ul>
 </section>
 
-<!-- ALL OTHER SECTIONS ABOVE REMAIN UNCHANGED -->
+<section>
+<h2>Recommended ETFs</h2>
+
+<h3><a href="https://www.google.com/finance/quote/VOO:NYSEARCA" target="_blank">VOO</a></h3>
+<p>Tracks the S&P 500, providing exposure to the 500 largest U.S. companies.</p>
+
+<h3><a href="https://www.google.com/finance/quote/VXUS:NYSEARCA" target="_blank">VXUS</a></h3>
+<p>International diversification outside the U.S.</p>
+
+<h3><a href="https://www.google.com/finance/quote/SCHD:NYSEARCA" target="_blank">SCHD</a></h3>
+<p>Dividend-focused ETF with stable income.</p>
+
+<hr>
+
+<h3>TECH ETFs</h3>
+
+<h4><a href="https://www.google.com/finance/quote/QQQM:NASDAQ" target="_blank">QQQM</a></h4>
+<p>Nasdaq-100 growth-focused ETF.</p>
+
+<h4><a href="https://www.google.com/finance/quote/FTEC:NYSEARCA" target="_blank">FTEC</a></h4>
+<p>Broad U.S. technology exposure with low expense ratio.</p>
+
+<h4><a href="https://www.google.com/finance/quote/VGT:NYSEARCA" target="_blank">VGT</a></h4>
+<p>Concentrated information technology ETF.</p>
+
+<p><strong>Note:</strong> I’d only recommend one per portfolio — just showing multiple options!
+Make sure to always check <a href="https://www.etfrc.com/funds/overlap.php" target="_blank">overlap</a> too.</p>
+</section>
+
+<section>
+<h2>My Portfolio</h2>
+
+<div class="chart-container">
+<h3>Individual Account</h3>
+<canvas id="individualChart"></canvas>
+<p><em>Percentages fixed to fit diagram better.</em></p>
+</div>
+
+<div class="chart-container">
+<h3>Roth IRA</h3>
+<canvas id="rothChart"></canvas>
+<p><em>Percentages fixed to fit diagram better.</em></p>
+</div>
+</section>
+
+<section>
+<h2>Compound Interest Calculator</h2>
+
+<input id="initial" type="number" value="1000">
+<input id="contribution" type="number" value="6000">
+<input id="rate" type="number" value="8">
+<input id="years" type="number" value="30">
+
+<div>
+  <button onclick="setMode('annual')">Annual Contributions</button>
+  <button onclick="setMode('monthly')">Monthly Contributions</button>
+</div>
+
+<p id="modeStatus"><strong>Annual Contributions ON</strong></p>
+
+<button onclick="calculateCompound()">Calculate Growth</button>
+
+<div id="result" style="margin-top:20px;"></div>
+</section>
+
+<section>
+<h2>Growth Over Time</h2>
+<div class="chart-container">
+  <canvas id="growthChart"></canvas>
+</div>
+</section>
+
+<section>
+<h2>Learning Resources</h2>
+<ul>
+  <li>I personally learned 90% of what I know from
+    <a href="https://www.tiktok.com/@tradeinvestsimplify" target="_blank">Kenneth Suna</a>
+    and his <a href="https://www.kennethsuna.com" target="_blank">website</a>.
+  </li>
+  <li>Make sure to always check funds for
+    <a href="https://www.etfrc.com/funds/overlap.php" target="_blank">overlap</a>.
+  </li>
+  <li>Time in the market is always better than timing the market.</li>
+</ul>
+
+<h3>Popular Brokerages</h3>
+<ul>
+  <li><a href="https://www.fidelity.com" target="_blank">Fidelity</a></li>
+  <li><a href="https://www.vanguard.com" target="_blank">Vanguard</a></li>
+  <li><a href="https://www.schwab.com" target="_blank">Charles Schwab</a></li>
+</ul>
+</section>
 
 <section>
 <h2>Questions (Anonymous)</h2>
 
 <textarea id="questionInput" rows="3" placeholder="Ask a question anonymously..."></textarea>
 <button onclick="postQuestion()">Post Question</button>
+
+<hr>
 
 <button onclick="adminLogin()">Admin Login</button>
 <p id="adminStatus"></p>
@@ -168,7 +261,15 @@ Everybody has different amount's of money that they are comfortable willing to s
 </p>
 </section>
 
+<section style="text-align:center;">
+<button onclick="window.location.href='https://www.youtube.com/watch?v=7-QK_1oHoiQ'">
+Click me to lock in
+</button>
+</section>
+
 <script>
+let growthChart;
+let contributionMode = "annual";
 let questions = JSON.parse(localStorage.getItem("qa")) || [];
 
 function saveQA() {
@@ -179,64 +280,77 @@ function adminLogin() {
   const pass = prompt("Admin password:");
   if (pass === password) {
     isAdmin = true;
-    document.getElementById("adminStatus").innerHTML = "<strong>Admin mode enabled</strong>";
+    document.getElementById("adminStatus").innerHTML = "<strong>Admin Mode Enabled</strong>";
     renderQA();
   }
 }
 
 function postQuestion() {
-  const input = document.getElementById("questionInput");
-  if (!input.value.trim()) return;
-  questions.unshift({ question: input.value, answer: "" });
-  input.value = "";
+  const q = document.getElementById("questionInput").value.trim();
+  if (!q) return;
+  questions.unshift({ question: q, answer: "" });
+  document.getElementById("questionInput").value = "";
   saveQA();
   renderQA();
 }
 
 function renderQA() {
-  const container = document.getElementById("qaList");
-  container.innerHTML = "";
-
-  questions.forEach((q, index) => {
+  const list = document.getElementById("qaList");
+  list.innerHTML = "";
+  questions.forEach((q, i) => {
     const div = document.createElement("div");
     div.className = "qa-box";
-
-    div.innerHTML = `
-      <p><strong>Question:</strong> ${q.question}</p>
-      ${q.answer ? `<p><strong>Answer:</strong> ${q.answer}</p>` : ""}
-    `;
+    div.innerHTML = `<p><strong>Question:</strong> ${q.question}</p>${q.answer ? `<p><strong>Answer:</strong> ${q.answer}</p>` : ""}`;
 
     if (isAdmin) {
       const ta = document.createElement("textarea");
-      ta.placeholder = "Write answer...";
       ta.value = q.answer;
-
-      const answerBtn = document.createElement("button");
-      answerBtn.textContent = "Post / Update Answer";
-      answerBtn.onclick = () => {
-        questions[index].answer = ta.value;
+      const btn = document.createElement("button");
+      btn.textContent = "Post / Update Answer";
+      btn.onclick = () => {
+        questions[i].answer = ta.value;
         saveQA();
         renderQA();
       };
-
-      const deleteBtn = document.createElement("button");
-      deleteBtn.textContent = "Delete Question";
-      deleteBtn.onclick = () => {
-        questions.splice(index, 1);
+      const del = document.createElement("button");
+      del.textContent = "Delete";
+      del.onclick = () => {
+        questions.splice(i,1);
         saveQA();
         renderQA();
       };
-
       div.appendChild(ta);
-      div.appendChild(answerBtn);
-      div.appendChild(deleteBtn);
+      div.appendChild(btn);
+      div.appendChild(del);
     }
-
-    container.appendChild(div);
+    list.appendChild(div);
   });
 }
-
 renderQA();
+</script>
+
+<script>
+new Chart(document.getElementById('individualChart'), {
+  type:'pie',
+  data:{
+    labels:['VOO','FTEC / QQQM','SCHD','VXUS','Individual Stocks'],
+    datasets:[{
+      data:[40,30,15,10,5],
+      backgroundColor:['red','blue','green','purple','orange']
+    }]
+  }
+});
+
+new Chart(document.getElementById('rothChart'), {
+  type:'pie',
+  data:{
+    labels:['FTEC','VGT'],
+    datasets:[{
+      data:[50,50],
+      backgroundColor:['red','blue']
+    }]
+  }
+});
 </script>
 
 </body>
