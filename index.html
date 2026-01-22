@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Investing for Beginners</title>
 
-<!-- Password Protection -->
 <script>
 const password = "Lucki";
 function checkPassword() {
@@ -30,8 +29,6 @@ window.onload = checkPassword;
   --text: #e5e7eb;
 }
 
-* { box-sizing: border-box; }
-
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -40,19 +37,11 @@ body {
   line-height: 1.65;
 }
 
-h1, h2, h3 {
-  font-weight: 600;
-  letter-spacing: -0.02em;
-}
-
-h1 { color: white; }
+h1, h2, h3 { font-weight: 600; }
 h2 { color: var(--accent); }
 h3 { color: #c7d2fe; }
 
-a {
-  color: var(--accent);
-  text-decoration: none;
-}
+a { color: var(--accent); text-decoration: none; }
 a:hover { opacity: 0.85; }
 
 section {
@@ -64,32 +53,23 @@ section {
   box-shadow: 0 10px 30px rgba(0,0,0,0.35);
 }
 
-p { margin-bottom: 16px; color: var(--muted); }
+p { color: var(--muted); }
 
 button {
   background: linear-gradient(90deg, #38bdf8, #22c55e);
   color: #020617;
   border: none;
-  padding: 12px 22px;
+  padding: 10px 18px;
   border-radius: 10px;
   font-weight: 600;
   cursor: pointer;
-  transition: transform 0.15s ease, opacity 0.15s ease;
-}
-button:hover {
-  transform: translateY(-1px);
-  opacity: 0.9;
+  margin-right: 8px;
 }
 
-textarea {
-  width: 100%;
-  padding: 12px;
-  border-radius: 10px;
-  border: none;
-  font-size: 1em;
-  margin-bottom: 12px;
+button.secondary {
   background: #020617;
   color: var(--text);
+  border: 1px solid #1f2933;
 }
 
 .chart-container {
@@ -97,14 +77,16 @@ textarea {
   margin: 30px auto;
 }
 
-ul { padding-left: 20px; }
-
-#answers p {
-  background: #020617;
-  padding: 14px;
+textarea {
+  width: 100%;
+  padding: 12px;
   border-radius: 10px;
+  border: none;
+  background: #020617;
   color: var(--text);
 }
+
+.hidden { display: none; }
 </style>
 </head>
 
@@ -113,8 +95,7 @@ ul { padding-left: 20px; }
 <section>
   <h1>Investing for Beginners</h1>
   <p>
-    This is just my personal opinion and the stocks/ETFs I personally invest in.
-    Please do your own research before buying any stock.
+    This is just my personal opinion. Please do your own research.
     <strong>I AM NOT A FINANCIAL ADVISOR.</strong>
   </p>
   <p><strong>Last updated:</strong> 2026-01-22</p>
@@ -123,17 +104,45 @@ ul { padding-left: 20px; }
 <section>
   <h2>Recommended ETFs</h2>
 
-  <h3><a href="https://www.vanguard.com/VOO" target="_blank">VOO</a></h3>
-  <p>Tracks the S&P 500, providing broad U.S. market exposure with low fees.</p>
+  <h3>
+    <a href="https://finance.yahoo.com/quote/VOO" target="_blank">VOO</a>
+  </h3>
+  <p>
+    Vanguard S&P 500 ETF providing broad exposure to the largest U.S. companies.
+  </p>
 
-  <h3><a href="https://www.invesco.com/qqqm-etf" target="_blank">QQQM / FTEC / VGT</a></h3>
-  <p>Tech-focused ETFs offering exposure to major growth companies.</p>
+  <h3>Tech ETFs (click to switch)</h3>
+  <button class="secondary" onclick="showETF('qqqm')">QQQM</button>
+  <button class="secondary" onclick="showETF('ftec')">FTEC</button>
+  <button class="secondary" onclick="showETF('vgt')">VGT</button>
 
-  <h3><a href="https://www.schwab.com/schd-etf" target="_blank">SCHD</a></h3>
-  <p>Dividend-focused ETF with high-quality U.S. companies.</p>
+  <div id="qqqm">
+    <p>
+      <a href="https://finance.yahoo.com/quote/QQQM" target="_blank">QQQM</a> tracks the Nasdaq-100,
+      focused on large-cap growth and tech companies.
+    </p>
+  </div>
 
-  <h3><a href="https://investor.vanguard.com/etf/profile/VXUS" target="_blank">VXUS</a></h3>
-  <p>Broad international stock exposure outside the U.S.</p>
+  <div id="ftec" class="hidden">
+    <p>
+      <a href="https://finance.yahoo.com/quote/FTEC" target="_blank">FTEC</a> provides broad U.S.
+      technology exposure with a very low expense ratio.
+    </p>
+  </div>
+
+  <div id="vgt" class="hidden">
+    <p>
+      <a href="https://finance.yahoo.com/quote/VGT" target="_blank">VGT</a> is Vanguard’s tech ETF,
+      holding many of the largest U.S. tech companies.
+    </p>
+  </div>
+
+  <h3>
+    <a href="https://finance.yahoo.com/quote/SCHD" target="_blank">SCHD</a>
+  </h3>
+  <p>
+    Dividend-focused ETF emphasizing quality and consistency.
+  </p>
 </section>
 
 <section>
@@ -142,26 +151,12 @@ ul { padding-left: 20px; }
   <div class="chart-container">
     <h3>Individual Account</h3>
     <canvas id="individualChart"></canvas>
-    <p>Percentages are rounded and may change over time.</p>
   </div>
 
   <div class="chart-container">
     <h3>Roth IRA</h3>
     <canvas id="rothChart"></canvas>
-    <p>Long-term tax-advantaged growth strategy.</p>
   </div>
-</section>
-
-<section>
-  <h2>Individual Stocks</h2>
-
-  <h3><a href="https://www.nasdaq.com/market-activity/stocks/SLV" target="_blank">SLV</a></h3>
-  <p>Silver exposure for diversification and inflation hedging.</p>
-
-  <h3><a href="https://www.nasdaq.com/market-activity/stocks/GLD" target="_blank">GLD</a></h3>
-  <p>Gold exposure for stability during market uncertainty.</p>
-
-  <p><strong>Tip:</strong> Build ETFs first before individual stocks.</p>
 </section>
 
 <section>
@@ -188,12 +183,6 @@ ul { padding-left: 20px; }
     <textarea name="question" rows="4" placeholder="Type your question here..."></textarea>
     <button type="submit">Send Question</button>
   </form>
-
-  <div id="answers">
-    <h3>My Answers</h3>
-    <p><strong>Q:</strong> How do I start investing?<br>
-       <strong>A:</strong> Start with low-cost ETFs and stay consistent.</p>
-  </div>
 </section>
 
 <section style="text-align:center;">
@@ -203,6 +192,13 @@ ul { padding-left: 20px; }
 </section>
 
 <script>
+function showETF(id) {
+  ["qqqm","ftec","vgt"].forEach(e => {
+    document.getElementById(e).classList.add("hidden");
+  });
+  document.getElementById(id).classList.remove("hidden");
+}
+
 window.addEventListener("load", () => {
 
   new Chart(document.getElementById("individualChart"), {
@@ -213,11 +209,6 @@ window.addEventListener("load", () => {
         data: [35,25,20,15,5],
         backgroundColor: ["#38bdf8","#22c55e","#facc15","#a855f7","#ef4444"]
       }]
-    },
-    options: {
-      plugins: {
-        legend: { position: "bottom", labels: { color: "#e5e7eb" } }
-      }
     }
   });
 
@@ -229,11 +220,6 @@ window.addEventListener("load", () => {
         data: [50,50],
         backgroundColor: ["#facc15","#38bdf8"]
       }]
-    },
-    options: {
-      plugins: {
-        legend: { position: "bottom", labels: { color: "#e5e7eb" } }
-      }
     }
   });
 
