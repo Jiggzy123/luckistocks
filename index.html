@@ -1,239 +1,287 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Investing for Beginners</title>
-  <script>
-    // Password protection
-    const password = "Lucki";
-    function checkPassword() {
-      const userPass = prompt("Enter password to view this page:");
-      if(userPass !== password) {
-        alert("Incorrect password. Refresh to try again.");
-        document.body.innerHTML = "<h2 style='color:#E0E1DD; text-align:center; margin-top:20%;'>Access Denied</h2>";
-      }
-    }
-    window.onload = checkPassword;
-  </script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <style>
-    /* General Layout */
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #0D1B2A;
-      color: #E0E1DD;
-      line-height: 1.6;
-      margin: 0;
-      padding: 0;
-    }
-    a {
-      color: #4FD1C5;
-      text-decoration: none;
-    }
-    a:hover {
-      color: #00B7C2;
-    }
-    h1, h2, h3 {
-      color: #00B7C2;
-    }
-    section {
-      max-width: 900px;
-      margin: 40px auto;
-      padding: 20px;
-      background-color: #112D4E;
-      border-radius: 12px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-    }
-    p {
-      margin-bottom: 15px;
-    }
-    .stock, .etf {
-      margin-bottom: 20px;
-    }
-    button {
-      background: linear-gradient(90deg, #00B7C2, #4FD1C5);
-      color: #0D1B2A;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: 0.3s;
-    }
-    button:hover {
-      opacity: 0.85;
-    }
-    textarea {
-      width: 100%;
-      border-radius: 8px;
-      border: none;
-      padding: 10px;
-      font-size: 1em;
-      margin-bottom: 10px;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Investing for Beginners</title>
 
-    /* Pie Charts */
-    .chart-container {
-      width: 100%;
-      max-width: 500px;
-      margin: 30px auto;
-    }
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    /* Answers Section */
-    #answers a {
-      color: #F6AE2D;
-    }
-    #answers p {
-      background-color: #1B263B;
-      padding: 12px;
-      border-radius: 8px;
-    }
-  </style>
+<!-- Password Protection (visual only) -->
+<script>
+const PASSWORD = "Lucki";
+window.onload = () => {
+  const pass = prompt("Enter password:");
+  if (pass !== PASSWORD) {
+    document.body.innerHTML =
+      "<h2 style='text-align:center;margin-top:20%'>Access Denied</h2>";
+  }
+};
+</script>
+
+<style>
+:root {
+  --bg:#0D1B2A;
+  --card:#112D4E;
+  --text:#E0E1DD;
+  --accent:#00B7C2;
+}
+
+[data-theme="light"] {
+  --bg:#F6F8FA;
+  --card:#FFFFFF;
+  --text:#1A1A1A;
+}
+
+body {
+  margin:0;
+  font-family: system-ui, sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
+
+section {
+  max-width:900px;
+  margin:40px auto;
+  padding:24px;
+  background:var(--card);
+  border-radius:16px;
+  box-shadow:0 10px 30px rgba(0,0,0,.15);
+}
+
+h1,h2,h3 { color:var(--accent); }
+
+button {
+  padding:8px 14px;
+  border-radius:20px;
+  border:none;
+  cursor:pointer;
+  font-weight:600;
+  margin:4px;
+}
+
+.toggle {
+  position:fixed;
+  top:16px;
+  right:16px;
+}
+
+.slider-group label {
+  display:flex;
+  justify-content:space-between;
+  margin-top:12px;
+}
+
+input[type=range] { width:100%; }
+
+.chart-box {
+  max-width:500px;
+  margin:30px auto;
+}
+
+ul li { margin-bottom:8px; }
+
+@media (max-width:600px) {
+  section { margin:20px; }
+  button { width:100%; }
+}
+</style>
 </head>
+
 <body>
 
-<!-- Intro / Disclaimer -->
+<button class="toggle" id="themeToggle">🌙</button>
+
 <section>
-  <h1>Investing for Beginners</h1>
-  <p>This is just my personal opinion and the stocks/ETFs I personally invest in. Please do your own research before buying any stock. <strong>I AM NOT A FINANCIAL ADVISOR AND THESE ARE JUST RECOMMENDATIONS.</strong></p>
-  <p>Date: 2026-01-22</p>
+<h1>Investing for Beginners</h1>
+<p><strong>Not financial advice.</strong> This is for education and personal opinion only.</p>
+<p><strong>Last updated:</strong> <span id="updated"></span></p>
 </section>
 
-<!-- Recommended ETFs -->
+<!-- PORTFOLIO -->
 <section>
-  <h2>Recommended ETFs</h2>
+<h2>Editable Portfolio</h2>
 
-  <div class="etf">
-    <h3><a href="https://www.vanguard.com/VOO" target="_blank">VOO</a></h3>
-    <p>VOO, the Vanguard S&P 500 ETF, is a popular, low-cost exchange-traded fund designed to mirror the performance of the S&P 500 Index, providing broad exposure to 500 of the largest U.S. companies for long-term growth. It's managed passively, holding stocks in similar proportions to the index, and offers significant diversification with minimal fees, making it a core holding for many investors seeking overall U.S. stock market returns.</p>
-  </div>
+<div class="slider-group">
+<label>VOO <span id="vooVal">35</span>%</label>
+<input id="voo" type="range" min="0" max="100" value="35">
 
-  <div class="etf">
-    <h3><a href="https://www.invesco.com/qqqm-etf" target="_blank">QQQM / FTEC / VGT</a></h3>
-    <p>QQQM, the Invesco NASDAQ 100 ETF, is a low-cost fund tracking the NASDAQ-100 Index, offering exposure to 100 of the largest non-financial companies on the Nasdaq exchange, primarily in tech and growth sectors like Apple, Microsoft, and NVIDIA. FTEC (Fidelity MSCI Information Technology Index ETF) and VGT (Vanguard Information Technology ETF) provide broad exposure to the U.S. tech sector with low expenses, ideal for long-term growth. Combined, these ETFs form a tech-focused backbone of a portfolio.</p>
-  </div>
+<label>FTEC <span id="ftecVal">25</span>%</label>
+<input id="ftec" type="range" min="0" max="100" value="25">
 
-  <div class="etf">
-    <h3><a href="https://www.schwab.com/schd-etf" target="_blank">SCHD</a></h3>
-    <p>SCHD (Schwab U.S. Dividend Equity ETF) is a low-cost ETF that tracks the Dow Jones U.S. Dividend 100 Index, focusing on high-quality, large-cap U.S. companies with strong, consistent dividends, serving as a core holding for diversified portfolios.</p>
-  </div>
+<label>SCHD <span id="schdVal">20</span>%</label>
+<input id="schd" type="range" min="0" max="100" value="20">
 
-  <div class="etf">
-    <h3><a href="https://investor.vanguard.com/etf/profile/VXUS" target="_blank">VXUS</a></h3>
-    <p>VXUS (Vanguard Total International Stock ETF) is a low-cost fund offering broad exposure to global stocks outside the U.S., covering over 98% of the world's investable non-U.S. market capitalization in developed and emerging markets. Ideal for long-term diversification.</p>
-  </div>
+<label>VXUS <span id="vxusVal">15</span>%</label>
+<input id="vxus" type="range" min="0" max="100" value="15">
+
+<label>Cash / Individual <span id="cashVal">5</span>%</label>
+<input id="cash" type="range" min="0" max="100" value="5">
+</div>
+
+<div class="chart-box">
+<canvas id="portfolioChart"></canvas>
+</div>
 </section>
 
-<!-- Portfolio Pie Charts -->
+<!-- ETF OVERLAP -->
 <section>
-  <h2>My Portfolio</h2>
-  <div class="chart-container">
-    <h3>Individual Account</h3>
-    <canvas id="individualChart"></canvas>
-    <p>These percentages are rounded for simplicity and do not mean they will stay the same. Invest for your future as you see fit.</p>
-  </div>
-  <div class="chart-container">
-    <h3>Roth IRA</h3>
-    <canvas id="rothChart"></canvas>
-    <p>These percentages are rounded for simplicity and do not mean they will stay the same. I switched from VGT to FTEC for a lower expense ratio and use Fidelity.</p>
-  </div>
+<h2>ETF Overlap (Educational)</h2>
+<p>Approximate overlap to show redundancy risk.</p>
+<canvas id="overlapChart"></canvas>
 </section>
 
-<!-- Individual Stocks -->
+<!-- BEGINNER MISTAKES -->
 <section>
-  <h2>Individual Stocks</h2>
-  <div class="stock">
-    <h3><a href="https://www.nasdaq.com/market-activity/stocks/SLV" target="_blank">SLV</a></h3>
-    <p>SLV (iShares Silver Trust) provides exposure to silver, a finite resource that can fight against inflation and balance your portfolio when markets are volatile. Use for diversification.</p>
-  </div>
-  <div class="stock">
-    <h3><a href="https://www.nasdaq.com/market-activity/stocks/GLD" target="_blank">GLD</a></h3>
-    <p>GLD (SPDR Gold Shares) provides exposure to gold, a classic hedge against inflation and market uncertainty. Gold is finite and helps diversify portfolios alongside traditional equities.</p>
-  </div>
-  <p><strong>Tip:</strong> Set up a foundation of ETFs before buying individual stocks. Individual stocks are riskier; do thorough research before investing.</p>
+<h2>Common Beginner Mistakes</h2>
+<ul>
+<li>❌ Buying individual stocks before ETFs</li>
+<li>❌ Overlapping ETFs unknowingly</li>
+<li>❌ Panic selling during downturns</li>
+<li>❌ Chasing hype</li>
+<li>❌ Ignoring expense ratios</li>
+</ul>
 </section>
 
-<!-- Learning Resources -->
+<!-- CONTRIBUTION CALCULATOR -->
 <section>
-  <h2>Learning Resources</h2>
-  <ul>
-    <li>Everything I learned came from <a href="https://www.tiktok.com/@tradeinvestsimplify" target="_blank">Kenneth Suna TikTok</a> and <a href="https://www.kennethsuna.com" target="_blank">Kenneth Suna Website</a>. He inspired this site.</li>
-    <li><a href="https://www.etfrc.com/funds/overlap.php" target="_blank">ETF Overlap Tool</a> – Easily compare ETF overlap.</li>
-    <li>Roth IRA vs Individual Brokerage accounts – Understand differences before investing.</li>
-  </ul>
+<h2>Yearly Contribution Calculator</h2>
+<p>Consistency + time matter more than timing.</p>
+
+<div>
+<button onclick="preset(200,30,7)">Starter</button>
+<button onclick="preset(583,30,7)">Roth Max</button>
+<button onclick="preset(1000,25,8)">Aggressive</button>
+</div>
+
+<div class="slider-group">
+<label>Monthly Contribution ($)
+<span id="monthlyVal">500</span></label>
+<input type="range" min="50" max="5000" step="50" value="500" id="monthly">
+
+<label>Years Investing
+<span id="yearsVal">20</span></label>
+<input type="range" min="1" max="40" value="20" id="years">
+
+<label>Expected Annual Return (%)
+<span id="returnVal">7</span></label>
+<input type="range" min="1" max="12" step="0.5" value="7" id="return">
+
+<label>
+<input type="checkbox" id="inflationToggle" checked>
+Adjust for inflation (3%)
+</label>
+
+<label>Stop Contributions After Year
+<span id="stopVal">Never</span></label>
+<input id="stop" type="range" min="0" max="40" value="0">
+</div>
+
+<div class="chart-box">
+<canvas id="growthChart"></canvas>
+</div>
+
+<p><strong>Total Contributed:</strong> $<span id="contributed"></span></p>
+<p><strong>Estimated Value:</strong> $<span id="finalValue"></span></p>
+<p><strong>Growth:</strong> $<span id="growth"></span></p>
+<p><strong>Taxable (15% CG):</strong> $<span id="taxableVal"></span></p>
+<p><strong>Roth IRA:</strong> $<span id="rothVal"></span></p>
 </section>
 
-<!-- Popular Brokerages -->
-<section>
-  <h2>Popular Brokerages</h2>
-  <ul>
-    <li><a href="https://investor.vanguard.com/" target="_blank">Vanguard</a></li>
-    <li><a href="https://www.fidelity.com/" target="_blank">Fidelity</a></li>
-    <li><a href="https://www.schwab.com/" target="_blank">Charles Schwab</a></li>
-  </ul>
-  <p>These are some of the most popular brokerages for beginners and experienced investors alike.</p>
-</section>
-
-<!-- Questions Box -->
-<section id="questions">
-  <h2>Questions? Ask Me!</h2>
-  <p>Type your question below and send it to me. I’ll respond with a text or YouTube video!</p>
-  
-  <form action="mailto:youremail@example.com" method="post" enctype="text/plain">
-    <textarea name="question" rows="4" placeholder="Type your question here..."></textarea>
-    <br>
-    <button type="submit">Send Question</button>
-  </form>
-
-  <div id="answers">
-    <h3>My Answers:</h3>
-    <p><strong>Q:</strong> How do I start investing? <br>
-   <strong>A:</strong> Start small with low-cost ETFs, diversify your portfolio, and always research before investing.
-</p>
-
-    <!-- Add more Q&A manually -->
-  </div>
-</section>
-
-<!-- Silly Button -->
 <section style="text-align:center;">
-  <button onclick="window.location.href='https://www.youtube.com/watch?v=7-QK_1oHoiQ&list=PL2XcCGAjMHLhqZ5jusbxIYqClrbY4Qm_a'">Click me to lock in</button>
+<button onclick="window.location.href='https://www.youtube.com/watch?v=7-QK_1oHoiQ'">
+Click me to lock in
+</button>
 </section>
 
-<!-- Pie Charts Script -->
 <script>
-const individualCtx = document.getElementById('individualChart').getContext('2d');
-const individualChart = new Chart(individualCtx, {
-    type: 'pie',
-    data: {
-        labels: ['VOO','FTEC','SCHD','VXUS','Individual'],
-        datasets: [{
-            data: [35,25,15,5,5],
-            backgroundColor: ['#4FD1C5','#F6AE2D','#E71D36','#3D348B','#00B7C2']
-        }]
-    },
-    options: {
-        responsive: true,
-        plugins: { legend: { position: 'bottom', labels: { color:'#E0E1DD' } } }
-    }
+document.getElementById("updated").textContent =
+  new Date().toLocaleDateString();
+
+const root = document.documentElement;
+const savedTheme = localStorage.getItem("theme");
+if(savedTheme) root.setAttribute("data-theme", savedTheme);
+
+document.getElementById("themeToggle").onclick = () => {
+  const next =
+    root.getAttribute("data-theme") === "light" ? "dark" : "light";
+  root.setAttribute("data-theme", next);
+  localStorage.setItem("theme", next);
+};
+
+// Portfolio Chart
+const sliders = ["voo","ftec","schd","vxus","cash"];
+const labels = ["VOO","FTEC","SCHD","VXUS","Cash"];
+const chart = new Chart(portfolioChart,{
+  type:"pie",
+  data:{ labels, datasets:[{ data:[35,25,20,15,5] }] }
 });
 
-const rothCtx = document.getElementById('rothChart').getContext('2d');
-const rothChart = new Chart(rothCtx, {
-    type: 'pie',
-    data: {
-        labels: ['VGT','FTEC'],
-        datasets: [{
-            data: [50,50],
-            backgroundColor: ['#F6AE2D','#4FD1C5']
-        }]
-    },
-    options: {
-        responsive: true,
-        plugins: { legend: { position: 'bottom', labels: { color:'#E0E1DD' } } }
-    }
+sliders.forEach((id,i)=>{
+  document.getElementById(id).oninput = e=>{
+    document.getElementById(id+"Val").textContent = e.target.value;
+    chart.data.datasets[0].data[i]=Number(e.target.value);
+    chart.update();
+  };
 });
+
+// Overlap Chart
+new Chart(overlapChart,{
+  type:"bar",
+  data:{
+    labels:["VOO vs FTEC","FTEC vs VGT","VOO vs VXUS"],
+    datasets:[{ data:[45,80,5] }]
+  }
+});
+
+// Calculator
+const monthly = document.getElementById("monthly");
+const years = document.getElementById("years");
+const rate = document.getElementById("return");
+const stop = document.getElementById("stop");
+
+const growthChart = new Chart(growthChart,{
+  type:"line",
+  data:{ labels:[], datasets:[{ data:[], fill:true, tension:.3 }] }
+});
+
+function preset(m,y,r){
+  monthly.value=m; years.value=y; rate.value=r; calculate();
+}
+
+function calculate(){
+  const m=+monthly.value, y=+years.value;
+  let annual=+rate.value/100;
+  if(document.getElementById("inflationToggle").checked) annual-=0.03;
+  const r=annual/12;
+  const stopAfter=+stop.value;
+
+  monthlyVal.textContent=m;
+  yearsVal.textContent=y;
+  returnVal.textContent=rate.value;
+  stopVal.textContent=stopAfter||"Never";
+
+  let bal=0,data=[],labels=[];
+  for(let i=1;i<=y*12;i++){
+    const cont=(stopAfter && i/12>stopAfter)?0:m;
+    bal=bal*(1+r)+cont;
+    if(i%12===0){ data.push(Math.round(bal)); labels.push("Year "+i/12); }
+  }
+
+  const contributed=m*y*12;
+  contributedEl.textContent=contributed.toLocaleString();
+  finalValueEl.textContent=Math.round(bal).toLocaleString();
+  growthEl.textContent=Math.round(bal-contributed).toLocaleString();
+  taxableVal.textContent=Math.round(bal*0.85).toLocaleString();
+  rothVal.textContent=Math.round(bal).toLocaleString();
+
+  growthChart.data.labels=labels;
+  growthChart.data.datasets[0].data=data;
+  growthChart.update();
+}
+
+[monthly,years,rate,stop,inflationToggle].forEach(e=>e.oninput=calculate);
+calculate();
 </script>
 
 </body>
