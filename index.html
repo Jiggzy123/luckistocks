@@ -5,14 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Investing for Beginners</title>
 
-<!-- Password Protection -->
 <script>
 const password = "Lucki";
 function checkPassword() {
   const userPass = prompt("Enter password to view this page:");
   if (userPass !== password) {
+    alert("Incorrect password. Refresh to try again.");
     document.body.innerHTML =
-      "<h2 style='color:#c1121f;text-align:center;margin-top:20%'>Access Denied</h2>";
+      "<h2 style='color:red; text-align:center; margin-top:20%;'>Access Denied</h2>";
   }
 }
 window.onload = checkPassword;
@@ -21,92 +21,61 @@ window.onload = checkPassword;
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
-/* ===== GLOBAL THEME ===== */
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-  font-family: 'Inter', 'Segoe UI', sans-serif;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to bottom, #0b0b0b, #050505);
+  color: #e6e6e6;
   margin: 0;
-  color: #e5e5e5;
-  background: linear-gradient(to bottom, #151515, #000000);
-  transition: background 0.4s ease;
+  padding: 0;
 }
-
-h1, h2, h3 {
-  color: #c1121f;
-  font-weight: 800;
-  letter-spacing: 0.6px;
-}
-
-a {
-  color: #ff5c5c;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-a:hover { color: #ff9b9b; }
 
 section {
   max-width: 900px;
   margin: 40px auto;
-  padding: 28px;
-  background: #050505;
-  border: 2px solid #c1121f;
-  border-radius: 16px;
-  box-shadow: 0 15px 35px rgba(0,0,0,0.85);
-  opacity: 0;
-  transform: translateY(25px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  padding: 25px;
+  background-color: #0b0b0b;
+  border: 1px solid #b00000;
+  border-radius: 14px;
+  box-shadow: 0 0 18px rgba(176,0,0,0.15);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
-section.visible {
-  opacity: 1;
-  transform: translateY(0);
+section:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 30px rgba(176,0,0,0.3);
 }
 
-p, li {
-  color: #d6d6d6;
-  line-height: 1.6;
+h1, h2, h3 {
+  color: #c40000;
+  font-weight: 800;
+}
+
+a {
+  color: #ff4d4d;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
 }
 
 button {
-  background: linear-gradient(135deg, #c1121f, #7a0b12);
-  color: #fff;
+  background: #b00000;
+  color: black;
   border: none;
-  padding: 12px 22px;
-  border-radius: 12px;
+  padding: 10px 20px;
+  border-radius: 8px;
   font-weight: bold;
   cursor: pointer;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(193,18,31,0.5);
-}
-
-textarea, input {
-  width: 100%;
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #c1121f;
-  background: #111;
-  color: #fff;
-  transition: border 0.3s ease;
-}
-
-input:focus, textarea:focus {
-  outline: none;
-  border-color: #ff5c5c;
 }
 
 .chart-container {
   max-width: 500px;
   margin: 30px auto;
-  text-align: center;
-}
-
-.calc-result {
-  margin-top: 12px;
-  font-weight: bold;
-  color: #ff5c5c;
 }
 </style>
 </head>
@@ -116,30 +85,30 @@ input:focus, textarea:focus {
 <section>
 <h1>Investing for Beginners</h1>
 <p>
-This is my personal investing opinion and what I personally invest in.
-<strong>I am not a financial advisor.</strong>
+This is just my personal opinion and the stocks/ETFs I personally invest in.
+<strong>I AM NOT A FINANCIAL ADVISOR.</strong>
 </p>
-<p><strong>Last updated:</strong> 2026-01-22</p>
+<p><strong>Last Updated:</strong> 2026-01-22</p>
 </section>
 
 <section>
 <h2>Recommended ETFs</h2>
 
 <h3><a href="https://www.google.com/finance/quote/VOO:NYSEARCA" target="_blank">VOO</a></h3>
-<p>Tracks the S&P 500, offering broad exposure to large U.S. companies. A strong long-term core holding.</p>
+<p>Tracks the S&P 500, offering exposure to the 500 largest U.S. companies.</p>
 
-<h3>
-<a href="https://www.google.com/finance/quote/QQQM:NASDAQ" target="_blank">QQQM</a> /
-<a href="https://www.google.com/finance/quote/FTEC:NYSEARCA" target="_blank">FTEC</a> /
-<a href="https://www.google.com/finance/quote/VGT:NYSEARCA" target="_blank">VGT</a>
-</h3>
-<p>Technology-focused ETFs providing exposure to major growth companies like Apple, Microsoft, and NVIDIA.</p>
+<h3>Tech ETFs</h3>
+<ul>
+<li><a href="https://www.google.com/finance/quote/QQQM:NASDAQ" target="_blank">QQQM</a> – Nasdaq-100 growth exposure</li>
+<li><a href="https://www.google.com/finance/quote/FTEC:NYSEARCA" target="_blank">FTEC</a> – Broad U.S. tech sector</li>
+<li><a href="https://www.google.com/finance/quote/VGT:NYSEARCA" target="_blank">VGT</a> – Vanguard technology ETF</li>
+</ul>
 
 <h3><a href="https://www.google.com/finance/quote/SCHD:NYSEARCA" target="_blank">SCHD</a></h3>
-<p>Dividend-focused ETF emphasizing high-quality U.S. companies with consistent payouts.</p>
+<p>Dividend-focused ETF with stable income.</p>
 
-<h3><a href="https://www.google.com/finance/quote/VXUS:NASDAQ" target="_blank">VXUS</a></h3>
-<p>Provides international diversification by investing in non-U.S. developed and emerging markets.</p>
+<h3><a href="https://www.google.com/finance/quote/VXUS:NYSEARCA" target="_blank">VXUS</a></h3>
+<p>International diversification outside the U.S.</p>
 </section>
 
 <section>
@@ -148,35 +117,43 @@ This is my personal investing opinion and what I personally invest in.
 <div class="chart-container">
 <h3>Individual Account</h3>
 <canvas id="individualChart"></canvas>
-<p>
-These percentages are fixed to fit the diagram better and are for visual simplicity only.
-They may change over time depending on contributions and market conditions.
-</p>
+<p><em>Percentages fixed to fit diagram better.</em></p>
 </div>
 
 <div class="chart-container">
 <h3>Roth IRA</h3>
 <canvas id="rothChart"></canvas>
-<p>
-These percentages are fixed to fit the diagram better. I switched from VGT to FTEC for a lower expense ratio and use Fidelity.
-</p>
+<p><em>Percentages fixed to fit diagram better. I switched from VGT to FTEC for a lower expense ratio.</em></p>
 </div>
 </section>
 
+<!-- ✅ NEW SECTION ADDED BELOW DIAGRAMS -->
 <section>
-<h2>Yearly Contribution Calculator</h2>
+<h2>Individual Brokerage Account vs Roth IRA</h2>
 
-<label>Yearly Contribution ($)</label>
-<input type="number" id="contribution" value="6000">
+<h3>Individual Brokerage Account</h3>
+<p>
+An individual brokerage account offers maximum flexibility. You can invest as much
+as you want and withdraw your money at any time without penalties. However, you
+<strong>pay taxes</strong> on dividends and on gains when you sell investments. These taxes
+can slightly slow down long-term compound growth.
+</p>
 
-<label>Years Invested</label>
-<input type="number" id="years" value="30">
+<h3>Roth IRA</h3>
+<p>
+A Roth IRA is designed for long-term retirement investing. Contributions are made
+with after-tax money, but the major benefit is that <strong>all growth and qualified
+withdrawals are completely tax-free</strong>. This allows compound interest to work
+more efficiently over decades.
+</p>
 
-<label>Annual Return (%)</label>
-<input type="number" id="rate" value="8">
-
-<button onclick="calculate()">Calculate</button>
-<div class="calc-result" id="result"></div>
+<h3>Why Taxes & Compound Interest Matter</h3>
+<p>
+Compound interest means your returns generate returns of their own. When taxes are
+removed from the equation—as with a Roth IRA—your money compounds faster over time.
+Even small tax differences can result in tens or hundreds of thousands of dollars
+more in retirement.
+</p>
 </section>
 
 <section>
@@ -189,94 +166,39 @@ These percentages are fixed to fit the diagram better. I switched from VGT to FT
 </section>
 
 <section>
-<h2>Questions? Ask Me</h2>
+<h2>Questions?</h2>
 <form action="mailto:youremail@example.com" method="post" enctype="text/plain">
-<textarea placeholder="Ask your question here..."></textarea>
+<textarea name="question" rows="4" style="width:100%;"></textarea>
+<br><br>
 <button type="submit">Send</button>
 </form>
 </section>
 
-<section style="text-align:center">
-<button onclick="window.location.href='https://www.youtube.com/watch?v=7-QK_1oHoiQ'">
-Click me to lock in
-</button>
-</section>
-
 <script>
-/* Section reveal */
-const sections = document.querySelectorAll("section");
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) entry.target.classList.add("visible");
-  });
-},{ threshold: 0.15 });
-sections.forEach(sec => observer.observe(sec));
-
-/* Calculator */
-function calculate() {
-  const c = Number(document.getElementById("contribution").value);
-  const y = Number(document.getElementById("years").value);
-  const r = Number(document.getElementById("rate").value) / 100;
-  let total = 0;
-  for (let i = 0; i < y; i++) total = (total + c) * (1 + r);
-  document.getElementById("result").innerText =
-    "Estimated value: $" + total.toLocaleString(undefined,{maximumFractionDigits:0});
-}
-
-/* Charts */
-new Chart(individualChart, {
-  type: "pie",
-  data: {
-    labels: ["VOO","FTEC","SCHD","VXUS","Individual"],
-    datasets: [{
-      data: [35,25,20,15,5],
-      backgroundColor: ["#ff595e","#ffca3a","#8ac926","#1982c4","#6a4c93"]
-    }]
-  }
+new Chart(document.getElementById('individualChart'), {
+type: 'pie',
+data: {
+labels: ['VOO','FTEC','QQQM','SCHD','Individual'],
+datasets: [{
+data: [35,25,20,15,5],
+backgroundColor: ['#ff4d4d','#ff884d','#ffd24d','#4dff88','#888888']
+}]
+},
+options: { plugins:{ legend:{ labels:{ color:'#e6e6e6' }}}}
 });
 
-new Chart(rothChart, {
-  type: "pie",
-  data: {
-    labels: ["FTEC","VGT"],
-    datasets: [{
-      data: [50,50],
-      backgroundColor: ["#ff924c","#4267b2"]
-    }]
-  }
+new Chart(document.getElementById('rothChart'), {
+type: 'pie',
+data: {
+labels: ['FTEC','VGT'],
+datasets: [{
+data: [50,50],
+backgroundColor: ['#ff4d4d','#ffd24d']
+}]
+},
+options: { plugins:{ legend:{ labels:{ color:'#e6e6e6' }}}}
 });
 </script>
-
-<!-- ===== ADDITIVE ENHANCEMENTS (NO CHANGES ABOVE) ===== -->
-<style>
-#scroll-progress {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 4px;
-  width: 0%;
-  background: linear-gradient(90deg, #c1121f, #ff5c5c);
-  z-index: 9999;
-}
-
-html { scroll-behavior: smooth; }
-
-button, a { -webkit-tap-highlight-color: transparent; }
-
-body { overscroll-behavior-y: contain; }
-</style>
-
-<div id="scroll-progress"></div>
-
-<script>
-window.addEventListener("scroll", () => {
-  const scrollTop = window.scrollY;
-  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-  document.getElementById("scroll-progress").style.width =
-    (scrollTop / docHeight) * 100 + "%";
-});
-</script>
-<!-- ===== END ADDITIVE ENHANCEMENTS ===== -->
 
 </body>
 </html>
