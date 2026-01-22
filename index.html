@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Investing for Beginners</title>
 
-<!-- PASSWORDS -->
 <script>
+/* ===== PASSWORDS ===== */
 const sitePassword = "lucki";
 const adminPassword = "luck1";
 let isAdmin = false;
@@ -14,6 +14,7 @@ let isAdmin = false;
 function checkPassword() {
   const userPass = prompt("Enter password to view this page:");
   if (userPass !== sitePassword) {
+    alert("Incorrect password. Refresh to try again.");
     document.body.innerHTML =
       "<h2 style='color:red; text-align:center; margin-top:20%;'>Access Denied</h2>";
   }
@@ -60,9 +61,16 @@ section {
   border-radius: 14px;
 }
 
-h1, h2, h3, h4 { color: var(--accent); }
+h1, h2, h3, h4 {
+  color: var(--accent);
+  font-weight: 800;
+}
 
-a { color: var(--link); font-weight: bold; }
+a {
+  color: var(--link);
+  text-decoration: underline;
+  font-weight: bold;
+}
 
 button {
   background: var(--accent);
@@ -75,22 +83,36 @@ button {
   margin: 5px;
 }
 
+body.light button {
+  background: #111;
+}
+
 .chart-container {
   max-width: 500px;
   margin: 30px auto;
 }
 
 input, textarea {
-  width: 100%;
-  padding: 8px;
-  margin-bottom: 10px;
-  border-radius: 6px;
+  background:#111;
+  color:#fff;
+  border:1px solid var(--border);
+  border-radius:6px;
+  width:100%;
+  padding:8px;
+  margin-bottom:10px;
+}
+
+body.light input,
+body.light textarea {
+  background:#f2f2f2;
+  color:#000;
 }
 
 .theme-toggle {
   position: fixed;
   top: 15px;
   right: 15px;
+  z-index: 999;
 }
 
 .qa-box {
@@ -110,19 +132,57 @@ input, textarea {
 
 <section>
 <h1 style="text-align:center;">Investing for Beginners</h1>
-<p>This is just my personal opinion. <strong>I AM NOT A FINANCIAL ADVISOR.</strong></p>
+<p>
+This is just my personal opinion and the ETFs I personally invest in.
+<strong>I AM NOT A FINANCIAL ADVISOR.</strong>
+</p>
 <p style="text-align:center;"><strong>Last Updated:</strong> 2026-01-22</p>
 </section>
 
 <section>
 <h2>Fundamentals</h2>
 <ul>
-<li><strong>Roth IRA vs Individual Account:</strong> Roth IRAs grow tax-free but have limits. Individual accounts have no limits but are taxable.</li>
-<li><strong>Roth IRA vs 401k:</strong> Roth = tax-free later. 401k = pre-tax now + employer match.</li>
-<li><strong>ETF:</strong> A basket of investments traded like a stock.</li>
-<li><strong>Dividends:</strong> Cash paid to shareholders from profits.</li>
-<li><strong>Why invest:</strong> Beat inflation and build long-term wealth.</li>
+  <li><strong>Roth IRA vs Individual Account:</strong> A Roth IRA offers tax-free growth and withdrawals in retirement but has contribution and income limits. An individual brokerage account has no limits, but dividends and capital gains are taxable.</li>
+
+  <li><strong>Roth IRA vs 401k:</strong> Roth IRAs are funded with after-tax dollars and grow tax-free. 401ks are usually pre-tax and taxed at withdrawal, often with employer matching.</li>
+
+  <li><strong>What is an ETF:</strong> An ETF (Exchange-Traded Fund) is a basket of stocks or assets that trades like a stock, offering instant diversification and typically lower fees.</li>
+
+  <li><strong>What is a stock:</strong> A stock represents ownership in a company. When you buy a stock, you own a small piece of that business and can benefit from price appreciation and sometimes dividends as the company grows.</li>
+
+  <li><strong>What are dividends:</strong> Dividends are profit payments companies distribute to shareholders, which can be reinvested or taken as income.</li>
+
+  <li><strong>Why invest:</strong> Investing helps grow wealth over time, beat inflation, and take advantage of compound interest.</li>
 </ul>
+</section>
+
+<section>
+<h2>Recommended ETFs</h2>
+
+<h3><a href="https://www.google.com/finance/quote/VOO:NYSEARCA" target="_blank">VOO</a></h3>
+<p>Tracks the S&P 500, providing exposure to the 500 largest U.S. companies.</p>
+
+<h3><a href="https://www.google.com/finance/quote/VXUS:NYSEARCA" target="_blank">VXUS</a></h3>
+<p>International diversification outside the U.S.</p>
+
+<h3><a href="https://www.google.com/finance/quote/SCHD:NYSEARCA" target="_blank">SCHD</a></h3>
+<p>Dividend-focused ETF with stable income.</p>
+
+<hr>
+
+<h3>TECH ETFs</h3>
+
+<h4><a href="https://www.google.com/finance/quote/QQQM:NASDAQ" target="_blank">QQQM</a></h4>
+<p>Nasdaq-100 growth-focused ETF.</p>
+
+<h4><a href="https://www.google.com/finance/quote/FTEC:NYSEARCA" target="_blank">FTEC</a></h4>
+<p>Broad U.S. technology exposure with low expense ratio.</p>
+
+<h4><a href="https://www.google.com/finance/quote/VGT:NYSEARCA" target="_blank">VGT</a></h4>
+<p>Concentrated information technology ETF.</p>
+
+<p><strong>Note:</strong> I’d only recommend one per portfolio — just showing multiple options! Always check
+<a href="https://www.etfrc.com/funds/overlap.php" target="_blank">overlap</a>.</p>
 </section>
 
 <section>
@@ -131,11 +191,13 @@ input, textarea {
 <div class="chart-container">
 <h3>Individual Account</h3>
 <canvas id="individualChart"></canvas>
+<p><em>40% VOO · 30% FTEC/QQQM · 15% SCHD · 10% VXUS · 5% Individual Stocks</em></p>
 </div>
 
 <div class="chart-container">
 <h3>Roth IRA</h3>
 <canvas id="rothChart"></canvas>
+<p><em>Percentages fixed to fit diagram better.</em></p>
 </div>
 </section>
 
@@ -147,14 +209,14 @@ input, textarea {
 <input id="rate" type="number" value="8">
 <input id="years" type="number" value="30">
 
-<button onclick="setMode('annual')">Annual</button>
-<button onclick="setMode('monthly')">Monthly</button>
+<div>
+<button onclick="setMode('annual')">Annual Contributions</button>
+<button onclick="setMode('monthly')">Monthly Contributions</button>
+</div>
 
-<p id="modeStatus"><strong>Annual Contributions</strong></p>
-
-<button onclick="calculateCompound()">Calculate</button>
-
-<div id="result"></div>
+<p id="modeStatus"><strong>Annual Contributions ON</strong></p>
+<button onclick="calculateCompound()">Calculate Growth</button>
+<div id="result" style="margin-top:20px;"></div>
 </section>
 
 <section>
@@ -165,9 +227,25 @@ input, textarea {
 </section>
 
 <section>
+<h2>Learning Resources</h2>
+<ul>
+<li>I learned most of what I know from <a href="https://www.tiktok.com/@tradeinvestsimplify" target="_blank">Kenneth Suna</a></li>
+<li>Always check ETF overlap</li>
+<li>Time in the market beats timing the market</li>
+</ul>
+
+<h3>Popular Brokerages</h3>
+<ul>
+<li><a href="https://www.fidelity.com" target="_blank">Fidelity</a></li>
+<li><a href="https://www.vanguard.com" target="_blank">Vanguard</a></li>
+<li><a href="https://www.schwab.com" target="_blank">Charles Schwab</a></li>
+</ul>
+</section>
+
+<section>
 <h2>Questions (Anonymous)</h2>
 
-<textarea id="questionInput" placeholder="Ask anonymously..."></textarea>
+<textarea id="questionInput" rows="3" placeholder="Ask a question anonymously..."></textarea>
 <button onclick="postQuestion()">Post Question</button>
 
 <hr>
@@ -177,71 +255,26 @@ input, textarea {
 
 <div id="qaList"></div>
 
-<p>
-<strong>DISCLAIMER!</strong> Just because someone invests in something doesn’t mean you should.
-Find what you’re comfortable with and <strong>ALWAYS do your own research.</strong>
+<p style="margin-top:25px;">
+<strong>DISCLAIMER!</strong> Just because me or someone else tells you to invest into a stock or ETF or you've seen them invest into a stock or ETF doesn’t mean you should.
+Everybody has different amount's of money that they are comfortable willing to spend — find your median and
+<strong>ALWAYS do your own research before purchasing any stock.</strong>
 </p>
 </section>
 
+<section style="text-align:center;">
+<button onclick="window.location.href='https://www.youtube.com/watch?v=7-QK_1oHoiQ'">
+Click me to lock in
+</button>
+</section>
+
 <script>
-/* THEME */
+/* ===== THEME ===== */
 function toggleTheme() {
   document.body.classList.toggle("light");
 }
 
-/* CHARTS */
-new Chart(individualChart, {
-  type: 'pie',
-  data: {
-    labels: ['VOO','FTEC / QQQM','SCHD','VXUS','Individual Stocks'],
-    datasets: [{ data:[40,30,15,10,5] }]
-  }
-});
-
-new Chart(rothChart, {
-  type: 'pie',
-  data: {
-    labels: ['FTEC','VGT'],
-    datasets: [{ data:[50,50] }]
-  }
-});
-
-/* COMPOUND CALC */
-let contributionMode = "annual";
-let growthChart;
-
-function setMode(mode) {
-  contributionMode = mode;
-  modeStatus.innerHTML = `<strong>${mode.toUpperCase()} Contributions</strong>`;
-}
-
-function calculateCompound() {
-  const P = +initial.value;
-  const C = +contribution.value;
-  const r = +rate.value / 100;
-  const y = +years.value;
-
-  let total = P;
-  let data = [];
-
-  for (let i = 1; i <= y; i++) {
-    total = total * (1 + r) + (contributionMode === "monthly" ? C * 12 : C);
-    data.push(total.toFixed(2));
-  }
-
-  result.innerHTML = `<strong>Final Value:</strong> $${total.toLocaleString()}`;
-
-  if (growthChart) growthChart.destroy();
-  growthChart = new Chart(growthChartCanvas, {
-    type: 'line',
-    data: {
-      labels: [...Array(y).keys()].map(i => i + 1),
-      datasets: [{ label: "Portfolio Value", data }]
-    }
-  });
-}
-
-/* Q&A */
+/* ===== Q&A SYSTEM ===== */
 let questions = JSON.parse(localStorage.getItem("qa")) || [];
 
 function saveQA() {
@@ -249,52 +282,89 @@ function saveQA() {
 }
 
 function adminLogin() {
-  if (prompt("Admin password:") === adminPassword) {
+  const pass = prompt("Admin password:");
+  if (pass === adminPassword) {
     isAdmin = true;
-    adminStatus.innerHTML = "<strong>Admin Mode Enabled</strong>";
+    document.getElementById("adminStatus").innerHTML = "<strong>Admin Mode Enabled</strong>";
     renderQA();
   }
 }
 
 function postQuestion() {
-  if (!questionInput.value) return;
-  questions.unshift({ question: questionInput.value, answer: "" });
-  questionInput.value = "";
+  const q = document.getElementById("questionInput").value.trim();
+  if (!q) return;
+  questions.unshift({ question: q, answer: "" });
+  document.getElementById("questionInput").value = "";
   saveQA();
   renderQA();
 }
 
 function renderQA() {
-  qaList.innerHTML = "";
+  const list = document.getElementById("qaList");
+  list.innerHTML = "";
+
   questions.forEach((q, i) => {
     const div = document.createElement("div");
     div.className = "qa-box";
-    div.innerHTML = `<p><strong>Q:</strong> ${q.question}</p>
-                     ${q.answer ? `<p><strong>A:</strong> ${q.answer}</p>` : ""}`;
+
+    div.innerHTML = `
+      <p><strong>Question:</strong> ${q.question}</p>
+      ${q.answer ? `<p><strong>Answer:</strong> ${q.answer}</p>` : ""}
+    `;
 
     if (isAdmin) {
       const ta = document.createElement("textarea");
       ta.value = q.answer;
+
       const btn = document.createElement("button");
-      btn.textContent = "Save Answer";
+      btn.textContent = "Post / Update Answer";
       btn.onclick = () => {
         questions[i].answer = ta.value;
         saveQA();
         renderQA();
       };
+
       const del = document.createElement("button");
-      del.textContent = "Delete";
+      del.textContent = "Delete Question";
       del.onclick = () => {
-        questions.splice(i,1);
+        questions.splice(i, 1);
         saveQA();
         renderQA();
       };
-      div.append(ta, btn, del);
+
+      div.appendChild(ta);
+      div.appendChild(btn);
+      div.appendChild(del);
     }
-    qaList.appendChild(div);
+
+    list.appendChild(div);
   });
 }
+
 renderQA();
+
+/* ===== CHARTS ===== */
+new Chart(document.getElementById("individualChart"), {
+  type: "pie",
+  data: {
+    labels: ["VOO","FTEC / QQQM","SCHD","VXUS","Individual Stocks"],
+    datasets: [{
+      data: [40,30,15,10,5],
+      backgroundColor: ["red","blue","green","purple","orange"]
+    }]
+  }
+});
+
+new Chart(document.getElementById("rothChart"), {
+  type: "pie",
+  data: {
+    labels: ["FTEC","VGT"],
+    datasets: [{
+      data: [50,50],
+      backgroundColor: ["red","blue"]
+    }]
+  }
+});
 </script>
 
 </body>
