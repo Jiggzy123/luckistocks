@@ -11,7 +11,7 @@ function checkPassword() {
   const userPass = prompt("Enter password to view this page:");
   if (userPass !== password) {
     document.body.innerHTML =
-      "<h2 style='color:#e5e7eb;text-align:center;margin-top:20%;font-family:sans-serif;'>Access Denied</h2>";
+      "<h2 style='color:#e5e7eb;text-align:center;margin-top:20%;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif;'>Access Denied</h2>";
   }
 }
 window.onload = checkPassword;
@@ -20,73 +20,134 @@ window.onload = checkPassword;
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
+/* ===== LUXURY THEME ===== */
 :root {
-  --bg: #0b0f19;
-  --card: #111827;
-  --muted: #9ca3af;
-  --accent: #38bdf8;
-  --accent2: #22c55e;
-  --text: #e5e7eb;
+  --bg-main: #07090f;
+  --bg-card: #0e111b;
+  --bg-card-soft: #111526;
+  --text-main: #e5e7eb;
+  --text-muted: #9ca3af;
+  --accent-primary: #60a5fa;
+  --accent-gold: #e6c36a;
+  --border-soft: rgba(255,255,255,0.06);
 }
 
+/* ===== BASE ===== */
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.65;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, sans-serif;
+  background: radial-gradient(1200px 600px at top, #0b1020, var(--bg-main));
+  color: var(--text-main);
+  line-height: 1.7;
 }
 
-h1, h2, h3 { font-weight: 600; }
-h2 { color: var(--accent); }
-h3 { color: #c7d2fe; }
+h1 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
 
-a { color: var(--accent); text-decoration: none; }
-a:hover { opacity: 0.85; }
+h2 {
+  color: var(--accent-primary);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
 
+h3 {
+  color: #c7d2fe;
+  font-weight: 500;
+}
+
+p, li {
+  color: var(--text-muted);
+}
+
+a {
+  color: var(--accent-primary);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--accent-gold);
+}
+
+/* ===== CARDS ===== */
 section {
   max-width: 900px;
-  margin: 40px auto;
-  padding: 28px;
-  background: linear-gradient(180deg, #111827, #0f172a);
-  border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+  margin: 48px auto;
+  padding: 34px;
+  background: linear-gradient(
+    180deg,
+    var(--bg-card),
+    var(--bg-card-soft)
+  );
+  border-radius: 18px;
+  border: 1px solid var(--border-soft);
+  box-shadow:
+    0 20px 50px rgba(0,0,0,0.55),
+    inset 0 1px 0 rgba(255,255,255,0.03);
 }
 
-p { color: var(--muted); }
-
+/* ===== BUTTONS ===== */
 button {
-  background: linear-gradient(90deg, #38bdf8, #22c55e);
+  background: linear-gradient(
+    135deg,
+    var(--accent-primary),
+    #3b82f6
+  );
   color: #020617;
   border: none;
-  padding: 10px 18px;
-  border-radius: 10px;
+  padding: 11px 20px;
+  border-radius: 12px;
   font-weight: 600;
   cursor: pointer;
-  margin-right: 8px;
+  transition: all 0.25s ease;
+  box-shadow: 0 6px 18px rgba(96,165,250,0.35);
+}
+
+button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 28px rgba(96,165,250,0.45);
 }
 
 button.secondary {
-  background: #020617;
-  color: var(--text);
-  border: 1px solid #1f2933;
+  background: transparent;
+  color: var(--text-main);
+  border: 1px solid var(--border-soft);
+  box-shadow: none;
 }
 
-.chart-container {
-  max-width: 480px;
-  margin: 30px auto;
+button.secondary:hover {
+  border-color: var(--accent-primary);
 }
 
+/* ===== FORMS ===== */
 textarea {
   width: 100%;
-  padding: 12px;
-  border-radius: 10px;
-  border: none;
-  background: #020617;
-  color: var(--text);
+  padding: 14px;
+  border-radius: 14px;
+  border: 1px solid var(--border-soft);
+  background: #05070d;
+  color: var(--text-main);
+  font-size: 0.95rem;
 }
 
+/* ===== CHARTS ===== */
+.chart-container {
+  max-width: 480px;
+  margin: 36px auto;
+}
+
+/* ===== UTIL ===== */
 .hidden { display: none; }
+
+ul {
+  padding-left: 20px;
+}
+
+li {
+  margin-bottom: 6px;
+}
 </style>
 </head>
 
@@ -107,9 +168,7 @@ textarea {
   <h3>
     <a href="https://finance.yahoo.com/quote/VOO" target="_blank">VOO</a>
   </h3>
-  <p>
-    Vanguard S&P 500 ETF providing broad exposure to the largest U.S. companies.
-  </p>
+  <p>Vanguard S&P 500 ETF providing broad exposure to large U.S. companies.</p>
 
   <h3>Tech ETFs (click to switch)</h3>
   <button class="secondary" onclick="showETF('qqqm')">QQQM</button>
@@ -117,40 +176,26 @@ textarea {
   <button class="secondary" onclick="showETF('vgt')">VGT</button>
 
   <div id="qqqm">
-    <p>
-      <a href="https://finance.yahoo.com/quote/QQQM" target="_blank">QQQM</a>
-      tracks the Nasdaq-100, focused on large-cap growth and tech companies.
-    </p>
+    <p><a href="https://finance.yahoo.com/quote/QQQM" target="_blank">QQQM</a> tracks the Nasdaq-100.</p>
   </div>
 
   <div id="ftec" class="hidden">
-    <p>
-      <a href="https://finance.yahoo.com/quote/FTEC" target="_blank">FTEC</a>
-      provides broad U.S. technology exposure with a very low expense ratio.
-    </p>
+    <p><a href="https://finance.yahoo.com/quote/FTEC" target="_blank">FTEC</a> offers low-cost U.S. tech exposure.</p>
   </div>
 
   <div id="vgt" class="hidden">
-    <p>
-      <a href="https://finance.yahoo.com/quote/VGT" target="_blank">VGT</a>
-      is Vanguard’s technology ETF holding many of the largest U.S. tech firms.
-    </p>
+    <p><a href="https://finance.yahoo.com/quote/VGT" target="_blank">VGT</a> is Vanguard’s technology ETF.</p>
   </div>
 
   <h3>
     <a href="https://finance.yahoo.com/quote/SCHD" target="_blank">SCHD</a>
   </h3>
-  <p>
-    Dividend-focused ETF emphasizing quality and consistency.
-  </p>
+  <p>Dividend-focused ETF emphasizing quality and consistency.</p>
 
   <h3>
     <a href="https://finance.yahoo.com/quote/VXUS" target="_blank">VXUS</a>
   </h3>
-  <p>
-    Vanguard Total International Stock ETF providing broad exposure to markets
-    outside the United States, including developed and emerging economies.
-  </p>
+  <p>Broad international market exposure outside the U.S.</p>
 </section>
 
 <section>
@@ -189,6 +234,7 @@ textarea {
   <h2>Questions? Ask Me!</h2>
   <form action="mailto:youremail@example.com" method="post" enctype="text/plain">
     <textarea name="question" rows="4" placeholder="Type your question here..."></textarea>
+    <br><br>
     <button type="submit">Send Question</button>
   </form>
 </section>
@@ -215,7 +261,7 @@ window.addEventListener("load", () => {
       labels: ["VOO","FTEC","SCHD","VXUS","Individual"],
       datasets: [{
         data: [35,25,20,15,5],
-        backgroundColor: ["#38bdf8","#22c55e","#facc15","#a855f7","#ef4444"]
+        backgroundColor: ["#60a5fa","#22c55e","#e6c36a","#a855f7","#ef4444"]
       }]
     }
   });
@@ -226,7 +272,7 @@ window.addEventListener("load", () => {
       labels: ["VGT","FTEC"],
       datasets: [{
         data: [50,50],
-        backgroundColor: ["#facc15","#38bdf8"]
+        backgroundColor: ["#e6c36a","#60a5fa"]
       }]
     }
   });
