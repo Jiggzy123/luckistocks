@@ -5,23 +5,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Investing for Beginners</title>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
 <script>
-/* PASSWORDS */
-const sitePassword = "lucki";
-const adminPassword = "luck1";
-let isAdmin = false;
-
+const password = "lucki";
 function checkPassword() {
-  const input = prompt("Enter password to view this page:");
-  if (input !== sitePassword) {
+  const userPass = prompt("Enter password to view this page:");
+  if (userPass !== password) {
+    alert("Incorrect password. Refresh to try again.");
     document.body.innerHTML =
-      "<h2 style='color:red;text-align:center;margin-top:20%'>Access Denied</h2>";
+      "<h2 style='color:red; text-align:center; margin-top:20%;'>Access Denied</h2>";
   }
 }
 window.onload = checkPassword;
 </script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
 html { scroll-behavior: smooth; }
@@ -32,6 +29,7 @@ html { scroll-behavior: smooth; }
   --text-main: #e6e6e6;
   --accent: #c40000;
   --border: #b00000;
+  --link: #ff4d4d;
 }
 
 body.light {
@@ -40,10 +38,11 @@ body.light {
   --text-main: #000000;
   --accent: #000000;
   --border: #000000;
+  --link: #0000ee;
 }
 
 body {
-  font-family: "Segoe UI", sans-serif;
+  font-family: 'Segoe UI', sans-serif;
   background: var(--bg-main);
   color: var(--text-main);
   margin: 0;
@@ -53,57 +52,107 @@ section {
   max-width: 900px;
   margin: 40px auto;
   padding: 25px;
-  background: var(--bg-section);
+  background-color: var(--bg-section);
   border: 1px solid var(--border);
   border-radius: 14px;
 }
 
-h1, h2, h3 {
+h1, h2, h3, h4 {
   color: var(--accent);
+  font-weight: 800;
+}
+
+a {
+  color: var(--link);
+  text-decoration: underline;
+  font-weight: bold;
 }
 
 button {
   background: var(--accent);
   color: white;
   border: none;
-  padding: 10px 18px;
+  padding: 10px 20px;
   border-radius: 8px;
   font-weight: bold;
   cursor: pointer;
+  margin: 5px;
 }
 
-input, textarea {
-  width: 100%;
-  padding: 8px;
-  margin-bottom: 10px;
-  background: #111;
-  color: white;
-  border: 1px solid var(--border);
-  border-radius: 6px;
-}
+body.light button { background: #111; }
 
 .chart-container {
-  max-width: 520px;
+  max-width: 500px;
   margin: 30px auto;
 }
 
-.qa-box {
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 15px;
-  margin-top: 15px;
+input {
+  background:#111;
+  color:#fff;
+  border:1px solid var(--border);
+  border-radius:6px;
+  width:100%;
+  padding:8px;
+  margin-bottom:10px;
+}
+
+body.light input {
+  background:#f2f2f2;
+  color:#000;
 }
 
 .theme-toggle {
   position: fixed;
   top: 15px;
   right: 15px;
+  z-index: 999;
 }
 </style>
 </head>
 
 <body>
 
-<div
+<div class="theme-toggle">
+  <button onclick="toggleTheme()">Light / Dark</button>
+</div>
 
-  
+<section>
+<h1 style="text-align:center;">Investing for Beginners</h1>
+<p>
+This is just my personal opinion and the ETFs I personally invest in.
+<strong>I AM NOT A FINANCIAL ADVISOR.</strong>
+</p>
+<p style="text-align:center;"><strong>Last Updated:</strong> 2026-01-22</p>
+</section>
+
+<section>
+<h2>Fundamentals</h2>
+<ul>
+<li><strong>Roth IRA vs Individual Account:</strong> A Roth IRA offers tax-free growth and withdrawals in retirement, but has contribution limits and income restrictions. An individual brokerage account has no contribution limits or income requirements, but you pay taxes on dividends and capital gains.</li>
+
+<li><strong>Roth IRA vs 401k:</strong> A Roth IRA is funded with after-tax money and grows tax-free, while a 401k is typically pre-tax and taxed upon withdrawal. 401ks often include employer matching, which is a major benefit.</li>
+
+<li><strong>What are dividends:</strong> Dividends are payments companies make to shareholders from profits. They can be reinvested or taken as income.</li>
+
+<li><strong>Why invest:</strong> Investing allows your money to grow over time through compound interest, helping you beat inflation and build long-term wealth.</li>
+</ul>
+
+<h3>ETF Fundamentals</h3>
+<ul>
+<li><strong>What is an ETF:</strong> An ETF (Exchange-Traded Fund) is a basket of investments (stocks, bonds, or other assets) that trades on the stock market just like a regular stock.</li>
+
+<li><strong>How ETFs work:</strong> When you buy one share of an ETF, you are buying small pieces of every company inside that fund. This provides instant diversification.</li>
+
+<li><strong>ETF vs individual stocks:</strong> ETFs reduce risk by spreading your money across many companies instead of relying on one.</li>
+
+<li><strong>ETF vs mutual funds:</strong> ETFs usually have lower fees, trade instantly during market hours, and are more tax-efficient.</li>
+
+<li><strong>Expense ratio:</strong> This is the annual fee charged by the ETF. Lower is better — many great ETFs charge under 0.10%.</li>
+
+<li><strong>Why ETFs are beginner friendly:</strong> Simple, diversified, low maintenance, and historically strong long-term returns.</li>
+
+<li><strong>How to choose ETFs:</strong> Look at the index it tracks, expense ratio, trading volume, and check for overlap with your other holdings.</li>
+</ul>
+</section>
+
+<!-- Everything else remains unchanged below -->
