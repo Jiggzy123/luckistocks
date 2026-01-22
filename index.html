@@ -23,6 +23,7 @@ window.onload = checkPassword;
 <style>
 html { scroll-behavior: smooth; }
 
+/* ===== THEME VARIABLES ===== */
 :root {
   --bg-main: linear-gradient(to bottom, #0b0b0b, #050505);
   --bg-section: #0b0b0b;
@@ -41,6 +42,7 @@ body.light {
   --link: #000000;
 }
 
+/* ===== BASE STYLES ===== */
 body {
   font-family: 'Segoe UI', sans-serif;
   background: var(--bg-main);
@@ -66,7 +68,15 @@ a {
   color: var(--link);
   text-decoration: none;
 }
-a:hover { text-decoration: underline; }
+
+/* Light mode link visibility */
+body.light a {
+  text-decoration: underline;
+}
+
+a:hover {
+  opacity: 0.75;
+}
 
 button {
   background: var(--accent);
@@ -152,7 +162,8 @@ This is just my personal opinion and the ETFs I personally invest in.
 <h4><a href="https://www.google.com/finance/quote/VGT:NYSEARCA" target="_blank">VGT</a></h4>
 <p>Concentrated information technology ETF.</p>
 
-<p><strong>Note:</strong> I’d only recommend one per portfolio — just showing multiple options! Make sure to always check <a href="https://www.etfrc.com/funds/overlap.php" target="_blank">overlap</a> too!</p>
+<p><strong>Note:</strong> I’d only recommend one per portfolio — just showing multiple options!
+Make sure to always check <a href="https://www.etfrc.com/funds/overlap.php" target="_blank">overlap</a> too.</p>
 </section>
 
 <section>
@@ -174,14 +185,12 @@ This is just my personal opinion and the ETFs I personally invest in.
 <section>
 <h2>Compound Interest Calculator</h2>
 
-<button onclick="setMode('monthly')" id="monthlyBtn">Monthly Contributions ON</button>
-<button onclick="setMode('annual')" id="annualBtn">Annual Contributions OFF</button>
-
 <input id="initial" type="number" value="1000">
 <input id="contribution" type="number" value="6000">
 <input id="rate" type="number" value="8">
 <input id="years" type="number" value="30">
 
+<button onclick="toggleContribution()">Monthly Contributions On</button>
 <button onclick="calculateCompound()">Calculate Growth</button>
 
 <div id="result" style="margin-top:20px;"></div>
@@ -194,24 +203,30 @@ This is just my personal opinion and the ETFs I personally invest in.
 </div>
 </section>
 
-<!-- ✅ NEW SECTION ADDED HERE -->
 <section>
 <h2>Learning Resources</h2>
 <ol>
-  <li>
-    I personally learned 90% of what I know from
-    <a href="https://www.tiktok.com/@tradeinvestsimplify" target="_blank">Kenneth Suna</a>
-    and his
-    <a href="https://www.kennethsuna.com" target="_blank">website</a>.
-  </li>
-  <li>
-    Make sure to always check funds for
-    <a href="https://www.etfrc.com/funds/overlap.php" target="_blank">overlap</a>.
-  </li>
-  <li>
-    Time in the market is always better than timing the market.
-  </li>
+<li>
+I personally learned 90% of what I know from
+<a href="https://www.tiktok.com/@tradeinvestsimplify" target="_blank">Kenneth Suna</a>
+and his
+<a href="https://www.kennethsuna.com" target="_blank">website</a>.
+</li>
+<li>
+Make sure to always check funds for
+<a href="https://www.etfrc.com/funds/overlap.php" target="_blank">overlap</a>.
+</li>
+<li>
+Time in the market is always better than timing the market.
+</li>
 </ol>
+
+<h3>Popular Brokerages</h3>
+<ul>
+<li><a href="https://www.fidelity.com" target="_blank">Fidelity</a></li>
+<li><a href="https://investor.vanguard.com" target="_blank">Vanguard</a></li>
+<li><a href="https://www.schwab.com" target="_blank">Charles Schwab</a></li>
+</ul>
 </section>
 
 <section>
@@ -234,15 +249,14 @@ Click me to lock in
 </section>
 
 <script>
-let contributionMode = "monthly";
 let growthChart;
+let isMonthly = true;
 
-function setMode(mode) {
-  contributionMode = mode;
-  document.getElementById("monthlyBtn").innerText =
-    mode === "monthly" ? "Monthly Contributions ON" : "Monthly Contributions OFF";
-  document.getElementById("annualBtn").innerText =
-    mode === "annual" ? "Annual Contributions ON" : "Annual Contributions OFF";
+function toggleContribution() {
+  isMonthly = !isMonthly;
+  event.target.textContent = isMonthly
+    ? "Monthly Contributions On"
+    : "Annual Contributions On";
 }
 
 function calculateCompound() {
@@ -251,14 +265,12 @@ function calculateCompound() {
   const rateVal = Number(document.getElementById('rate').value) / 100;
   const yearsVal = Number(document.getElementById('years').value);
 
+  if (isMonthly) contributionVal *= 12;
+
   let balance = initialVal;
   let total = initialVal;
   let values = [];
   let labels = [];
-
-  if (contributionMode === "monthly") {
-    contributionVal /= 12;
-  }
 
   for (let i = 1; i <= yearsVal; i++) {
     balance = balance * (1 + rateVal) + contributionVal;
@@ -284,17 +296,17 @@ function calculateCompound() {
       datasets: [{
         label: 'Portfolio Value',
         data: values,
-        borderColor: isLight ? '#000000' : '#ff4d4d',
+        borderColor: isLight ? '#000' : '#ff4d4d',
         backgroundColor: isLight ? 'rgba(0,0,0,0.15)' : 'rgba(255,77,77,0.15)',
         fill: true,
         tension: 0.3
       }]
     },
     options: {
-      plugins:{ legend:{ labels:{ color: isLight ? '#000' : '#e6e6e6' }}} ,
+      plugins:{ legend:{ labels:{ color: isLight ? '#000' : '#e6e6e6' } } },
       scales:{
-        x:{ ticks:{ color: isLight ? '#000' : '#e6e6e6' }},
-        y:{ ticks:{ color: isLight ? '#000' : '#e6e6e6' }}
+        x:{ ticks:{ color: isLight ? '#000' : '#e6e6e6' } },
+        y:{ ticks:{ color: isLight ? '#000' : '#e6e6e6' } }
       }
     }
   });
@@ -309,18 +321,44 @@ function toggleTheme() {
 <script>
 new Chart(document.getElementById('individualChart'), {
 type:'pie',
-data:{labels:['VOO','FTEC','QQQM','SCHD','Individual'],
-datasets:[{data:[35,25,20,15,5],
-backgroundColor:['red','blue','green','purple','orange']}]},
-options:{plugins:{legend:{labels:{color:'#000'}}}}
+data:{
+labels:['VOO','FTEC','QQQM','SCHD','Individual'],
+datasets:[{
+data:[35,25,20,15,5],
+backgroundColor:['red','blue','green','purple','orange']
+}]
+},
+options:{
+plugins:{
+tooltip:{
+callbacks:{
+label: ctx => `${ctx.label}: ${ctx.parsed}%`
+}
+},
+legend:{labels:{color:'#e6e6e6'}}
+}
+}
 });
 
 new Chart(document.getElementById('rothChart'), {
 type:'pie',
-data:{labels:['FTEC','VGT'],
-datasets:[{data:[50,50],
-backgroundColor:['red','blue']}]},
-options:{plugins:{legend:{labels:{color:'#000'}}}}
+data:{
+labels:['FTEC','VGT'],
+datasets:[{
+data:[50,50],
+backgroundColor:['red','blue']
+}]
+},
+options:{
+plugins:{
+tooltip:{
+callbacks:{
+label: ctx => `${ctx.label}: ${ctx.parsed}%`
+}
+},
+legend:{labels:{color:'#e6e6e6'}}
+}
+}
 });
 </script>
 
