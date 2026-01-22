@@ -79,10 +79,6 @@ input {
   font-weight: bold;
   color: #d4af37;
 }
-
-.toggle-links a {
-  margin-right: 12px;
-}
 </style>
 </head>
 
@@ -170,7 +166,8 @@ Focused on long-term growth. Tech exposure optimized for low expense ratios.
 <h2>Learning Resources</h2>
 <ul>
 <li><a href="https://www.etfrc.com/funds/overlap.php" target="_blank">ETF Overlap Tool</a></li>
-<li>Kenneth Suna (TikTok & Website)</li>
+<li><a href="https://www.tiktok.com/@tradeinvestsimplify" target="_blank">Kenneth Suna TikTok</a></li>
+<li><a href="https://www.kennethsuna.com" target="_blank">Kenneth Suna Website</a></li>
 </ul>
 </section>
 
@@ -217,14 +214,15 @@ new Chart(document.getElementById('rothChart'), {
 });
 
 function calculate() {
-  const m = +monthly.value;
-  const y = +years.value;
-  const r = +rate.value / 100;
+  const m = +document.getElementById('monthly').value;
+  const y = +document.getElementById('years').value;
+  const r = +document.getElementById('rate').value / 100;
   let total = 0;
   for (let i = 0; i < y*12; i++) {
     total = (total + m) * (1 + r/12);
   }
-  result.innerText = `Estimated value: $${total.toFixed(2)}`;
+  const interest = total - (m * y * 12);
+  document.getElementById('result').innerText = `Estimated value: $${total.toFixed(2)} (Interest earned: $${interest.toFixed(2)})`;
 }
 </script>
 
