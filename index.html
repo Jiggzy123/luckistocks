@@ -14,7 +14,7 @@
       if (userPass !== password) {
         alert("Incorrect password. Refresh to try again.");
         document.body.innerHTML =
-          "<h2 style='color:#E0E1DD; text-align:center; margin-top:20%;'>Access Denied</h2>";
+          "<h2 style='color:#E5E7EB; text-align:center; margin-top:20%;'>Access Denied</h2>";
       }
     }
 
@@ -24,83 +24,84 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <style>
+    /* Modern Theme */
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #0D1B2A;
-      color: #E0E1DD;
-      line-height: 1.6;
+      font-family: 'Inter', 'Segoe UI', sans-serif;
+      background: linear-gradient(180deg, #0B1220, #0F172A);
+      color: #E5E7EB;
+      line-height: 1.7;
       margin: 0;
       padding: 0;
     }
 
     a {
-      color: #4FD1C5;
+      color: #38BDF8;
       text-decoration: none;
     }
 
     a:hover {
-      color: #00B7C2;
+      color: #0EA5E9;
     }
 
     h1, h2, h3 {
-      color: #00B7C2;
+      color: #F8FAFC;
     }
 
     section {
       max-width: 900px;
       margin: 40px auto;
-      padding: 20px;
-      background-color: #112D4E;
-      border-radius: 12px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      padding: 28px;
+      background-color: #111827;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.35);
     }
 
     p {
-      margin-bottom: 15px;
+      margin-bottom: 16px;
+      color: #CBD5E1;
     }
 
     .stock, .etf {
-      margin-bottom: 20px;
+      margin-bottom: 22px;
     }
 
     button {
-      background: linear-gradient(90deg, #00B7C2, #4FD1C5);
-      color: #0D1B2A;
+      background: linear-gradient(90deg, #38BDF8, #0EA5E9);
+      color: #020617;
       border: none;
-      padding: 10px 20px;
-      border-radius: 8px;
+      padding: 12px 22px;
+      border-radius: 10px;
       cursor: pointer;
-      font-weight: bold;
-      transition: 0.3s;
+      font-weight: 600;
+      transition: 0.25s ease;
     }
 
     button:hover {
-      opacity: 0.85;
+      transform: translateY(-1px);
+      opacity: 0.95;
     }
 
     textarea {
       width: 100%;
-      border-radius: 8px;
+      border-radius: 10px;
       border: none;
-      padding: 10px;
+      padding: 12px;
       font-size: 1em;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
+      background-color: #020617;
+      color: #E5E7EB;
     }
 
     .chart-container {
       width: 100%;
       max-width: 500px;
-      margin: 30px auto;
-    }
-
-    #answers a {
-      color: #F6AE2D;
+      margin: 32px auto;
     }
 
     #answers p {
-      background-color: #1B263B;
-      padding: 12px;
-      border-radius: 8px;
+      background-color: #020617;
+      padding: 14px;
+      border-radius: 10px;
     }
   </style>
 </head>
@@ -115,7 +116,7 @@
     Please do your own research before buying any stock.
     <strong>I AM NOT A FINANCIAL ADVISOR AND THESE ARE JUST RECOMMENDATIONS.</strong>
   </p>
-  <p>Date: 2026-01-22</p>
+  <p><strong>Last Updated:</strong> 2026-01-22</p>
 </section>
 
 <!-- Recommended ETFs -->
@@ -124,129 +125,40 @@
 
   <div class="etf">
     <h3><a href="https://www.vanguard.com/VOO" target="_blank">VOO</a></h3>
-    <p>
-      VOO, the Vanguard S&P 500 ETF, is a popular, low-cost exchange-traded fund
-      designed to mirror the performance of the S&P 500 Index, providing broad
-      exposure to 500 of the largest U.S. companies for long-term growth.
-    </p>
+    <p>Low-cost S&P 500 ETF providing broad U.S. market exposure.</p>
   </div>
 
   <div class="etf">
     <h3><a href="https://www.invesco.com/qqqm-etf" target="_blank">QQQM / FTEC / VGT</a></h3>
-    <p>
-      Tech-focused ETFs offering exposure to major growth companies like Apple,
-      Microsoft, and NVIDIA. Higher growth potential with higher volatility.
-    </p>
+    <p>Tech-focused ETFs with higher growth potential and higher volatility.</p>
   </div>
 
   <div class="etf">
     <h3><a href="https://www.schwab.com/schd-etf" target="_blank">SCHD</a></h3>
-    <p>
-      Dividend-focused ETF tracking high-quality U.S. companies with consistent
-      dividend payments.
-    </p>
+    <p>Dividend ETF focused on stable, income-producing companies.</p>
   </div>
 
   <div class="etf">
     <h3><a href="https://investor.vanguard.com/etf/profile/VXUS" target="_blank">VXUS</a></h3>
-    <p>
-      Broad international exposure outside the U.S. for diversification.
-    </p>
+    <p>International diversification outside the U.S.</p>
   </div>
 </section>
 
-<!-- Portfolio Pie Charts -->
+<!-- Portfolio -->
 <section>
   <h2>My Portfolio</h2>
 
   <div class="chart-container">
     <h3>Individual Account</h3>
     <canvas id="individualChart"></canvas>
-    <p>
-      These percentages are rounded for simplicity and do not mean they will stay the same.
-    </p>
+    <p>Percentages are rounded and change over time.</p>
   </div>
 
   <div class="chart-container">
     <h3>Roth IRA</h3>
     <canvas id="rothChart"></canvas>
-    <p>
-      I switched from VGT to FTEC for a lower expense ratio and use Fidelity.
-    </p>
+    <p>I switched from VGT to FTEC for a lower expense ratio.</p>
   </div>
-</section>
-
-<!-- Individual Stocks -->
-<section>
-  <h2>Individual Stocks</h2>
-
-  <div class="stock">
-    <h3><a href="https://www.nasdaq.com/market-activity/stocks/SLV" target="_blank">SLV</a></h3>
-    <p>
-      Silver exposure. Can help hedge inflation and volatility.
-    </p>
-  </div>
-
-  <div class="stock">
-    <h3><a href="https://www.nasdaq.com/market-activity/stocks/GLD" target="_blank">GLD</a></h3>
-    <p>
-      Gold exposure. A classic hedge against uncertainty.
-    </p>
-  </div>
-
-  <p>
-    <strong>Tip:</strong> Build a foundation of ETFs before buying individual stocks.
-  </p>
-</section>
-
-<!-- Learning Resources -->
-<section>
-  <h2>Learning Resources</h2>
-  <ul>
-    <li>
-      Inspired by <a href="https://www.tiktok.com/@tradeinvestsimplify" target="_blank">Kenneth Suna</a>
-    </li>
-    <li>
-      <a href="https://www.etfrc.com/funds/overlap.php" target="_blank">ETF Overlap Tool</a>
-    </li>
-    <li>Learn the difference between Roth IRA and taxable accounts</li>
-  </ul>
-</section>
-
-<!-- Brokerages -->
-<section>
-  <h2>Popular Brokerages</h2>
-  <ul>
-    <li><a href="https://investor.vanguard.com/" target="_blank">Vanguard</a></li>
-    <li><a href="https://www.fidelity.com/" target="_blank">Fidelity</a></li>
-    <li><a href="https://www.schwab.com/" target="_blank">Charles Schwab</a></li>
-  </ul>
-</section>
-
-<!-- Questions -->
-<section id="questions">
-  <h2>Questions? Ask Me!</h2>
-  <p>Type your question below and send it to me.</p>
-
-  <form action="mailto:youremail@example.com" method="post" enctype="text/plain">
-    <textarea name="question" rows="4" placeholder="Type your question here..."></textarea>
-    <button type="submit">Send Question</button>
-  </form>
-
-  <div id="answers">
-    <h3>My Answers</h3>
-    <p>
-      <strong>Q:</strong> How do I start investing?<br>
-      <strong>A:</strong> Start small, use low-cost ETFs, and stay consistent.
-    </p>
-  </div>
-</section>
-
-<!-- Silly Button -->
-<section style="text-align:center;">
-  <button onclick="window.location.href='https://www.youtube.com/watch?v=7-QK_1oHoiQ'">
-    Click me to lock in
-  </button>
 </section>
 
 <!-- Charts -->
@@ -256,16 +168,15 @@
     data: {
       labels: ['VOO','FTEC','SCHD','VXUS','Individual'],
       datasets: [{
-        data: [35,25,15,5,5],
-        backgroundColor: ['#4FD1C5','#F6AE2D','#E71D36','#3D348B','#00B7C2']
+        data: [35,25,20,15,5],
+        backgroundColor: ['#38BDF8','#FACC15','#22C55E','#A855F7','#EF4444']
       }]
     },
     options: {
-      responsive: true,
       plugins: {
         legend: {
           position: 'bottom',
-          labels: { color: '#E0E1DD' }
+          labels: { color: '#E5E7EB' }
         }
       }
     }
@@ -277,15 +188,14 @@
       labels: ['VGT','FTEC'],
       datasets: [{
         data: [50,50],
-        backgroundColor: ['#F6AE2D','#4FD1C5']
+        backgroundColor: ['#FACC15','#38BDF8']
       }]
     },
     options: {
-      responsive: true,
       plugins: {
         legend: {
           position: 'bottom',
-          labels: { color: '#E0E1DD' }
+          labels: { color: '#E5E7EB' }
         }
       }
     }
