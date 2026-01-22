@@ -26,7 +26,8 @@ body {
   font-family: 'Inter', 'Segoe UI', sans-serif;
   margin: 0;
   color: #e5e5e5;
-  background: linear-gradient(to bottom, #111111, #000000);
+  background: linear-gradient(to bottom, #151515, #000000);
+  transition: background 0.4s ease;
 }
 
 h1, h2, h3 {
@@ -38,8 +39,9 @@ h1, h2, h3 {
 a {
   color: #ff5c5c;
   text-decoration: none;
+  transition: color 0.3s ease;
 }
-a:hover { color: #ff8c8c; }
+a:hover { color: #ff9b9b; }
 
 section {
   max-width: 900px;
@@ -49,6 +51,14 @@ section {
   border: 2px solid #c1121f;
   border-radius: 16px;
   box-shadow: 0 15px 35px rgba(0,0,0,0.85);
+  opacity: 0;
+  transform: translateY(25px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+section.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 p, li {
@@ -60,12 +70,17 @@ button {
   background: linear-gradient(135deg, #c1121f, #7a0b12);
   color: #fff;
   border: none;
-  padding: 12px 20px;
-  border-radius: 10px;
+  padding: 12px 22px;
+  border-radius: 12px;
   font-weight: bold;
   cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
-button:hover { opacity: 0.9; }
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(193,18,31,0.5);
+}
 
 textarea, input {
   width: 100%;
@@ -74,6 +89,12 @@ textarea, input {
   border: 1px solid #c1121f;
   background: #111;
   color: #fff;
+  transition: border 0.3s ease;
+}
+
+input:focus, textarea:focus {
+  outline: none;
+  border-color: #ff5c5c;
 }
 
 .chart-container {
@@ -161,15 +182,9 @@ These percentages are fixed to fit the diagram better. I switched from VGT to FT
 <section>
 <h2>Learning Resources</h2>
 <ul>
-<li>
-<a href="https://www.tiktok.com/@tradeinvestsimplify" target="_blank">Kenneth Suna TikTok</a>
-</li>
-<li>
-<a href="https://www.kennethsuna.com" target="_blank">Kenneth Suna Website</a>
-</li>
-<li>
-<a href="https://www.etfrc.com/funds/overlap.php" target="_blank">ETF Overlap Tool</a>
-</li>
+<li><a href="https://www.tiktok.com/@tradeinvestsimplify" target="_blank">Kenneth Suna TikTok</a></li>
+<li><a href="https://www.kennethsuna.com" target="_blank">Kenneth Suna Website</a></li>
+<li><a href="https://www.etfrc.com/funds/overlap.php" target="_blank">ETF Overlap Tool</a></li>
 </ul>
 </section>
 
@@ -188,21 +203,36 @@ Click me to lock in
 </section>
 
 <script>
+/* Smooth section reveal */
+const sections = document.querySelectorAll("section");
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add("visible");
+  });
+},{ threshold: 0.15 });
+sections.forEach(sec => observer.observe(sec));
+
+/* Scroll-based background darkening */
+window.addEventListener("scroll", () => {
+  const scroll = window.scrollY;
+  const darkness = Math.min(scroll / 1200, 1);
+  document.body.style.background =
+    `linear-gradient(to bottom, rgb(${20-10*darkness},${20-10*darkness},${20-10*darkness}), #000)`;
+});
+
+/* Calculator */
 function calculate() {
   const c = Number(document.getElementById("contribution").value);
   const y = Number(document.getElementById("years").value);
   const r = Number(document.getElementById("rate").value) / 100;
-
   let total = 0;
-  for (let i = 0; i < y; i++) {
-    total = (total + c) * (1 + r);
-  }
-
+  for (let i = 0; i < y; i++) total = (total + c) * (1 + r);
   document.getElementById("result").innerText =
     "Estimated value: $" + total.toLocaleString(undefined,{maximumFractionDigits:0});
 }
 
-new Chart(document.getElementById("individualChart"), {
+/* Charts */
+new Chart(individualChart, {
   type: "pie",
   data: {
     labels: ["VOO","FTEC","SCHD","VXUS","Individual"],
@@ -213,7 +243,7 @@ new Chart(document.getElementById("individualChart"), {
   }
 });
 
-new Chart(document.getElementById("rothChart"), {
+new Chart(rothChart, {
   type: "pie",
   data: {
     labels: ["FTEC","VGT"],
