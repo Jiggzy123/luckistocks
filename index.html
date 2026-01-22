@@ -23,9 +23,7 @@ window.onload = checkPassword;
 <style>
 html { scroll-behavior: smooth; }
 
-/* =====================
-   THEME VARIABLES
-===================== */
+/* ===== THEME VARIABLES ===== */
 :root {
   --bg-main: linear-gradient(to bottom, #0b0b0b, #050505);
   --bg-section: #0b0b0b;
@@ -44,9 +42,7 @@ body.light {
   --link: #000000;
 }
 
-/* =====================
-   BASE STYLES
-===================== */
+/* ===== BASE STYLES ===== */
 body {
   font-family: 'Segoe UI', sans-serif;
   background: var(--bg-main);
@@ -109,9 +105,6 @@ body.light input {
   color:#000;
 }
 
-/* =====================
-   TOGGLE
-===================== */
 .theme-toggle {
   position: fixed;
   top: 15px;
@@ -200,6 +193,19 @@ This is just my personal opinion and the ETFs I personally invest in.
 </div>
 </section>
 
+<section>
+<h2>Questions?</h2>
+<form action="mailto:youremail@example.com" method="post">
+<textarea rows="4" style="width:100%;"></textarea><br><br>
+<button>Send</button>
+</form>
+
+<p style="margin-top:25px;">
+<strong>DISCLAIMER!</strong> Just because me or someone else tells you to invest into a stock or ETF doesn’t mean you should.
+<strong>ALWAYS do your own research before purchasing any stock.</strong>
+</p>
+</section>
+
 <section style="text-align:center;">
 <button onclick="window.location.href='https://www.youtube.com/watch?v=7-QK_1oHoiQ'">
 Click me to lock in
@@ -210,24 +216,24 @@ Click me to lock in
 let growthChart;
 
 function calculateCompound() {
-  const initial = +initial.value;
-  const contribution = +contribution.value;
-  const rate = rateInput = +rate.value / 100;
-  const yearsVal = +years.value;
+  const initialVal = Number(document.getElementById('initial').value);
+  const contributionVal = Number(document.getElementById('contribution').value);
+  const rateVal = Number(document.getElementById('rate').value) / 100;
+  const yearsVal = Number(document.getElementById('years').value);
 
-  let balance = initial;
-  let total = initial;
+  let balance = initialVal;
+  let total = initialVal;
   let values = [];
   let labels = [];
 
   for (let i = 1; i <= yearsVal; i++) {
-    balance = balance * (1 + rateInput) + contribution;
-    total += contribution;
+    balance = balance * (1 + rateVal) + contributionVal;
+    total += contributionVal;
     values.push(balance);
     labels.push(`Year ${i}`);
   }
 
-  result.innerHTML = `
+  document.getElementById('result').innerHTML = `
     <p><strong>Final Balance:</strong> $${balance.toLocaleString()}</p>
     <p><strong>Total Contributions:</strong> $${total.toLocaleString()}</p>
     <p><strong>Total Interest Earned:</strong> $${(balance - total).toLocaleString()}</p>
@@ -237,7 +243,7 @@ function calculateCompound() {
 
   const isLight = document.body.classList.contains('light');
 
-  growthChart = new Chart(growthChartCanvas, {
+  growthChart = new Chart(document.getElementById('growthChart'), {
     type: 'line',
     data: {
       labels,
@@ -245,7 +251,7 @@ function calculateCompound() {
         label: 'Portfolio Value',
         data: values,
         borderColor: isLight ? '#000000' : '#ff4d4d',
-        backgroundColor: isLight ? 'rgba(0,0,0,0.1)' : 'rgba(255,77,77,0.15)',
+        backgroundColor: isLight ? 'rgba(0,0,0,0.15)' : 'rgba(255,77,77,0.15)',
         fill: true,
         tension: 0.3
       }]
@@ -260,8 +266,6 @@ function calculateCompound() {
   });
 }
 
-const growthChartCanvas = document.getElementById('growthChart');
-
 function toggleTheme() {
   document.body.classList.toggle('light');
   if (growthChart) calculateCompound();
@@ -269,7 +273,7 @@ function toggleTheme() {
 </script>
 
 <script>
-new Chart(individualChart, {
+new Chart(document.getElementById('individualChart'), {
 type:'pie',
 data:{labels:['VOO','FTEC','QQQM','SCHD','Individual'],
 datasets:[{data:[35,25,20,15,5],
@@ -277,7 +281,7 @@ backgroundColor:['#ff4d4d','#ff884d','#ffd24d','#4dff88','#888888']}]},
 options:{plugins:{legend:{labels:{color:'#e6e6e6'}}}}
 });
 
-new Chart(rothChart, {
+new Chart(document.getElementById('rothChart'), {
 type:'pie',
 data:{labels:['FTEC','VGT'],
 datasets:[{data:[50,50],
