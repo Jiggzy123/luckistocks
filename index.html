@@ -6,7 +6,7 @@
 <title>Investing for Beginners</title>
 
 <script>
-const password = "Lucki";
+const password = "lucki";
 function checkPassword() {
   const userPass = prompt("Enter password to view this page:");
   if (userPass !== password) {
@@ -39,7 +39,7 @@ body.light {
   --text-main: #000000;
   --accent: #000000;
   --border: #000000;
-  --link: #000000;
+  --link: #0066cc;
 }
 
 /* ===== BASE STYLES ===== */
@@ -66,16 +66,8 @@ h1, h2, h3, h4 {
 
 a {
   color: var(--link);
-  text-decoration: none;
-}
-
-/* Light mode link visibility */
-body.light a {
+  font-weight: 600;
   text-decoration: underline;
-}
-
-a:hover {
-  opacity: 0.75;
 }
 
 button {
@@ -162,8 +154,10 @@ This is just my personal opinion and the ETFs I personally invest in.
 <h4><a href="https://www.google.com/finance/quote/VGT:NYSEARCA" target="_blank">VGT</a></h4>
 <p>Concentrated information technology ETF.</p>
 
-<p><strong>Note:</strong> I’d only recommend one per portfolio — just showing multiple options!
-Make sure to always check <a href="https://www.etfrc.com/funds/overlap.php" target="_blank">overlap</a> too.</p>
+<p>
+<strong>Note:</strong> I’d only recommend one per portfolio — just showing multiple options.
+Make sure to always check <a href="https://www.etfrc.com/funds/overlap.php" target="_blank">overlap</a> too!
+</p>
 </section>
 
 <section>
@@ -190,7 +184,6 @@ Make sure to always check <a href="https://www.etfrc.com/funds/overlap.php" targ
 <input id="rate" type="number" value="8">
 <input id="years" type="number" value="30">
 
-<button onclick="toggleContribution()">Monthly Contributions On</button>
 <button onclick="calculateCompound()">Calculate Growth</button>
 
 <div id="result" style="margin-top:20px;"></div>
@@ -205,27 +198,26 @@ Make sure to always check <a href="https://www.etfrc.com/funds/overlap.php" targ
 
 <section>
 <h2>Learning Resources</h2>
-<ol>
-<li>
-I personally learned 90% of what I know from
-<a href="https://www.tiktok.com/@tradeinvestsimplify" target="_blank">Kenneth Suna</a>
-and his
-<a href="https://www.kennethsuna.com" target="_blank">website</a>.
-</li>
-<li>
-Make sure to always check funds for
-<a href="https://www.etfrc.com/funds/overlap.php" target="_blank">overlap</a>.
-</li>
-<li>
-Time in the market is always better than timing the market.
-</li>
-</ol>
+<ul>
+  <li>
+    I personally learned 90% of what I know from
+    <a href="https://www.tiktok.com/@tradeinvestsimplify" target="_blank">Kenneth Suna</a>
+    and his <a href="https://www.kennethsuna.com" target="_blank">website</a>.
+  </li>
+  <li>
+    Make sure to always check funds for
+    <a href="https://www.etfrc.com/funds/overlap.php" target="_blank">overlap</a>.
+  </li>
+  <li>
+    Time in the market is always better than timing the market.
+  </li>
+</ul>
 
 <h3>Popular Brokerages</h3>
 <ul>
-<li><a href="https://www.fidelity.com" target="_blank">Fidelity</a></li>
-<li><a href="https://investor.vanguard.com" target="_blank">Vanguard</a></li>
-<li><a href="https://www.schwab.com" target="_blank">Charles Schwab</a></li>
+  <li><a href="https://www.fidelity.com" target="_blank">Fidelity</a></li>
+  <li><a href="https://investor.vanguard.com" target="_blank">Vanguard</a></li>
+  <li><a href="https://www.schwab.com" target="_blank">Charles Schwab</a></li>
 </ul>
 </section>
 
@@ -250,22 +242,12 @@ Click me to lock in
 
 <script>
 let growthChart;
-let isMonthly = true;
-
-function toggleContribution() {
-  isMonthly = !isMonthly;
-  event.target.textContent = isMonthly
-    ? "Monthly Contributions On"
-    : "Annual Contributions On";
-}
 
 function calculateCompound() {
   const initialVal = Number(document.getElementById('initial').value);
-  let contributionVal = Number(document.getElementById('contribution').value);
+  const contributionVal = Number(document.getElementById('contribution').value);
   const rateVal = Number(document.getElementById('rate').value) / 100;
   const yearsVal = Number(document.getElementById('years').value);
-
-  if (isMonthly) contributionVal *= 12;
 
   let balance = initialVal;
   let total = initialVal;
@@ -296,7 +278,7 @@ function calculateCompound() {
       datasets: [{
         label: 'Portfolio Value',
         data: values,
-        borderColor: isLight ? '#000' : '#ff4d4d',
+        borderColor: isLight ? '#000000' : '#ff4d4d',
         backgroundColor: isLight ? 'rgba(0,0,0,0.15)' : 'rgba(255,77,77,0.15)',
         fill: true,
         tension: 0.3
@@ -320,45 +302,27 @@ function toggleTheme() {
 
 <script>
 new Chart(document.getElementById('individualChart'), {
-type:'pie',
-data:{
-labels:['VOO','FTEC','QQQM','SCHD','Individual'],
-datasets:[{
-data:[35,25,20,15,5],
-backgroundColor:['red','blue','green','purple','orange']
-}]
-},
-options:{
-plugins:{
-tooltip:{
-callbacks:{
-label: ctx => `${ctx.label}: ${ctx.parsed}%`
-}
-},
-legend:{labels:{color:'#e6e6e6'}}
-}
-}
+  type:'pie',
+  data:{
+    labels:['VOO','FTEC','QQQM','SCHD','Individual'],
+    datasets:[{
+      data:[35,25,20,15,5],
+      backgroundColor:['red','blue','green','purple','orange']
+    }]
+  },
+  options:{plugins:{legend:{labels:{color:'#e6e6e6'}}}}
 });
 
 new Chart(document.getElementById('rothChart'), {
-type:'pie',
-data:{
-labels:['FTEC','VGT'],
-datasets:[{
-data:[50,50],
-backgroundColor:['red','blue']
-}]
-},
-options:{
-plugins:{
-tooltip:{
-callbacks:{
-label: ctx => `${ctx.label}: ${ctx.parsed}%`
-}
-},
-legend:{labels:{color:'#e6e6e6'}}
-}
-}
+  type:'pie',
+  data:{
+    labels:['FTEC','VGT'],
+    datasets:[{
+      data:[50,50],
+      backgroundColor:['red','blue']
+    }]
+  },
+  options:{plugins:{legend:{labels:{color:'#e6e6e6'}}}}
 });
 </script>
 
