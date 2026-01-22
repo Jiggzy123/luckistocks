@@ -137,18 +137,15 @@ This is just my personal opinion.
   Investing allows your money to grow over time, beat inflation, and benefit from compounding.</li>
 </ul>
 
-<!-- MISSING AREA — NOW FULLY RESTORED -->
 <h3>Fundamentals: Stocks Explained</h3>
 <p>
 A stock represents ownership in a company. When you buy a share of stock, you own a small portion of that business.
-As the company grows, becomes more profitable, or increases revenue, the value of your shares may increase.
 </p>
 <p>
-Stocks can generate returns in two main ways: price appreciation (the stock goes up in value) and dividends
-(payments companies distribute to shareholders). Stocks tend to be more volatile than ETFs but offer higher growth potential.
+Stocks can generate returns through price appreciation and dividends. They are more volatile than ETFs but offer higher growth potential.
 </p>
 <p>
-Long-term investors typically benefit from holding high-quality stocks or broad market ETFs rather than attempting to trade frequently.
+Long-term investors typically benefit from holding quality stocks or broad ETFs rather than trading frequently.
 </p>
 </section>
 
@@ -168,7 +165,7 @@ Long-term investors typically benefit from holding high-quality stocks or broad 
 <h3>Roth IRA</h3>
 <canvas id="rothChart"></canvas>
 <p>
-Long-term growth focused retirement portfolio
+switched to FTEC for lower expense ratio
 </p>
 </div>
 </section>
@@ -251,7 +248,7 @@ new Chart(document.getElementById("individualChart"), {
     labels: ["VOO","FTEC / QQQM","SCHD","VXUS","Individual Stocks"],
     datasets: [{
       data: [40,30,15,10,5],
-      backgroundColor: ["#c40000","#ff4d4d","#888","#6a5acd","#999"]
+      backgroundColor: ["red","blue","green","purple","orange"]
     }]
   },
   options: {
@@ -269,17 +266,17 @@ new Chart(document.getElementById("individualChart"), {
 new Chart(document.getElementById("rothChart"), {
   type: "pie",
   data: {
-    labels: ["Growth ETFs"],
+    labels: ["FTEC","VGT"],
     datasets: [{
-      data: [100],
-      backgroundColor: ["#c40000"]
+      data: [50,50],
+      backgroundColor: ["red","blue"]
     }]
   },
   options: {
     plugins: {
       tooltip: {
         callbacks: {
-          label: () => "100%"
+          label: ctx => `${ctx.label}: ${ctx.raw}%`
         }
       },
       legend: { position: "bottom" }
@@ -287,7 +284,7 @@ new Chart(document.getElementById("rothChart"), {
   }
 });
 
-/* CALCULATOR + GROWTH FIXED */
+/* CALCULATOR + GROWTH */
 let growthChartInstance;
 
 function calculateGrowth() {
@@ -315,7 +312,7 @@ function calculateGrowth() {
       datasets: [{
         label: "Portfolio Value",
         data: data,
-        borderColor: "#c40000",
+        borderColor: "red",
         tension: 0.2
       }]
     }
