@@ -88,7 +88,7 @@ body.light button {
   margin: 30px auto;
 }
 
-input {
+input, textarea {
   background:#111;
   color:#fff;
   border:1px solid var(--border);
@@ -98,7 +98,8 @@ input {
   margin-bottom:10px;
 }
 
-body.light input {
+body.light input,
+body.light textarea {
   background:#f2f2f2;
   color:#000;
 }
@@ -108,6 +109,13 @@ body.light input {
   top: 15px;
   right: 15px;
   z-index: 999;
+}
+
+.qa-box {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 15px;
+  margin-top: 15px;
 }
 </style>
 </head>
@@ -232,11 +240,12 @@ Make sure to always check <a href="https://www.etfrc.com/funds/overlap.php" targ
 </section>
 
 <section>
-<h2>Questions?</h2>
-<form action="mailto:youremail@example.com" method="post">
-<textarea rows="4" style="width:100%;"></textarea><br><br>
-<button>Send</button>
-</form>
+<h2>Questions (Anonymous)</h2>
+
+<textarea id="questionInput" rows="3" placeholder="Ask a question anonymously..."></textarea>
+<button onclick="postQuestion()">Post Question</button>
+
+<div id="qaList"></div>
 
 <p style="margin-top:25px;">
 <strong>DISCLAIMER!</strong> Just because me or someone else tells you to invest into a stock or ETF or you've seen them invest into a stock or ETF doesn’t mean you should.
@@ -357,6 +366,49 @@ new Chart(document.getElementById('rothChart'), {
 });
 </script>
 
+<script>
+let questions = JSON.parse(localStorage.getItem("qa")) || [];
+
+function saveQA() {
+  localStorage.setItem("qa", JSON.stringify(questions));
+}
+
+function renderQA() {
+  const container = document.getElementById("qaList");
+  container.innerHTML = "";
+
+  questions.forEach((q, index) => {
+    const div = document.createElement("div");
+    div.className = "qa-box";
+    div.innerHTML = `
+      <p><strong>Question:</strong> ${q.question}</p>
+      ${q.answer ? `<p><strong>Answer:</strong> ${q.answer}</p>` : ""}
+      <textarea placeholder="Write an answer..."></textarea>
+      <button onclick="answerQuestion(${index}, this)">Post Answer</button>
+    `;
+    container.appendChild(div);
+  });
+}
+
+function postQuestion() {
+  const input = document.getElementById("questionInput");
+  if (!input.value.trim()) return;
+  questions.unshift({ question: input.value, answer: "" });
+  input.value = "";
+  saveQA();
+  renderQA();
+}
+
+function answerQuestion(index, btn) {
+  const textarea = btn.previousElementSibling;
+  if (!textarea.value.trim()) return;
+  questions[index].answer = textarea.value;
+  saveQA();
+  renderQA();
+}
+
+renderQA();
+</script>
+
 </body>
 </html>
-
