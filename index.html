@@ -143,13 +143,13 @@ This website shares my personal experience and opinions only.
   Roth IRAs grow tax-free. 401ks are pre-tax and often include employer matching.</li>
 
   <li><strong>What is an ETF:</strong>
-  A collection of many stocks bundled into one fund for diversification.</li>
+  A bundle of stocks in one fund that trades like a stock.</li>
 
   <li><strong>What are dividends:</strong>
-  Cash payments companies distribute to shareholders from profits.</li>
+  Payments companies give shareholders from profits.</li>
 
   <li><strong>Why invest:</strong>
-  To beat inflation, grow purchasing power, and benefit from compounding over time.</li>
+  To beat inflation and compound wealth over time.</li>
 
   <li>
     <a href="https://www.youtube.com/watch?v=CuOzEX_Nck8" target="_blank">
@@ -176,25 +176,25 @@ This website shares my personal experience and opinions only.
 <h3>Core Market ETFs</h3>
 <ul>
   <li><strong><a href="https://finance.yahoo.com/quote/VOO" target="_blank">VOO</a>:</strong>
-  Tracks the S&P 500, offering exposure to the 500 largest U.S. companies.</li>
+  Tracks the S&P 500, giving exposure to the 500 largest U.S. companies. Considered a strong long-term foundation.</li>
 
   <li><strong><a href="https://finance.yahoo.com/quote/VXUS" target="_blank">VXUS</a>:</strong>
-  Provides international exposure outside the U.S. for global diversification.</li>
+  Provides international exposure outside the U.S., helping diversify against U.S.-only risk.</li>
 
   <li><strong><a href="https://finance.yahoo.com/quote/SCHD" target="_blank">SCHD</a>:</strong>
-  Focuses on high-quality dividend-paying U.S. companies with stable cash flow.</li>
+  Focuses on high-quality dividend-paying companies, offering income and stability.</li>
 </ul>
 
 <h3>Technology ETFs</h3>
 <ul>
   <li><strong><a href="https://finance.yahoo.com/quote/QQQM" target="_blank">QQQM</a>:</strong>
-  Tracks the Nasdaq-100, emphasizing large-cap growth and innovation.</li>
+  Tracks the Nasdaq-100, emphasizing large tech and growth companies with long-term upside.</li>
 
   <li><strong><a href="https://finance.yahoo.com/quote/FTEC" target="_blank">FTEC</a>:</strong>
-  Broad U.S. technology exposure with a very low expense ratio.</li>
+  Broad technology exposure with a low expense ratio, covering many major U.S. tech firms.</li>
 
   <li><strong><a href="https://finance.yahoo.com/quote/VGT" target="_blank">VGT</a>:</strong>
-  Heavily concentrated in top tech companies for aggressive growth.</li>
+  Heavy concentration in top tech leaders, offering higher growth potential with more volatility.</li>
 </ul>
 </section>
 
@@ -351,8 +351,7 @@ function calculateGrowth() {
 
   if (growthChart) growthChart.destroy();
 
-  const ctx = document.getElementById("growthChart").getContext("2d");
-  growthChart = new Chart(ctx, {
+  growthChart = new Chart(document.getElementById("growthChart"), {
     type: "line",
     data: {
       labels,
