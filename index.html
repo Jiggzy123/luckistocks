@@ -91,8 +91,7 @@ input, textarea {
   border-radius: 6px;
 }
 
-body.light input,
-body.light textarea {
+body.light input, body.light textarea {
   background: #f2f2f2;
   color: #000;
 }
@@ -137,28 +136,30 @@ This website shares my personal experience and opinions only.
 <h2>Fundamentals</h2>
 <ul>
   <li><strong>Roth IRA vs Individual Account:</strong>
-  A Roth IRA allows tax-free growth and withdrawals in retirement, but has income and contribution limits.
-  Individual brokerage accounts have no limits but are taxable.</li>
+  A Roth IRA allows your money to grow tax-free and be withdrawn tax-free in retirement, but it has income and contribution limits.
+  An individual brokerage account has no limits, but dividends and capital gains are taxable.</li>
 
   <li><strong>Roth IRA vs 401k:</strong>
-  Roth IRAs are after-tax and tax-free later. 401ks are pre-tax and often include employer matching.</li>
+  Roth IRAs use after-tax money and grow tax-free. 401ks are usually pre-tax, taxed later, and often include employer matching.</li>
 
   <li><strong>What is an ETF:</strong>
-  ETFs bundle many stocks into one fund for diversification and lower risk.</li>
+  An ETF (Exchange-Traded Fund) holds many stocks in one fund. This gives instant diversification and usually lower fees.</li>
 
   <li><strong>What are dividends:</strong>
-  Payments companies distribute to shareholders, often quarterly.</li>
+  Dividends are cash payments companies distribute to shareholders, often quarterly.</li>
 
   <li><strong>Why invest:</strong>
-  Investing builds wealth over time and combats inflation.</li>
+  Investing helps grow money over time, beat inflation, and benefit from compounding.</li>
 </ul>
 
 <h3>Stocks Explained</h3>
 <p>
-A stock represents ownership in a company. Stock prices grow as companies grow profits and expand.
+A stock represents ownership in a company. When you buy a stock, you own a small piece of that business.
+Stocks grow in value as companies increase profits, expand, or innovate.
 </p>
 <p>
-Stocks can offer high returns but are more volatile than ETFs. Long-term holding reduces risk.
+Stocks can provide returns through price growth and dividends, but they are more volatile than ETFs.
+Long-term investing reduces risk compared to short-term trading.
 </p>
 </section>
 
@@ -168,17 +169,19 @@ Stocks can offer high returns but are more volatile than ETFs. Long-term holding
 
 <h3>Core Market ETFs</h3>
 <ul>
-  <li><strong>VOO:</strong> Tracks the S&P 500 and represents the backbone of many portfolios.</li>
-  <li><strong>VXUS:</strong> Adds international exposure to reduce U.S.-only risk.</li>
-  <li><strong>SCHD:</strong> Focuses on reliable dividend-paying companies.</li>
+  <li><strong>VOO:</strong> Tracks the S&P 500, giving exposure to the largest U.S. companies and long-term market growth.</li>
+  <li><strong>VXUS:</strong> Provides international diversification outside the U.S., reducing country-specific risk.</li>
+  <li><strong>SCHD:</strong> Focuses on dividend-paying companies, providing steady income and stability.</li>
 </ul>
 
 <h3>Technology ETFs</h3>
 <ul>
-  <li><strong>QQQM:</strong> Nasdaq-100 growth-focused ETF.</li>
-  <li><strong>FTEC:</strong> Broad tech exposure with a lower expense ratio.</li>
-  <li><strong>VGT:</strong> Highly concentrated long-term tech growth ETF.</li>
+  <li><strong>QQQM:</strong> Tracks the Nasdaq-100, emphasizing growth and innovation.</li>
+  <li><strong>FTEC:</strong> Broad U.S. technology exposure with a lower expense ratio.</li>
+  <li><strong>VGT:</strong> Concentrated technology ETF with strong long-term growth potential.</li>
 </ul>
+
+<p><strong>Tip:</strong> Avoid overlap and diversify wisely.</p>
 </section>
 
 <!-- PORTFOLIO -->
@@ -188,13 +191,18 @@ Stocks can offer high returns but are more volatile than ETFs. Long-term holding
 <div class="chart-container">
 <h3>Individual Account</h3>
 <canvas id="individualChart"></canvas>
-<p>40% VOO • 30% FTEC/QQQM • 15% SCHD • 10% VXUS • 5% Individual Stocks</p>
+<p>
+40% VOO • 30% FTEC/QQQM • 15% SCHD • 10% VXUS • 5% Individual Stocks
+</p>
 </div>
 
 <div class="chart-container">
 <h3>Roth IRA</h3>
 <canvas id="rothChart"></canvas>
-<p>50% FTEC • 50% VGT<br><em>Switched to FTEC for lower expense ratio</em></p>
+<p>
+50% FTEC • 50% VGT  
+<br><em>Switched to FTEC for lower expense ratio</em>
+</p>
 </div>
 </section>
 
@@ -228,8 +236,8 @@ Stocks can offer high returns but are more volatile than ETFs. Long-term holding
 <section>
 <h2>Learning Resources</h2>
 <ul>
-  <li>Learned from <a href="https://www.tiktok.com/@tradeinvestsimplify" target="_blank">Kenneth Suna</a></li>
-  <li>Check overlap with <a href="https://www.etfrc.com/funds/overlap.php" target="_blank">ETFRC</a></li>
+  <li>Learned heavily from <a href="https://www.tiktok.com/@tradeinvestsimplify" target="_blank">Kenneth Suna</a></li>
+  <li>Check ETF overlap using <a href="https://www.etfrc.com/funds/overlap.php" target="_blank">ETFRC</a></li>
   <li>Time in the market beats timing the market.</li>
 </ul>
 
@@ -244,6 +252,8 @@ Stocks can offer high returns but are more volatile than ETFs. Long-term holding
 <!-- QUESTIONS -->
 <section>
 <h2>Questions (Anonymous)</h2>
+<p>Ask anonymously. Only admin can respond.</p>
+
 <textarea id="questionInput"></textarea>
 <button onclick="postQuestion()">Post Question</button>
 
@@ -325,7 +335,9 @@ function calculateGrowth() {
   result.innerHTML = `<strong>Final Value:</strong> $${Math.round(balance).toLocaleString()}`;
 
   if (growthChart) growthChart.destroy();
-  growthChart = new Chart(document.getElementById("growthChart"), {
+
+  const ctx = document.getElementById("growthChart").getContext("2d");
+  growthChart = new Chart(ctx, {
     type: "line",
     data: {
       labels,
