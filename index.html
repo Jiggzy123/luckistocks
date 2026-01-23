@@ -91,7 +91,8 @@ input, textarea {
   border-radius: 6px;
 }
 
-body.light input, body.light textarea {
+body.light input,
+body.light textarea {
   background: #f2f2f2;
   color: #000;
 }
@@ -128,7 +129,7 @@ body.light input, body.light textarea {
 This website shares my personal experience and opinions only.
 <strong>I AM NOT A FINANCIAL ADVISOR.</strong>
 </p>
-<p style="text-align:center;"><strong>Baseline:</strong> v3</p>
+<p style="text-align:center;"><strong>Last Updated:</strong> 1/22/26</p>
 </section>
 
 <!-- FUNDAMENTALS -->
@@ -136,30 +137,28 @@ This website shares my personal experience and opinions only.
 <h2>Fundamentals</h2>
 <ul>
   <li><strong>Roth IRA vs Individual Account:</strong>
-  A Roth IRA allows your money to grow tax-free and be withdrawn tax-free in retirement, but it has income and contribution limits.
-  An individual brokerage account has no limits, but dividends and capital gains are taxable.</li>
+  A Roth IRA allows tax-free growth and withdrawals in retirement, but has income and contribution limits.
+  Individual brokerage accounts have no limits but are taxable.</li>
 
   <li><strong>Roth IRA vs 401k:</strong>
-  Roth IRAs use after-tax money and grow tax-free. 401ks are usually pre-tax, taxed later, and often include employer matching.</li>
+  Roth IRAs are after-tax and tax-free later. 401ks are pre-tax and often include employer matching.</li>
 
   <li><strong>What is an ETF:</strong>
-  An ETF (Exchange-Traded Fund) holds many stocks in one fund. This gives instant diversification and usually lower fees.</li>
+  ETFs bundle many stocks into one fund for diversification and lower risk.</li>
 
   <li><strong>What are dividends:</strong>
-  Dividends are cash payments companies distribute to shareholders, often quarterly.</li>
+  Payments companies distribute to shareholders, often quarterly.</li>
 
   <li><strong>Why invest:</strong>
-  Investing helps grow money over time, beat inflation, and benefit from compounding.</li>
+  Investing builds wealth over time and combats inflation.</li>
 </ul>
 
 <h3>Stocks Explained</h3>
 <p>
-A stock represents ownership in a company. When you buy a stock, you own a small piece of that business.
-Stocks grow in value as companies increase profits, expand, or innovate.
+A stock represents ownership in a company. Stock prices grow as companies grow profits and expand.
 </p>
 <p>
-Stocks can provide returns through price growth and dividends, but they are more volatile than ETFs.
-Long-term investing reduces risk compared to short-term trading.
+Stocks can offer high returns but are more volatile than ETFs. Long-term holding reduces risk.
 </p>
 </section>
 
@@ -169,19 +168,17 @@ Long-term investing reduces risk compared to short-term trading.
 
 <h3>Core Market ETFs</h3>
 <ul>
-  <li><strong>VOO:</strong> Tracks the S&P 500, giving exposure to the largest U.S. companies and long-term market growth.</li>
-  <li><strong>VXUS:</strong> Provides international diversification outside the U.S., reducing country-specific risk.</li>
-  <li><strong>SCHD:</strong> Focuses on dividend-paying companies, providing steady income and stability.</li>
+  <li><strong>VOO:</strong> Tracks the S&P 500 and represents the backbone of many portfolios.</li>
+  <li><strong>VXUS:</strong> Adds international exposure to reduce U.S.-only risk.</li>
+  <li><strong>SCHD:</strong> Focuses on reliable dividend-paying companies.</li>
 </ul>
 
 <h3>Technology ETFs</h3>
 <ul>
-  <li><strong>QQQM:</strong> Tracks the Nasdaq-100, emphasizing growth and innovation.</li>
-  <li><strong>FTEC:</strong> Broad U.S. technology exposure with a lower expense ratio.</li>
-  <li><strong>VGT:</strong> Concentrated technology ETF with strong long-term growth potential.</li>
+  <li><strong>QQQM:</strong> Nasdaq-100 growth-focused ETF.</li>
+  <li><strong>FTEC:</strong> Broad tech exposure with a lower expense ratio.</li>
+  <li><strong>VGT:</strong> Highly concentrated long-term tech growth ETF.</li>
 </ul>
-
-<p><strong>Tip:</strong> Avoid overlap and diversify wisely.</p>
 </section>
 
 <!-- PORTFOLIO -->
@@ -191,18 +188,13 @@ Long-term investing reduces risk compared to short-term trading.
 <div class="chart-container">
 <h3>Individual Account</h3>
 <canvas id="individualChart"></canvas>
-<p>
-40% VOO • 30% FTEC/QQQM • 15% SCHD • 10% VXUS • 5% Individual Stocks
-</p>
+<p>40% VOO • 30% FTEC/QQQM • 15% SCHD • 10% VXUS • 5% Individual Stocks</p>
 </div>
 
 <div class="chart-container">
 <h3>Roth IRA</h3>
 <canvas id="rothChart"></canvas>
-<p>
-50% FTEC • 50% VGT  
-<br><em>Switched to FTEC for lower expense ratio</em>
-</p>
+<p>50% FTEC • 50% VGT<br><em>Switched to FTEC for lower expense ratio</em></p>
 </div>
 </section>
 
@@ -210,10 +202,10 @@ Long-term investing reduces risk compared to short-term trading.
 <section>
 <h2>Compound Interest Calculator</h2>
 
-<input id="initial" type="number" placeholder="Initial Investment" value="1000">
-<input id="contribution" type="number" placeholder="Contribution Amount" value="6000">
-<input id="rate" type="number" placeholder="Annual Return %" value="8">
-<input id="years" type="number" placeholder="Years" value="30">
+<input id="initial" type="number" value="1000">
+<input id="contribution" type="number" value="6000">
+<input id="rate" type="number" value="8">
+<input id="years" type="number" value="30">
 
 <button onclick="setMode('annual')">Annual Contributions</button>
 <button onclick="setMode('monthly')">Monthly Contributions</button>
@@ -224,7 +216,7 @@ Long-term investing reduces risk compared to short-term trading.
 <div id="result"></div>
 </section>
 
-<!-- GROWTH CHART -->
+<!-- GROWTH -->
 <section>
 <h2>Growth Over Time</h2>
 <div class="chart-container">
@@ -236,13 +228,8 @@ Long-term investing reduces risk compared to short-term trading.
 <section>
 <h2>Learning Resources</h2>
 <ul>
-  <li>
-    Learned heavily from <a href="https://www.tiktok.com/@tradeinvestsimplify" target="_blank">Kenneth Suna</a>
-    and his <a href="https://www.kennethsuna.com" target="_blank">website</a>.
-  </li>
-  <li>
-    Check ETF overlap using <a href="https://www.etfrc.com/funds/overlap.php" target="_blank">ETFRC</a>.
-  </li>
+  <li>Learned from <a href="https://www.tiktok.com/@tradeinvestsimplify" target="_blank">Kenneth Suna</a></li>
+  <li>Check overlap with <a href="https://www.etfrc.com/funds/overlap.php" target="_blank">ETFRC</a></li>
   <li>Time in the market beats timing the market.</li>
 </ul>
 
@@ -257,12 +244,7 @@ Long-term investing reduces risk compared to short-term trading.
 <!-- QUESTIONS -->
 <section>
 <h2>Questions (Anonymous)</h2>
-<p>
-Ask any investing question anonymously. Questions and answers remain visible so others can learn too.
-Only the admin can respond or moderate.
-</p>
-
-<textarea id="questionInput" placeholder="Ask a question anonymously..."></textarea>
+<textarea id="questionInput"></textarea>
 <button onclick="postQuestion()">Post Question</button>
 
 <hr>
@@ -270,13 +252,6 @@ Only the admin can respond or moderate.
 <button onclick="adminLogin()">Admin Login</button>
 <p id="adminStatus"></p>
 <div id="qaList"></div>
-
-<p style="margin-top:25px;">
-<strong>DISCLAIMER!</strong>
-Just because someone invests in a stock or ETF doesn’t mean you should.
-Everyone has different financial situations — find what works for you and
-<strong>ALWAYS do your own research.</strong>
-</p>
 </section>
 
 <section style="text-align:center;">
@@ -291,7 +266,7 @@ function toggleTheme() {
 }
 
 /* PIE CHARTS */
-new Chart(individualChart, {
+new Chart(document.getElementById("individualChart"), {
   type: "pie",
   data: {
     labels: ["VOO","FTEC / QQQM","SCHD","VXUS","Individual Stocks"],
@@ -302,7 +277,7 @@ new Chart(individualChart, {
   }
 });
 
-new Chart(rothChart, {
+new Chart(document.getElementById("rothChart"), {
   type: "pie",
   data: {
     labels: ["FTEC","VGT"],
@@ -313,7 +288,7 @@ new Chart(rothChart, {
   }
 });
 
-/* CALCULATOR + GROWTH */
+/* CALCULATOR + FIXED GROWTH CHART */
 let growthChart;
 let mode = "annual";
 
@@ -323,8 +298,8 @@ function setMode(m) {
 }
 
 function calculateGrowth() {
-  const initial = +document.getElementById("initial").value;
-  const contrib = +document.getElementById("contribution").value;
+  const initial = +initial.value;
+  const contrib = +contribution.value;
   const rate = +document.getElementById("rate").value / 100;
   const years = +document.getElementById("years").value;
 
@@ -350,7 +325,7 @@ function calculateGrowth() {
   result.innerHTML = `<strong>Final Value:</strong> $${Math.round(balance).toLocaleString()}`;
 
   if (growthChart) growthChart.destroy();
-  growthChart = new Chart(growthChart, {
+  growthChart = new Chart(document.getElementById("growthChart"), {
     type: "line",
     data: {
       labels,
@@ -358,8 +333,8 @@ function calculateGrowth() {
         label: "Portfolio Value",
         data,
         borderColor: "#c40000",
-        fill: false,
-        tension: 0.3
+        tension: 0.3,
+        fill: false
       }]
     }
   });
