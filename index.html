@@ -8,13 +8,14 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
-const password = "lucki";
+/* PASSWORDS */
+const sitePassword = "lucki";
 const adminPassword = "luck1";
 let isAdmin = false;
 
 function checkPassword() {
-  const userPass = prompt("Enter password to view this page:");
-  if (userPass !== password) {
+  const input = prompt("Enter password to view this page:");
+  if (input !== sitePassword) {
     document.body.innerHTML =
       "<h2 style='color:red;text-align:center;margin-top:20%'>Access Denied</h2>";
   }
@@ -61,10 +62,7 @@ section {
 
 h1, h2, h3, h4 { color: var(--accent); }
 
-a {
-  color: var(--link);
-  font-weight: bold;
-}
+a { color: var(--link); font-weight: bold; }
 
 button {
   background: var(--accent);
@@ -74,7 +72,6 @@ button {
   border-radius: 8px;
   font-weight: bold;
   cursor: pointer;
-  margin: 5px;
 }
 
 input, textarea {
@@ -87,20 +84,9 @@ input, textarea {
   border-radius: 6px;
 }
 
-body.light input, body.light textarea {
-  background: #f2f2f2;
-  color: #000;
-}
-
 .chart-container {
   max-width: 520px;
   margin: 30px auto;
-}
-
-.theme-toggle {
-  position: fixed;
-  top: 15px;
-  right: 15px;
 }
 
 .qa-box {
@@ -108,6 +94,12 @@ body.light input, body.light textarea {
   border-radius: 10px;
   padding: 15px;
   margin-top: 15px;
+}
+
+.theme-toggle {
+  position: fixed;
+  top: 15px;
+  right: 15px;
 }
 </style>
 </head>
@@ -131,29 +123,63 @@ This is just my personal opinion.
 <section>
 <h2>Fundamentals</h2>
 <ul>
-  <li><strong>Roth IRA vs Individual Account:</strong> Roth IRAs grow tax-free but have limits. Individual accounts have no limits but are taxable.</li>
-  <li><strong>Roth IRA vs 401k:</strong> Roth IRAs are after-tax. 401ks are pre-tax and often include employer matching.</li>
-  <li><strong>What is an ETF:</strong> A basket of assets that trades like a stock.</li>
-  <li><strong>What are dividends:</strong> Profit payments to shareholders.</li>
-  <li><strong>Why invest:</strong> To beat inflation and compound wealth.</li>
+  <li><strong>Roth IRA vs Individual Account:</strong>
+  Roth IRAs grow tax-free but have contribution and income limits. Individual brokerage accounts have no limits, but dividends and capital gains are taxable.</li>
+
+  <li><strong>Roth IRA vs 401k:</strong>
+  Roth IRAs are after-tax and tax-free later. 401ks are usually pre-tax and often include employer matching.</li>
+
+  <li><strong>What is an ETF:</strong>
+  ETFs are baskets of stocks bundled together. They provide instant diversification and usually have low fees.</li>
+
+  <li><strong>What are dividends:</strong>
+  Dividends are payments companies make to shareholders from profits.</li>
+
+  <li><strong>Why invest:</strong>
+  Investing lets your money compound over time and beat inflation.</li>
 </ul>
 
 <h3>Stocks Explained</h3>
 <p>
-A stock represents ownership in a company. Stocks grow through price appreciation and dividends.
-They are more volatile than ETFs but offer higher growth potential over long periods.
+A stock represents ownership in a single company. When you buy a stock, you are buying a small piece of that business.
+</p>
+<p>
+Stocks can be more volatile than ETFs because your investment depends on one company’s performance.
+However, they also offer higher potential returns if the company grows significantly.
+</p>
+<p>
+Stocks can generate money through price growth and dividends, but they require more research and risk tolerance.
+Long-term investors often mix stocks with ETFs for balance.
 </p>
 
-<h3>Recommended Stocks / ETFs</h3>
+<h3>Recommended ETFs</h3>
+
 <div class="qa-box">
-  <p><strong>VOO</strong> – S&P 500 exposure</p>
-  <p><strong>VXUS</strong> – International diversification</p>
-  <p><strong>SCHD</strong> – Dividend income</p>
-  <hr>
-  <p><strong>Technology ETFs</strong></p>
-  <p><strong>QQQM</strong> – Nasdaq-100 growth</p>
-  <p><strong>FTEC</strong> – Low-cost tech ETF</p>
-  <p><strong>VGT</strong> – Concentrated tech exposure</p>
+<h4>VOO</h4>
+<p>
+Tracks the S&P 500, giving exposure to 500 of the largest U.S. companies.
+Considered a core long-term holding with strong historical returns.
+</p>
+
+<h4>VXUS</h4>
+<p>
+Provides international exposure outside the U.S., helping diversify against U.S.-only risk.
+</p>
+
+<h4>SCHD</h4>
+<p>
+Focused on dividend-paying companies. Often used for income and stability.
+</p>
+
+<hr>
+
+<h4>Technology ETFs</h4>
+
+<p><strong>QQQM:</strong> Tracks the Nasdaq-100, emphasizing high-growth tech and innovation companies.</p>
+<p><strong>FTEC:</strong> Broad U.S. technology exposure with a lower expense ratio.</p>
+<p><strong>VGT:</strong> Heavy concentration in large-cap technology companies.</p>
+
+<p><strong>Note:</strong> Usually best to choose one tech ETF to avoid overlap.</p>
 </div>
 </section>
 
@@ -164,13 +190,19 @@ They are more volatile than ETFs but offer higher growth potential over long per
 <div class="chart-container">
 <h3>Individual Account</h3>
 <canvas id="individualChart"></canvas>
-<p>40% VOO • 30% FTEC / QQQM • 15% SCHD • 10% VXUS • 5% Stocks</p>
+<p>
+40% VOO • 30% FTEC / QQQM • 15% SCHD • 10% VXUS • 5% Individual Stocks
+</p>
 </div>
 
 <div class="chart-container">
 <h3>Roth IRA</h3>
 <canvas id="rothChart"></canvas>
-<p>Switched to FTEC for lower expense ratio</p>
+<p>
+50% FTEC • 50% VGT  
+<br>
+<em>Switched to FTEC for lower expense ratio</em>
+</p>
 </div>
 </section>
 
@@ -183,14 +215,7 @@ They are more volatile than ETFs but offer higher growth potential over long per
 <input id="rate" type="number" value="8">
 <input id="years" type="number" value="30">
 
-<div>
-<button onclick="setMode('annual')">Annual</button>
-<button onclick="setMode('monthly')">Monthly</button>
-</div>
-
-<p id="modeStatus"><strong>Annual Contributions ON</strong></p>
-
-<button onclick="calculateCompound()">Calculate</button>
+<button onclick="calculateGrowth()">Calculate Growth</button>
 <div id="result"></div>
 </section>
 
@@ -206,9 +231,14 @@ They are more volatile than ETFs but offer higher growth potential over long per
 <section>
 <h2>Learning Resources</h2>
 <ul>
-  <li><a href="https://www.tiktok.com/@tradeinvestsimplify" target="_blank">Kenneth Suna</a></li>
-  <li><a href="https://www.etfrc.com/funds/overlap.php" target="_blank">ETF Overlap Tool</a></li>
-  <li>Time in the market beats timing the market</li>
+  <li>I learned most of what I know from
+    <a href="https://www.tiktok.com/@tradeinvestsimplify" target="_blank">Kenneth Suna</a>
+    and his <a href="https://www.kennethsuna.com" target="_blank">website</a>.
+  </li>
+  <li>Check ETF overlap using
+    <a href="https://www.etfrc.com/funds/overlap.php" target="_blank">ETFRC</a>.
+  </li>
+  <li>Time in the market beats timing the market.</li>
 </ul>
 
 <h3>Popular Brokerages</h3>
@@ -219,14 +249,20 @@ They are more volatile than ETFs but offer higher growth potential over long per
 </ul>
 </section>
 
-<!-- Q&A -->
+<!-- QUESTIONS -->
 <section>
 <h2>Questions (Anonymous)</h2>
+
+<p>
+All questions are anonymous. Only the site owner can answer.
+Once answered, the question and response remain visible so others can learn too.
+</p>
 
 <textarea id="questionInput" placeholder="Ask a question anonymously..."></textarea>
 <button onclick="postQuestion()">Post Question</button>
 
 <hr>
+
 <button onclick="adminLogin()">Admin Login</button>
 <p id="adminStatus"></p>
 <div id="qaList"></div>
@@ -241,14 +277,12 @@ Click me to lock in
 <script>
 function toggleTheme() {
   document.body.classList.toggle("light");
-  if (growthChart) calculateCompound();
 }
 
-/* PIE CHARTS */
 new Chart(individualChart, {
   type: "pie",
   data: {
-    labels: ["VOO","FTEC / QQQM","SCHD","VXUS","Stocks"],
+    labels: ["VOO","FTEC / QQQM","SCHD","VXUS","Individual Stocks"],
     datasets: [{
       data: [40,30,15,10,5],
       backgroundColor: ["red","blue","green","purple","orange"]
@@ -267,72 +301,41 @@ new Chart(rothChart, {
   }
 });
 
-/* CALCULATOR */
 let growthChart;
-let contributionMode = "annual";
+function calculateGrowth() {
+  const initial = +document.getElementById("initial").value;
+  const contrib = +document.getElementById("contribution").value;
+  const rate = +document.getElementById("rate").value / 100;
+  const years = +document.getElementById("years").value;
 
-function setMode(mode) {
-  contributionMode = mode;
-  modeStatus.innerHTML =
-    "<strong>" + (mode === "monthly" ? "Monthly" : "Annual") + " Contributions ON</strong>";
-}
+  let total = initial;
+  let data = [];
 
-function calculateCompound() {
-  const initialVal = +initial.value;
-  const contribVal = +contribution.value;
-  const rateVal = +rate.value / 100;
-  const yearsVal = +years.value;
-
-  let balance = initialVal;
-  let totalContrib = initialVal;
-  let values = [];
-  let labels = [];
-
-  if (contributionMode === "monthly") {
-    const monthlyRate = rateVal / 12;
-    for (let i = 1; i <= yearsVal * 12; i++) {
-      balance = balance * (1 + monthlyRate) + contribVal / 12;
-      totalContrib += contribVal / 12;
-      values.push(balance);
-      labels.push("Month " + i);
-    }
-  } else {
-    for (let i = 1; i <= yearsVal; i++) {
-      balance = balance * (1 + rateVal) + contribVal;
-      totalContrib += contribVal;
-      values.push(balance);
-      labels.push("Year " + i);
-    }
+  for (let i = 1; i <= years; i++) {
+    total = (total + contrib) * (1 + rate);
+    data.push(total);
   }
 
-  result.innerHTML =
-    "<p><strong>Final Balance:</strong> $" + balance.toLocaleString() + "</p>" +
-    "<p><strong>Total Contributions:</strong> $" + totalContrib.toLocaleString() + "</p>" +
-    "<p><strong>Total Interest Earned:</strong> $" + (balance - totalContrib).toLocaleString() + "</p>";
+  result.innerHTML = `<strong>Final Value:</strong> $${Math.round(total).toLocaleString()}`;
 
   if (growthChart) growthChart.destroy();
-
   growthChart = new Chart(growthChart, {
     type: "line",
     data: {
-      labels,
+      labels: data.map((_,i)=>i+1),
       datasets: [{
         label: "Portfolio Value",
-        data: values,
+        data,
         borderColor: "#c40000",
-        fill: true,
-        tension: 0.3
+        fill: true
       }]
     }
   });
 }
 
-/* Q&A */
 let questions = JSON.parse(localStorage.getItem("qa")) || [];
 
-function saveQA() {
-  localStorage.setItem("qa", JSON.stringify(questions));
-}
+function saveQA(){ localStorage.setItem("qa", JSON.stringify(questions)); }
 
 function adminLogin() {
   if (prompt("Admin password:") === adminPassword) {
@@ -352,27 +355,23 @@ function postQuestion() {
 
 function renderQA() {
   qaList.innerHTML = "";
-  questions.forEach((item, i) => {
-    const box = document.createElement("div");
-    box.className = "qa-box";
-    box.innerHTML =
-      "<p><strong>Q:</strong> " + item.q + "</p>" +
-      (item.a ? "<p><strong>A:</strong> " + item.a + "</p>" : "");
-
-    if (isAdmin) {
-      const ta = document.createElement("textarea");
-      ta.value = item.a;
-      const btn = document.createElement("button");
-      btn.textContent = "Post Answer";
-      btn.onclick = () => {
-        questions[i].a = ta.value;
-        saveQA();
-        renderQA();
-      };
-      box.append(ta, btn);
+  questions.forEach((item,i)=>{
+    const div = document.createElement("div");
+    div.className="qa-box";
+    div.innerHTML=`<p><strong>Q:</strong> ${item.q}</p>${item.a?`<p><strong>A:</strong> ${item.a}</p>`:""}`;
+    if(isAdmin){
+      const ta=document.createElement("textarea");
+      ta.value=item.a;
+      const b=document.createElement("button");
+      b.textContent="Post Answer";
+      b.onclick=()=>{questions[i].a=ta.value;saveQA();renderQA();}
+      const d=document.createElement("button");
+      d.textContent="Delete";
+      d.onclick=()=>{questions.splice(i,1);saveQA();renderQA();}
+      div.append(ta,b,d);
     }
-    qaList.appendChild(box);
-  });
+    qaList.appendChild(div);
+  })
 }
 renderQA();
 </script>
