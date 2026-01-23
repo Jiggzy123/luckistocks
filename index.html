@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -7,6 +7,7 @@
 
 <script>
 const password = "lucki";
+const adminPassword = "luck1";
 let isAdmin = false;
 
 function checkPassword() {
@@ -136,53 +137,97 @@ body.light input, body.light textarea {
 <h2>Fundamentals</h2>
 <ul>
 <li><strong>Roth IRA vs Individual Account:</strong> A Roth IRA offers tax-free growth and withdrawals in retirement but has contribution and income limits. An individual brokerage account has no limits, but dividends and capital gains are taxable.</li>
-<li><strong>Roth IRA vs 401k:</strong> Roth IRAs are funded with after-tax dollars and grow tax-free. 401ks are usually pre-tax and taxed at withdrawal, often with employer matching.</li>
-<li><strong>What is an ETF:</strong> An ETF is a basket of investments that trades like a stock, offering diversification and usually low fees.</li>
-<li><strong>What are dividends:</strong> Dividends are profit payments companies distribute to shareholders, which can be reinvested or taken as income.</li>
-<li><strong>Why invest:</strong> Investing helps grow wealth over time, beat inflation, and take advantage of compound interest.</li>
+<li><strong>Roth IRA vs 401k:</strong> Roth IRAs use after-tax dollars and grow tax-free. 401ks are usually pre-tax and taxed on withdrawal, often with employer matching.</li>
+<li><strong>What is an ETF:</strong> An ETF is a basket of investments that trades like a stock, offering diversification and low fees.</li>
+<li><strong>What are dividends:</strong> Dividends are profit payments companies distribute to shareholders.</li>
+<li><strong>Why invest:</strong> Investing helps beat inflation and grow wealth over time.</li>
+<li><strong>What are stocks:</strong> Stocks represent ownership in a company. Their value changes based on company performance, market conditions, and investor sentiment.</li>
 </ul>
 </section>
 
-<!-- ✅ ADDED SECTION -->
 <section>
 <h2>Recommended ETFs</h2>
 
 <h3>Core ETFs</h3>
 <ul>
-<li><strong>VOO:</strong> Tracks the S&P 500, giving exposure to the 500 largest U.S. companies.</li>
-<li><strong>VXUS:</strong> Provides international exposure outside the U.S. for diversification.</li>
-<li><strong>SCHD:</strong> Dividend-focused ETF offering income and stability.</li>
+<li><strong>VOO:</strong> Tracks the S&P 500 (largest U.S. companies).</li>
+<li><strong>VXUS:</strong> International stock exposure outside the U.S.</li>
+<li><strong>SCHD:</strong> Dividend-focused ETF for income and stability.</li>
 </ul>
 
 <h3>Technology ETFs</h3>
 <ul>
-<li><strong>QQQM:</strong> Nasdaq-100 focused ETF emphasizing growth and tech.</li>
-<li><strong>FTEC:</strong> Broad U.S. technology ETF with a low expense ratio.</li>
-<li><strong>VGT:</strong> Concentrated technology ETF with higher volatility.</li>
+<li><strong>QQQM:</strong> Nasdaq-100 growth-focused ETF.</li>
+<li><strong>FTEC:</strong> Broad U.S. tech ETF with low expense ratio.</li>
+<li><strong>VGT:</strong> Concentrated technology ETF.</li>
 </ul>
-
-<p><strong>Note:</strong> You typically only need one technology ETF per portfolio. Always check overlap.</p>
 </section>
-
-<!-- EVERYTHING BELOW UNCHANGED -->
 
 <section>
 <h2>My Portfolio</h2>
+
 <div class="chart-container">
 <h3>Individual Account</h3>
 <canvas id="individualChart"></canvas>
-<p><em>Percentages fixed to fit diagram better.</em></p>
+<p>40% VOO · 30% FTEC/QQQM · 15% SCHD · 10% VXUS · 5% Individual Stocks</p>
 </div>
 
 <div class="chart-container">
 <h3>Roth IRA</h3>
 <canvas id="rothChart"></canvas>
-<p><em>Percentages fixed to fit diagram better.</em></p>
+<p>50% FTEC · 50% VGT — switched to FTEC for lower expense ratio</p>
 </div>
 </section>
 
-<!-- charts, calculator, growth, learning resources, Q&A, scripts -->
-<!-- unchanged from your version -->
+<section>
+<h2>Compound Interest Calculator</h2>
+<input id="initial" type="number" value="1000">
+<input id="contribution" type="number" value="6000">
+<input id="rate" type="number" value="8">
+<input id="years" type="number" value="30">
+
+<button onclick="setMode('annual')">Annual</button>
+<button onclick="setMode('monthly')">Monthly</button>
+<p id="modeStatus"><strong>Annual Contributions ON</strong></p>
+
+<button onclick="calculateCompound()">Calculate</button>
+<div id="result"></div>
+</section>
+
+<section>
+<h2>Growth Over Time</h2>
+<div class="chart-container">
+<canvas id="growthChart"></canvas>
+</div>
+</section>
+
+<section>
+<h2>Learning Resources</h2>
+<ul>
+<li><a href="https://www.fidelity.com" target="_blank">Fidelity</a></li>
+<li><a href="https://www.vanguard.com" target="_blank">Vanguard</a></li>
+<li><a href="https://www.schwab.com" target="_blank">Charles Schwab</a></li>
+</ul>
+</section>
+
+<section>
+<h2>Questions (Anonymous)</h2>
+<textarea id="questionInput" placeholder="Ask anonymously..."></textarea>
+<button onclick="postQuestion()">Post</button>
+<button onclick="adminLogin()">Admin Login</button>
+<div id="qaList"></div>
+
+<p>
+<strong>DISCLAIMER!</strong> Just because someone tells you to invest or you’ve seen them invest doesn’t mean you should.
+Everyone has different risk tolerance. <strong>ALWAYS do your own research.</strong>
+</p>
+</section>
+
+<section style="text-align:center;">
+<button onclick="window.location.href='https://www.youtube.com/watch?v=7-QK_1oHoiQ'">
+Click me to lock in
+</button>
+</section>
 
 <script>
 function toggleTheme() {
@@ -191,20 +236,26 @@ function toggleTheme() {
 </script>
 
 <script>
-new Chart(document.getElementById('individualChart'), {
-type:'pie',
-data:{
-labels:['VOO','FTEC / QQQM','SCHD','VXUS','Individual Stocks'],
-datasets:[{ data:[40,30,15,10,5] }]
-}
+new Chart(individualChart, {
+  type:'pie',
+  data:{
+    labels:['VOO','FTEC/QQQM','SCHD','VXUS','Individual'],
+    datasets:[{
+      data:[40,30,15,10,5],
+      backgroundColor:['red','blue','green','purple','orange']
+    }]
+  }
 });
 
-new Chart(document.getElementById('rothChart'), {
-type:'pie',
-data:{
-labels:['FTEC','VGT'],
-datasets:[{ data:[50,50] }]
-}
+new Chart(rothChart, {
+  type:'pie',
+  data:{
+    labels:['FTEC','VGT'],
+    datasets:[{
+      data:[50,50],
+      backgroundColor:['red','blue']
+    }]
+  }
 });
 </script>
 
