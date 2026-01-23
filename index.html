@@ -136,30 +136,26 @@ This website shares my personal experience and opinions only.
 <h2>Fundamentals</h2>
 <ul>
   <li><strong>Roth IRA vs Individual Account:</strong>
-  A Roth IRA allows your money to grow tax-free and be withdrawn tax-free in retirement, but it has income and contribution limits.
-  An individual brokerage account has no limits, but dividends and capital gains are taxable.</li>
+  A Roth IRA allows tax-free growth and withdrawals in retirement but has limits.
+  Individual accounts have no limits but are taxable.</li>
 
   <li><strong>Roth IRA vs 401k:</strong>
-  Roth IRAs use after-tax money and grow tax-free. 401ks are usually pre-tax, taxed later, and often include employer matching.</li>
+  Roth IRAs grow tax-free. 401ks are pre-tax and often include employer matching.</li>
 
   <li><strong>What is an ETF:</strong>
-  An ETF (Exchange-Traded Fund) holds many stocks in one fund. This gives instant diversification and usually lower fees.</li>
+  A bundle of stocks in one fund that trades like a stock.</li>
 
   <li><strong>What are dividends:</strong>
-  Dividends are cash payments companies distribute to shareholders, often quarterly.</li>
+  Payments companies give shareholders from profits.</li>
 
   <li><strong>Why invest:</strong>
-  Investing helps grow money over time, beat inflation, and benefit from compounding.</li>
+  To beat inflation and compound wealth over time.</li>
 </ul>
 
 <h3>Stocks Explained</h3>
 <p>
-A stock represents ownership in a company. When you buy a stock, you own a small piece of that business.
-Stocks grow in value as companies increase profits, expand, or innovate.
-</p>
-<p>
-Stocks can provide returns through price growth and dividends, but they are more volatile than ETFs.
-Long-term investing reduces risk compared to short-term trading.
+Stocks represent ownership in a company. They grow through appreciation and dividends,
+but are more volatile than ETFs.
 </p>
 </section>
 
@@ -169,19 +165,17 @@ Long-term investing reduces risk compared to short-term trading.
 
 <h3>Core Market ETFs</h3>
 <ul>
-  <li><strong>VOO:</strong> Tracks the S&P 500, giving exposure to the largest U.S. companies and long-term market growth.</li>
-  <li><strong>VXUS:</strong> Provides international diversification outside the U.S., reducing country-specific risk.</li>
-  <li><strong>SCHD:</strong> Focuses on dividend-paying companies, providing steady income and stability.</li>
+  <li><strong>VOO:</strong> S&P 500 exposure.</li>
+  <li><strong>VXUS:</strong> International diversification.</li>
+  <li><strong>SCHD:</strong> Dividend-focused stability.</li>
 </ul>
 
 <h3>Technology ETFs</h3>
 <ul>
-  <li><strong>QQQM:</strong> Tracks the Nasdaq-100, emphasizing growth and innovation.</li>
-  <li><strong>FTEC:</strong> Broad U.S. technology exposure with a lower expense ratio.</li>
-  <li><strong>VGT:</strong> Concentrated technology ETF with strong long-term growth potential.</li>
+  <li><strong>QQQM:</strong> Nasdaq-100 growth.</li>
+  <li><strong>FTEC:</strong> Broad tech with low fees.</li>
+  <li><strong>VGT:</strong> Concentrated tech exposure.</li>
 </ul>
-
-<p><strong>Tip:</strong> Avoid overlap and diversify wisely.</p>
 </section>
 
 <!-- PORTFOLIO -->
@@ -236,8 +230,8 @@ Long-term investing reduces risk compared to short-term trading.
 <section>
 <h2>Learning Resources</h2>
 <ul>
-  <li>Learned heavily from <a href="https://www.tiktok.com/@tradeinvestsimplify" target="_blank">Kenneth Suna</a></li>
-  <li>Check ETF overlap using <a href="https://www.etfrc.com/funds/overlap.php" target="_blank">ETFRC</a></li>
+  <li>Learned from <a href="https://www.tiktok.com/@tradeinvestsimplify" target="_blank">Kenneth Suna</a> and his <a href="https://www.kennethsuna.com" target="_blank">website</a>.</li>
+  <li>Check overlap using <a href="https://www.etfrc.com/funds/overlap.php" target="_blank">ETFRC</a>.</li>
   <li>Time in the market beats timing the market.</li>
 </ul>
 
@@ -252,9 +246,8 @@ Long-term investing reduces risk compared to short-term trading.
 <!-- QUESTIONS -->
 <section>
 <h2>Questions (Anonymous)</h2>
-<p>Ask anonymously. Only admin can respond.</p>
 
-<textarea id="questionInput"></textarea>
+<textarea id="questionInput" placeholder="Ask a question anonymously..."></textarea>
 <button onclick="postQuestion()">Post Question</button>
 
 <hr>
@@ -298,18 +291,19 @@ new Chart(document.getElementById("rothChart"), {
   }
 });
 
-/* CALCULATOR + FIXED GROWTH CHART */
+/* FIXED CALCULATOR + GROWTH CHART */
 let growthChart;
 let mode = "annual";
 
 function setMode(m) {
   mode = m;
-  modeStatus.innerHTML = `<strong>${m === "monthly" ? "Monthly" : "Annual"} Contributions ON</strong>`;
+  document.getElementById("modeStatus").innerHTML =
+    `<strong>${m === "monthly" ? "Monthly" : "Annual"} Contributions ON</strong>`;
 }
 
 function calculateGrowth() {
-  const initial = +initial.value;
-  const contrib = +contribution.value;
+  const initial = +document.getElementById("initial").value;
+  const contrib = +document.getElementById("contribution").value;
   const rate = +document.getElementById("rate").value / 100;
   const years = +document.getElementById("years").value;
 
@@ -321,18 +315,19 @@ function calculateGrowth() {
     const r = rate / 12;
     for (let i = 1; i <= years * 12; i++) {
       balance = balance * (1 + r) + contrib / 12;
-      data.push(balance);
+      data.push(balance.toFixed(2));
       labels.push(`Month ${i}`);
     }
   } else {
     for (let i = 1; i <= years; i++) {
       balance = balance * (1 + rate) + contrib;
-      data.push(balance);
+      data.push(balance.toFixed(2));
       labels.push(`Year ${i}`);
     }
   }
 
-  result.innerHTML = `<strong>Final Value:</strong> $${Math.round(balance).toLocaleString()}`;
+  document.getElementById("result").innerHTML =
+    `<strong>Final Value:</strong> $${Math.round(balance).toLocaleString()}`;
 
   if (growthChart) growthChart.destroy();
 
